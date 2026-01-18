@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Form Autofill - Settings</title>
+    <link rel="stylesheet" href="options.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Form Autofill Settings</h1>
+            <p>Manage your profiles and data for intelligent autofilling.</p>
+        </header>
+
+        <main>
+            <section class="card">
+                <h2>Profile Management</h2>
+                <div class="profile-controls">
+                    <select id="profileSelector" class="form-select">
+                        <!-- Options populated by JS -->
+                    </select>
+                    <button id="newProfileBtn" class="btn secondary">New Profile</button>
+                    <button id="deleteProfileBtn" class="btn danger">Delete Profile</button>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>1. Profile Picture</h2>
+                <p class="description">Upload a photo to be used for file inputs (e.g., passport size photo).</p>
+                <div class="upload-area" id="profile-pic-upload">
+                    <input type="file" id="profilePicInput" accept="image/*">
+                    <div class="preview-container" id="profilePicPreview">
+                        <!-- Preview image will appear here -->
+                        <span class="placeholder-text">No image selected</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>2. Document Extraction</h2>
+                <p class="description">Upload a document (ID, Passport, etc.) to automatically extract details.</p>
+                <div class="upload-area" id="doc-upload">
+                    <input type="file" id="docInput" accept="image/*,application/pdf">
+                    <button id="extractBtn" class="btn secondary">Extract Data with AI</button>
+                    <div id="extractionStatus" class="status-msg"></div>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>3. Personal Data</h2>
+                <p class="description">Review and edit your extracted data. Add custom fields as needed.</p>
+                <div id="fieldsContainer">
+                    <!-- Dynamic fields will be inserted here -->
+                </div>
+                <button id="addFieldBtn" class="btn text-btn">+ Add New Field</button>
+            </section>
+        </main>
+
+        <footer>
+            <button id="saveBtn" class="btn primary">Save Profile</button>
+            <div id="saveStatus" class="status-msg"></div>
+        </footer>
+    </div>
+
+    <template id="fieldTemplate">
+        <div class="field-row">
+            <input type="text" class="field-key" placeholder="Label (e.g., Name)">
+            <input type="text" class="field-value" placeholder="Value">
+            <button class="remove-field-btn" title="Remove Field">×</button>
+        </div>
+    </template>
+
+    <script src="options.js"></script>
+</body>
+
+</html>
