@@ -1,6 +1,6 @@
 importScripts('config.js');
 
-const MODEL = 'gemma-3-27b-it'
+const MODEL = 'gemini-2.5-flash-lite'
 const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
 // Listen for messages
@@ -59,6 +59,9 @@ async function handleExtraction(payload, sendResponse) {
         });
 
         const data = await response.json();
+        if (data.usageMetadata) {
+            console.log('Extraction Token Usage:', data.usageMetadata);
+        }
         if (data.error) {
             throw new Error(data.error.message);
         }
@@ -127,6 +130,9 @@ ${JSON.stringify(formFields)}
         });
 
         const data = await response.json();
+        if (data.usageMetadata) {
+            console.log('Mapping Token Usage:', data.usageMetadata);
+        }
         if (data.error) {
             throw new Error(data.error.message);
         }

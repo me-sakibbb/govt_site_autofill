@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "Father's Name (Bangla)": "",
         "Father's Name (English)": "",
         "Father's Nationality": "",
+        "Father's Birth Registration Number": "",
         "Father's National ID": "",
         "Father's Date of Birth": "",
         "Father's Place of Birth": "",
@@ -43,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "Mother's Name (Bangla)": "",
         "Mother's Name (English)": "",
         "Mother's Nationality": "",
+        "Mother's Birth Registration Number": "",
         "Mother's National ID": "",
         "Mother's Date of Birth": "",
         "Mother's Place of Birth": "",
@@ -106,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "Father's Name (Bangla)": "মোহাম্মদ আহমেদ হোসেন",
             "Father's Name (English)": "Mohammad Ahmed Hossain",
             "Father's Nationality": "Bangladeshi",
+            "Father's Birth Registration Number": "19901234567890123",
             "Father's National ID": "1234567890123",
             "Father's Date of Birth": "20/03/1990", // DD/MM/YYYY format
             "Father's Place of Birth": "Dhaka",
@@ -116,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "Mother's Name (Bangla)": "ফাতেমা খাতুন",
             "Mother's Name (English)": "Fatema Khatun",
             "Mother's Nationality": "Bangladeshi",
+            "Mother's Birth Registration Number": "19921234567890123",
             "Mother's National ID": "9876543210987",
             "Mother's Date of Birth": "10/05/1992", // DD/MM/YYYY format
             "Mother's Place of Birth": "Chittagong",
