@@ -453,6 +453,120 @@ async function applyMappingSingle(mapping, profilePic) {
     return filledCount;
 }
 
+async function applyMappingSingle(mapping, profilePic) {
+    let filledCount = 0;
+    const entries = Object.entries(mapping);
+
+    // Process fields sequentially
+    for (const [key, value] of entries) {
+        // Try finding by ID first, then Name
+        let element = document.getElementById(key);
+        if (!element) {
+            element = document.querySelector(`[name="${key}"]`);
+        }
+
+        if (element) {
+            // Check if element is actually visible to the user
+            // If we fill hidden fields, it might break the form logic or just be confusing
+            // But sometimes we WANT to fill hidden fields. 
+            // For now, let's try to fill everything but log it.
+
+            let filled = false;
+
+            if (element.type === 'file' && profilePic) {
+                // Handle File Input (Profile Pic)
+                try {
+                    const blob = dataURItoBlob(profilePic);
+                    const file = new File([blob], "profile_pic.jpg", { type: "image/jpeg" });
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    element.files = dataTransfer.files;
+                    element.dispatchEvent(new Event('change', { bubbles: true }));
+                    filled = true;
+                } catch (e) {
+                    console.warn('Could not set file input:', e);
+                }
+            } else if (element.type === 'radio' || element.type === 'checkbox') {
+                if (element.value === value || element.value === value.toString()) {
+                    if (!element.checked) {
+                        element.click(); // Click is often better for radios/checkboxes
+                        // Fallback if click didn't work
+                        if (!element.checked) {
+                            element.checked = true;
+                            element.dispatchEvent(new Event('change', { bubbles: true }));
+                        }
+                        filled = true;
+                    }
+                }
+            } else if (element.tagName.toLowerCase() === 'select') {
+                // Handle Select Dropdown
+                let optionFound = false;
+
+                // First try exact value match
+                for (let option of element.options) {
+                    if (option.value === value || option.value === value.toString()) {
+                        setNativeValue(element, option.value);
+                        optionFound = true;
+                        break;
+                    }
+                }
+
+                // If not found, try matching by text content
+                if (!optionFound) {
+                    for (let option of element.options) {
+                        if (option.text.toLowerCase().includes(value.toString().toLowerCase()) ||
+                            value.toString().toLowerCase().includes(option.text.toLowerCase())) {
+                            setNativeValue(element, option.value);
+                            optionFound = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (optionFound) {
+                    filled = true;
+                    // Extra delay for selects to allow cascading
+                    await new Promise(resolve => setTimeout(resolve, 300));
+                }
+            } else {
+                // Handle text, date, and other inputs
+                let finalValue = value;
+
+                // Date Handling: Check if it's a date field and reformat if necessary
+                if (isDateField(element)) {
+                    const formattedDate = formatDateToDDMMYYYY(value);
+                    if (formattedDate) {
+                        finalValue = formattedDate;
+                        console.log(`Formatted date '${value}' to '${finalValue}' for field '${element.id}'`);
+
+                        // Special handling for datepickers
+                        if (element.classList.contains('datepicker') || element.classList.contains('hasDatepicker')) {
+                            handleDatepicker(element, finalValue);
+                            filled = true;
+                            // Skip standard setter if handled by datepicker logic
+                            // But we might want to do both just in case
+                        }
+                    }
+                }
+
+                // Use robust setter (even if handled by datepicker, setting native value is good backup)
+                setNativeValue(element, finalValue);
+                filled = true;
+            }
+
+            if (filled) {
+                filledCount++;
+                // Highlight filled field
+                element.style.backgroundColor = '#e6fffa';
+                element.style.transition = 'background-color 0.5s';
+                setTimeout(() => element.style.backgroundColor = '', 2000);
+            }
+        }
+    }
+
+    return filledCount;
+}
+
 // Robust value setter for React/Angular/Vue compatibility
 function setNativeValue(element, value) {
     const lastValue = element.value;
