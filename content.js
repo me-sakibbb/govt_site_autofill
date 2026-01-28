@@ -534,20 +534,31 @@ async function applyMappingSingle(mapping, profilePic) {
 
                 // Date Handling: Check if it's a date field and reformat if necessary
                 if (isDateField(element)) {
-                    const formattedDate = formatDateToDDMMYYYY(value);
-                    if (formattedDate) {
-                        finalValue = formattedDate;
-                        console.log(`Formatted date '${value}' to '${finalValue}' for field '${element.id}'`);
+                    // For HTML5 date inputs (type="date"), use YYYY-MM-DD format
+                    if (element.type === 'date') {
+                        const formattedDate = formatDateToYYYYMMDD(value);
+                        if (formattedDate) {
+                            finalValue = formattedDate;
+                            console.log(`Formatted date '${value}' to '${finalValue}' (YYYY-MM-DD) for field '${element.id}'`);
+                        }
+                    } else {
+                        // For datepicker inputs, use DD/MM/YYYY format
+                        const formattedDate = formatDateToDDMMYYYY(value);
+                        if (formattedDate) {
+                            finalValue = formattedDate;
+                            console.log(`Formatted date '${value}' to '${finalValue}' (DD/MM/YYYY) for field '${element.id}'`);
 
-                        // Special handling for datepickers
-                        if (element.classList.contains('datepicker') || element.classList.contains('hasDatepicker')) {
-                            handleDatepicker(element, finalValue);
-                            filled = true;
-                            // Skip standard setter if handled by datepicker logic
-                            // But we might want to do both just in case
+                            // Special handling for datepickers
+                            if (element.classList.contains('datepicker') || element.classList.contains('hasDatepicker')) {
+                                handleDatepicker(element, finalValue);
+                                filled = true;
+                            }
                         }
                     }
                 }
+
+                // Check if this field belongs to a conditional section and auto-check the "If Applicable" checkbox
+                checkConditionalSectionCheckbox(element);
 
                 // Use robust setter (even if handled by datepicker, setting native value is good backup)
                 setNativeValue(element, finalValue);
@@ -626,7 +637,7 @@ function isDateField(element) {
         className.includes('datepicker');
 }
 
-// Helper to format date to DD/MM/YYYY
+// Helper to format date to DD/MM/YYYY (for datepickers)
 function formatDateToDDMMYYYY(value) {
     if (!value) return null;
 
@@ -649,6 +660,54 @@ function formatDateToDDMMYYYY(value) {
     }
 
     return value; // Return original if parsing fails
+}
+
+// Helper to format date to YYYY-MM-DD (for HTML5 date inputs)
+function formatDateToYYYYMMDD(value) {
+    if (!value) return null;
+
+    // Check if already in YYYY-MM-DD
+    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+
+    // Try parsing DD/MM/YYYY
+    const ddmmyyyyMatch = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if (ddmmyyyyMatch) {
+        return `${ddmmyyyyMatch[3]}-${ddmmyyyyMatch[2]}-${ddmmyyyyMatch[1]}`;
+    }
+
+    // Try parsing other formats using Date object
+    const date = new Date(value);
+    if (!isNaN(date.getTime())) {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${year}-${month}-${day}`;
+    }
+
+    return value; // Return original if parsing fails
+}
+
+// Helper to check if a field belongs to a conditional section and auto-check the checkbox
+function checkConditionalSectionCheckbox(element) {
+    // Check for Masters section fields
+    if (element.id && (element.id.startsWith('mas_') || element.name?.startsWith('mas_'))) {
+        const checkbox = document.getElementById('if_applicable_mas');
+        if (checkbox && !checkbox.checked) {
+            console.log('Auto-checking Masters "If Applicable" checkbox');
+            checkbox.click();
+        }
+    }
+
+    // Check for Job Experience section fields
+    if (element.id && (element.id.includes('employment_type') || element.id.includes('designation') ||
+        element.id.includes('organization') || element.id.includes('job_start_date') ||
+        element.name?.includes('job['))) {
+        const checkbox = document.getElementById('if_applicable_exp');
+        if (checkbox && !checkbox.checked) {
+            console.log('Auto-checking Job Experience "If Applicable" checkbox');
+            checkbox.click();
+        }
+    }
 }
 
 // Aggressive Datepicker Handler
