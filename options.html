@@ -8,68 +8,303 @@
     <link rel="stylesheet" href="options.css">
 </head>
 
-<body>
-    <div class="container">
-        <header>
-            <h1>AI Form Autofill Settings</h1>
-            <p>Manage your profiles and data for intelligent autofilling.</p>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+    <div class="max-w-3xl mx-auto p-6">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold text-slate-900 mb-2">AI Form Autofill Settings</h1>
+            <p class="text-slate-500">Manage your profiles and data for intelligent autofilling.</p>
         </header>
 
         <main>
-            <section class="card">
-                <h2>Profile Management</h2>
-                <div class="profile-controls">
-                    <select id="profileSelector" class="form-select">
-                        <!-- Options populated by JS -->
-                    </select>
-                    <button id="newProfileBtn" class="btn secondary">New Profile</button>
-                    <button id="deleteProfileBtn" class="btn danger">Delete Profile</button>
+            <!-- Profile Management -->
+            <section class="card bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-slate-900">Profile Management</h2>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <div class="flex-grow">
+                        <select id="profileSelector"
+                            class="w-full rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <!-- Options populated by JS -->
+                        </select>
+                    </div>
+                    <button id="newProfileBtn"
+                        class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                        New Profile
+                    </button>
+                    <button id="deleteProfileBtn"
+                        class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors">
+                        Delete Profile
+                    </button>
                 </div>
             </section>
 
-            <section class="card">
-                <h2>1. Profile Picture</h2>
-                <p class="description">Upload a photo to be used for file inputs (e.g., passport size photo).</p>
-                <div class="upload-area" id="profile-pic-upload">
-                    <input type="file" id="profilePicInput" accept="image/*">
-                    <div class="preview-container" id="profilePicPreview">
-                        <!-- Preview image will appear here -->
-                        <span class="placeholder-text">No image selected</span>
+            <!-- Profile Picture -->
+            <section class="card bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
+                <h2 class="text-lg font-semibold text-slate-900 mb-1">1. Profile Picture</h2>
+                <p class="text-sm text-slate-500 mb-4">Upload a photo to be used for file inputs (e.g., passport size
+                    photo).</p>
+
+                <div class="flex flex-col items-center justify-center w-full">
+                    <label for="profilePicInput"
+                        class="flex flex-col items-center justify-center w-full h-64 border-2 border-slate-300 border-dashed rounded-lg cursor-pointer bg-slate-50 hover:bg-slate-100 transition-colors relative overflow-hidden group">
+                        <div class="flex flex-col items-center justify-center pt-5 pb-6 z-10">
+                            <svg class="w-8 h-8 mb-4 text-slate-500" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                            </svg>
+                            <p class="mb-2 text-sm text-slate-500"><span class="font-semibold">Click to upload</span> or
+                                drag and drop</p>
+                            <p class="text-xs text-slate-500">SVG, PNG, JPG or GIF</p>
+                        </div>
+                        <input id="profilePicInput" type="file" class="hidden" accept="image/*" />
+                        <div id="profilePicPreview"
+                            class="absolute inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                            <!-- Preview image will appear here via JS, but we handle the preview container differently in JS -->
+                        </div>
+                        <!-- We need a persistent preview container that JS targets -->
+                        <div id="profilePicPreview"
+                            class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <!-- JS replaces content here -->
+                        </div>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Document Extraction -->
+            <section class="card bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6"
+                id="doc-upload-section">
+                <h2 class="text-lg font-semibold text-slate-900 mb-1">2. Document Extraction</h2>
+                <p class="text-sm text-slate-500 mb-4">Upload a document (ID, Passport, etc.) to automatically extract
+                    details.</p>
+
+                <div class="space-y-4" id="doc-upload">
+                    <input type="file" id="docInput" accept="image/*,application/pdf" class="block w-full text-sm text-slate-500
+                        file:mr-4 file:py-2 file:px-4
+                        file:rounded-full file:border-0
+                        file:text-sm file:font-semibold
+                        file:bg-blue-50 file:text-blue-700
+                        hover:file:bg-blue-100
+                    " />
+
+                    <div class="flex items-center gap-3">
+                        <button id="extractBtn"
+                            class="inline-flex items-center px-4 py-2 border border-slate-300 shadow-sm text-sm font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                            <svg class="w-4 h-4 mr-2 text-slate-500" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
+                                </path>
+                            </svg>
+                            Extract Data with AI
+                        </button>
+                        <div id="extractionStatus" class="text-sm font-medium"></div>
                     </div>
                 </div>
             </section>
 
-            <section class="card">
-                <h2>2. Document Extraction</h2>
-                <p class="description">Upload a document (ID, Passport, etc.) to automatically extract details.</p>
-                <div class="upload-area" id="doc-upload">
-                    <input type="file" id="docInput" accept="image/*,application/pdf">
-                    <button id="extractBtn" class="btn secondary">Extract Data with AI</button>
-                    <div id="extractionStatus" class="status-msg"></div>
+            <!-- Personal Data -->
+            <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h2 class="text-lg font-semibold text-slate-900">3. Personal Data</h2>
+                        <p class="text-sm text-slate-500">Review and edit your extracted data.</p>
+                    </div>
+                    <button id="addFieldBtn" class="text-sm text-blue-600 hover:text-blue-800 font-medium">+ Add
+                        Field</button>
                 </div>
-            </section>
 
-            <section class="card">
-                <h2>3. Personal Data</h2>
-                <p class="description">Review and edit your extracted data. Add custom fields as needed.</p>
-                <div id="fieldsContainer">
+                <div id="fieldsContainer" class="space-y-3">
                     <!-- Dynamic fields will be inserted here -->
                 </div>
-                <button id="addFieldBtn" class="btn text-btn">+ Add New Field</button>
             </section>
         </main>
 
-        <footer>
-            <button id="saveBtn" class="btn primary">Save Profile</button>
-            <div id="saveStatus" class="status-msg"></div>
+        <footer class="sticky bottom-6 mt-8">
+            <div
+                class="bg-white/90 backdrop-blur border border-slate-200 shadow-lg rounded-xl p-4 flex items-center justify-between">
+                <div id="saveStatus" class="text-sm font-medium"></div>
+                <button id="saveBtn"
+                    class="inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                    Save Profile
+                </button>
+            </div>
         </footer>
     </div>
 
+    <!-- Profile Creation Modal -->
+    <div id="profileModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog"
+        aria-modal="true">
+        <!-- Backdrop -->
+        <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity"></div>
+
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div
+                class="relative transform overflow-hidden rounded-xl bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+
+                <!-- Header -->
+                <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 border-b border-slate-100">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-semibold leading-6 text-slate-900" id="modalTitle">Create New Profile
+                        </h3>
+                        <button id="closeModalBtn" class="text-slate-400 hover:text-slate-500 transition-colors">
+                            <span class="sr-only">Close</span>
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Body -->
+                <div class="bg-white px-4 py-5 sm:p-6">
+
+                    <!-- Step 1: Name -->
+                    <div id="step1" class="step-content space-y-4">
+                        <div>
+                            <label for="newProfileName" class="block text-sm font-medium text-slate-700 mb-1">Profile
+                                Name</label>
+                            <input type="text" id="newProfileName"
+                                class="block w-full rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                                placeholder="e.g., My Personal Profile">
+                        </div>
+                        <div class="flex justify-end pt-2">
+                            <button id="step1Next"
+                                class="inline-flex justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Site Selection -->
+                    <div id="step2" class="step-content hidden space-y-4">
+                        <label class="block text-sm font-medium text-slate-700">Select Site / Template</label>
+                        <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                            <!-- BDRIS -->
+                            <label
+                                class="relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none border-slate-200 hover:border-blue-500 peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-500 transition-all">
+                                <input type="radio" name="siteSelect" value="bdris" class="sr-only peer">
+                                <span class="flex flex-1">
+                                    <span class="flex flex-col">
+                                        <span class="block text-sm font-medium text-slate-900">BDRIS</span>
+                                        <span class="mt-1 flex items-center text-xs text-slate-500">Birth
+                                            Registration</span>
+                                    </span>
+                                </span>
+                                <span
+                                    class="pointer-events-none absolute -inset-px rounded-lg border-2 border-transparent peer-checked:border-blue-500"
+                                    aria-hidden="true"></span>
+                            </label>
+
+                            <!-- Teletalk -->
+                            <label
+                                class="relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none border-slate-200 hover:border-blue-500 peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-500 transition-all">
+                                <input type="radio" name="siteSelect" value="teletalk" class="sr-only peer">
+                                <span class="flex flex-1">
+                                    <span class="flex flex-col">
+                                        <span class="block text-sm font-medium text-slate-900">Teletalk</span>
+                                        <span class="mt-1 flex items-center text-xs text-slate-500">Job
+                                            Application</span>
+                                    </span>
+                                </span>
+                                <span
+                                    class="pointer-events-none absolute -inset-px rounded-lg border-2 border-transparent peer-checked:border-blue-500"
+                                    aria-hidden="true"></span>
+                            </label>
+
+                            <!-- Custom -->
+                            <label
+                                class="relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none border-slate-200 hover:border-blue-500 peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-500 transition-all">
+                                <input type="radio" name="siteSelect" value="custom" class="sr-only peer">
+                                <span class="flex flex-1">
+                                    <span class="flex flex-col">
+                                        <span class="block text-sm font-medium text-slate-900">Custom</span>
+                                        <span class="mt-1 flex items-center text-xs text-slate-500">Empty Profile</span>
+                                    </span>
+                                </span>
+                                <span
+                                    class="pointer-events-none absolute -inset-px rounded-lg border-2 border-transparent peer-checked:border-blue-500"
+                                    aria-hidden="true"></span>
+                            </label>
+                        </div>
+                        <div class="flex justify-between pt-2">
+                            <button id="step2Back"
+                                class="inline-flex justify-center rounded-lg bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50">Back</button>
+                            <button id="step2Next"
+                                class="inline-flex justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Method Selection -->
+                    <div id="step3" class="step-content hidden space-y-4">
+                        <label class="block text-sm font-medium text-slate-700">How do you want to start?</label>
+                        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                            <button id="methodScan"
+                                class="relative flex items-center space-x-3 rounded-lg border border-slate-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 hover:border-slate-400 hover:bg-slate-50 transition-all text-left">
+                                <div class="flex-shrink-0">
+                                    <span
+                                        class="inline-flex items-center justify-center h-10 w-10 rounded-lg bg-blue-100 text-blue-600">
+                                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <span class="absolute inset-0" aria-hidden="true"></span>
+                                    <p class="text-sm font-medium text-slate-900">Scan Document</p>
+                                    <p class="truncate text-sm text-slate-500">Extract data from ID/Passport</p>
+                                </div>
+                            </button>
+
+                            <button id="methodManual"
+                                class="relative flex items-center space-x-3 rounded-lg border border-slate-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 hover:border-slate-400 hover:bg-slate-50 transition-all text-left">
+                                <div class="flex-shrink-0">
+                                    <span
+                                        class="inline-flex items-center justify-center h-10 w-10 rounded-lg bg-purple-100 text-purple-600">
+                                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <span class="absolute inset-0" aria-hidden="true"></span>
+                                    <p class="text-sm font-medium text-slate-900">Manual Entry</p>
+                                    <p class="truncate text-sm text-slate-500">Fill details yourself</p>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="flex justify-start pt-2">
+                            <button id="step3Back"
+                                class="inline-flex justify-center rounded-lg bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50">Back</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <template id="fieldTemplate">
-        <div class="field-row">
-            <input type="text" class="field-key" placeholder="Label (e.g., Name)">
-            <input type="text" class="field-value" placeholder="Value">
-            <button class="remove-field-btn" title="Remove Field">×</button>
+        <div class="field-row flex items-center gap-2 group">
+            <input type="text"
+                class="field-key block w-1/3 rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm bg-slate-50"
+                placeholder="Label">
+            <input type="text"
+                class="field-value block w-full rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                placeholder="Value">
+            <button
+                class="remove-field-btn text-slate-400 hover:text-red-500 p-2 rounded-full hover:bg-red-50 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
+                title="Remove Field">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
         </div>
     </template>
 

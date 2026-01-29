@@ -1,0 +1,26 @@
+{
+  "name": "form-autofill-extension",
+  "version": "1.0.0",
+  "main": "background.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "npx tailwindcss -i ./input.css -o ./options.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/me-sakibbb/govt_site_autofill.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/me-sakibbb/govt_site_autofill/issues"
+  },
+  "homepage": "https://github.com/me-sakibbb/govt_site_autofill#readme",
+  "description": "",
+  "devDependencies": {
+    "autoprefixer": "^10.4.23",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17"
+  }
+}

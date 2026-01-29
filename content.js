@@ -1,30 +1,48 @@
 // Create and inject the floating button
-const floatBtn = document.createElement('button');
-floatBtn.innerText = '✨ Autofill';
-floatBtn.id = 'ai-autofill-btn';
-Object.assign(floatBtn.style, {
-    position: 'fixed',
-    bottom: '20px',
-    right: '20px',
-    zIndex: '9999',
-    padding: '12px 24px',
-    backgroundColor: '#2563eb',
-    color: 'white',
-    border: 'none',
-    borderRadius: '50px',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-    cursor: 'pointer',
-    fontSize: '16px',
-    fontWeight: '600',
-    fontFamily: 'system-ui, -apple-system, sans-serif',
-    transition: 'transform 0.2s, background-color 0.2s'
-});
+// Supported sites for autofill button
+const SUPPORTED_SITES = [
+    /bdris\.gov\.bd/,
+    /teletalk\.com\.bd/,
+    /localhost/,
+    /127\.0\.0\.1/,
+    /options\.html/ // Allow on options page for testing
+];
 
-floatBtn.onmouseover = () => floatBtn.style.transform = 'scale(1.05)';
-floatBtn.onmouseout = () => floatBtn.style.transform = 'scale(1)';
-floatBtn.onclick = handleAutofillClick;
+function isSupportedSite() {
+    return SUPPORTED_SITES.some(pattern => pattern.test(window.location.href));
+}
 
-document.body.appendChild(floatBtn);
+// Create and inject the floating button ONLY if on a supported site
+let floatBtn = null;
+
+if (isSupportedSite()) {
+    floatBtn = document.createElement('button');
+    floatBtn.innerText = '✨ Autofill';
+    floatBtn.id = 'ai-autofill-btn';
+    Object.assign(floatBtn.style, {
+        position: 'fixed',
+        bottom: '20px',
+        right: '20px',
+        zIndex: '9999',
+        padding: '12px 24px',
+        backgroundColor: '#2563eb',
+        color: 'white',
+        border: 'none',
+        borderRadius: '50px',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+        cursor: 'pointer',
+        fontSize: '16px',
+        fontWeight: '600',
+        fontFamily: 'system-ui, -apple-system, sans-serif',
+        transition: 'transform 0.2s, background-color 0.2s'
+    });
+
+    floatBtn.onmouseover = () => floatBtn.style.transform = 'scale(1.05)';
+    floatBtn.onmouseout = () => floatBtn.style.transform = 'scale(1)';
+    floatBtn.onclick = handleAutofillClick;
+
+    document.body.appendChild(floatBtn);
+}
 
 // Also listen for messages from popup (if used)
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -34,26 +52,31 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 async function handleAutofillClick() {
-    setLoading(true);
+    if (floatBtn) setLoading(true);
 
-    const profiles = await getProfiles();
+    try {
+        const { profiles, lastActiveProfileId } = await getProfilesData();
 
-    if (!profiles || profiles.length === 0) {
-        alert('Please create a profile in the extension options first.');
-        setLoading(false);
-        return;
-    }
+        if (!profiles || profiles.length === 0) {
+            alert('Please create a profile in the extension options first.');
+            if (floatBtn) setLoading(false);
+            return;
+        }
 
-    if (profiles.length === 1) {
-        // Only one profile, use it directly
-        startAutofill(profiles[0]);
-    } else {
-        // Multiple profiles, ask user
-        showProfileSelector(profiles);
+        if (profiles.length === 1) {
+            // Only one profile, use it directly
+            startAutofill(profiles[0]);
+        } else {
+            // Multiple profiles, ask user
+            showProfileSelector(profiles, lastActiveProfileId);
+        }
+    } catch (error) {
+        console.error("Autofill initialization failed:", error);
+        if (floatBtn) setLoading(false);
     }
 }
 
-function showProfileSelector(profiles) {
+function showProfileSelector(profiles, lastActiveProfileId) {
     // Remove existing selector if any
     const existing = document.getElementById('ai-profile-selector-modal');
     if (existing) existing.remove();
@@ -70,67 +93,166 @@ function showProfileSelector(profiles) {
         zIndex: '10000',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        fontFamily: 'system-ui, -apple-system, sans-serif'
     });
 
     const card = document.createElement('div');
     Object.assign(card.style, {
         backgroundColor: 'white',
-        padding: '20px',
-        borderRadius: '8px',
-        minWidth: '300px',
-        boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+        padding: '24px',
+        borderRadius: '12px',
+        width: '320px',
+        boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '16px'
     });
 
     const title = document.createElement('h3');
-    title.innerText = 'Select Profile';
-    title.style.marginTop = '0';
+    title.innerText = 'Autofill Settings';
+    title.style.margin = '0 0 8px 0';
+    title.style.color = '#1f2937';
     card.appendChild(title);
 
-    const list = document.createElement('div');
-    list.style.display = 'flex';
-    list.style.flexDirection = 'column';
-    list.style.gap = '10px';
+    // Profile Selector
+    const profileGroup = document.createElement('div');
+    const profileLabel = document.createElement('label');
+    profileLabel.innerText = 'Select Profile';
+    profileLabel.style.display = 'block';
+    profileLabel.style.fontSize = '14px';
+    profileLabel.style.fontWeight = '500';
+    profileLabel.style.marginBottom = '4px';
+    profileLabel.style.color = '#374151';
 
-    profiles.forEach(profile => {
-        const btn = document.createElement('button');
-        btn.innerText = profile.name;
-        Object.assign(btn.style, {
-            padding: '10px',
-            border: '1px solid #e5e7eb',
-            borderRadius: '4px',
-            backgroundColor: '#f9fafb',
-            cursor: 'pointer',
-            textAlign: 'left'
-        });
-        btn.onmouseover = () => btn.style.backgroundColor = '#f3f4f6';
-        btn.onmouseout = () => btn.style.backgroundColor = '#f9fafb';
-
-        btn.onclick = () => {
-            modal.remove();
-            startAutofill(profile);
-        };
-        list.appendChild(btn);
+    const profileSelect = document.createElement('select');
+    Object.assign(profileSelect.style, {
+        width: '100%',
+        padding: '8px',
+        borderRadius: '6px',
+        border: '1px solid #d1d5db',
+        fontSize: '14px'
     });
 
-    card.appendChild(list);
+    profiles.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.id;
+        opt.text = p.name;
+        profileSelect.appendChild(opt);
+    });
+
+    // Pre-select last active profile
+    if (lastActiveProfileId && profiles.some(p => p.id === lastActiveProfileId)) {
+        profileSelect.value = lastActiveProfileId;
+    }
+
+    // Save selection on change
+    profileSelect.addEventListener('change', () => {
+        chrome.storage.local.set({ lastActiveProfileId: profileSelect.value });
+    });
+
+    profileGroup.appendChild(profileLabel);
+    profileGroup.appendChild(profileSelect);
+    card.appendChild(profileGroup);
+
+    // Site Selector
+    const siteGroup = document.createElement('div');
+    const siteLabel = document.createElement('label');
+    siteLabel.innerText = 'Select Site / Template';
+    siteLabel.style.display = 'block';
+    siteLabel.style.fontSize = '14px';
+    siteLabel.style.fontWeight = '500';
+    siteLabel.style.marginBottom = '4px';
+    siteLabel.style.color = '#374151';
+
+    const siteSelect = document.createElement('select');
+    Object.assign(siteSelect.style, {
+        width: '100%',
+        padding: '8px',
+        borderRadius: '6px',
+        border: '1px solid #d1d5db',
+        fontSize: '14px'
+    });
+
+    const sites = [
+        { value: 'bdris', text: 'BDRIS (Birth Reg)' },
+        { value: 'teletalk', text: 'Teletalk (Jobs)' },
+        { value: 'custom', text: 'Custom / Generic' }
+    ];
+
+    sites.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.value;
+        opt.text = s.text;
+        siteSelect.appendChild(opt);
+    });
+    siteGroup.appendChild(siteLabel);
+    siteGroup.appendChild(siteSelect);
+    card.appendChild(siteGroup);
+
+    // Update Site when Profile changes
+    profileSelect.addEventListener('change', () => {
+        const selectedProfile = profiles.find(p => p.id === profileSelect.value);
+        if (selectedProfile && selectedProfile.site) {
+            siteSelect.value = selectedProfile.site;
+        }
+    });
+
+    // Trigger change once to set initial site
+    profileSelect.dispatchEvent(new Event('change'));
+
+    // Actions
+    const actionGroup = document.createElement('div');
+    actionGroup.style.display = 'flex';
+    actionGroup.style.gap = '10px';
+    actionGroup.style.marginTop = '8px';
 
     const cancelBtn = document.createElement('button');
     cancelBtn.innerText = 'Cancel';
     Object.assign(cancelBtn.style, {
-        marginTop: '15px',
-        width: '100%',
-        padding: '8px',
-        border: 'none',
-        backgroundColor: 'transparent',
-        color: '#6b7280',
-        cursor: 'pointer'
+        flex: '1',
+        padding: '10px',
+        border: '1px solid #d1d5db',
+        borderRadius: '6px',
+        backgroundColor: 'white',
+        color: '#374151',
+        cursor: 'pointer',
+        fontWeight: '500'
     });
     cancelBtn.onclick = () => {
         modal.remove();
         setLoading(false);
     };
-    card.appendChild(cancelBtn);
+
+    const autofillBtn = document.createElement('button');
+    autofillBtn.innerText = 'Start Autofill';
+    Object.assign(autofillBtn.style, {
+        flex: '1',
+        padding: '10px',
+        border: 'none',
+        borderRadius: '6px',
+        backgroundColor: '#2563eb',
+        color: 'white',
+        cursor: 'pointer',
+        fontWeight: '500'
+    });
+
+    autofillBtn.onclick = () => {
+        const selectedProfile = profiles.find(p => p.id === profileSelect.value);
+        const selectedSite = siteSelect.value;
+
+        // We can attach the selected site to the profile object temporarily for this session
+        // or pass it separately. For now, let's just update the profile object in memory.
+        if (selectedProfile) {
+            selectedProfile.site = selectedSite; // Override or set site
+            modal.remove();
+            startAutofill(selectedProfile);
+        }
+    };
+
+    actionGroup.appendChild(cancelBtn);
+    actionGroup.appendChild(autofillBtn);
+    card.appendChild(actionGroup);
 
     modal.appendChild(card);
     document.body.appendChild(modal);
@@ -140,10 +262,12 @@ async function startAutofill(profile) {
     setLoading(true);
     console.log('Starting multi-pass autofill with profile:', profile.name);
 
+    let totalTokens = { input: 0, output: 0, total: 0 };
+
     try {
         let totalFilled = 0;
         let previousFieldCount = 0;
-        let maxIterations = 10; // Prevent infinite loops
+        let maxIterations = 3; // Limit to 3 passes as requested
         let iteration = 0;
 
         // Multi-pass autofill: keep filling until no new fields appear
@@ -155,7 +279,6 @@ async function startAutofill(profile) {
             const visibleFields = scrapeVisibleFields(profile.data);
 
             // Optimization: Filter out fields that are already filled
-            // We only send fields that are empty or have default values
             const fieldsToSend = visibleFields.filter(f => {
                 const el = document.getElementById(f.id) || document.querySelector(`[name="${f.name}"]`);
                 if (!el) return false;
@@ -189,30 +312,38 @@ async function startAutofill(profile) {
             previousFieldCount = currentFieldCount;
 
             // 2. Send to AI for mapping
-            const mapping = await new Promise((resolve) => {
+            const result = await new Promise((resolve) => {
                 chrome.runtime.sendMessage({
                     action: 'MAP_FIELDS',
                     payload: {
                         formFields: fieldsToSend, // Send only filtered fields
-                        userData: profile.data
+                        userData: profile.data,
+                        site: profile.site
                     }
                 }, (response) => {
                     if (chrome.runtime.lastError) {
                         console.error('Mapping error:', chrome.runtime.lastError.message);
-                        resolve({});
+                        resolve({ mapping: {} });
                     } else if (response && response.success) {
                         if (Object.keys(response.mapping).length === 0) {
                             console.warn('AI returned empty mapping.');
                             console.log('Raw AI Response:', response.raw_response);
                             if (response.parse_error) console.error('Parse Error:', response.parse_error);
                         }
-                        resolve(response.mapping);
+                        resolve({ mapping: response.mapping, usage: response.usageMetadata });
                     } else {
                         console.error('Mapping failed:', response?.error);
-                        resolve({});
+                        resolve({ mapping: {} });
                     }
                 });
             });
+
+            const mapping = result.mapping;
+            if (result.usage) {
+                totalTokens.input += result.usage.promptTokenCount || 0;
+                totalTokens.output += result.usage.candidatesTokenCount || 0;
+                totalTokens.total += result.usage.totalTokenCount || 0;
+            }
 
             console.log('Received mapping:', mapping);
 
@@ -234,7 +365,10 @@ async function startAutofill(profile) {
 
         console.log(`\n=== Autofill Complete ===`);
         console.log(`Total: ${totalFilled} fields filled in ${iteration} pass${iteration > 1 ? 'es' : ''}`);
-        alert(`✅ Autofilled ${totalFilled} fields in ${iteration} pass${iteration > 1 ? 'es' : ''}!`);
+
+        const tokenMsg = `Token Usage: Input: ${totalTokens.input}, Output: ${totalTokens.output}, Total: ${totalTokens.total}`;
+        console.log(tokenMsg);
+        alert(`✅ Autofilled ${totalFilled} fields in ${iteration} pass${iteration > 1 ? 'es' : ''}!\n\n${tokenMsg}`);
 
     } catch (error) {
         console.error('Autofill Error:', error);
@@ -244,11 +378,30 @@ async function startAutofill(profile) {
     }
 }
 
-function getProfiles() {
-    return new Promise((resolve) => {
-        chrome.storage.local.get(['profiles'], (result) => {
-            resolve(result.profiles || []);
-        });
+function getProfilesData() {
+    return new Promise((resolve, reject) => {
+        if (!chrome || !chrome.storage || !chrome.storage.local) {
+            const msg = "Extension updated or reloaded. Please refresh this page to use the autofill feature.";
+            alert(msg);
+            reject(new Error(msg));
+            return;
+        }
+        try {
+            chrome.storage.local.get(['profiles', 'lastActiveProfileId'], (result) => {
+                if (chrome.runtime.lastError) {
+                    reject(new Error(chrome.runtime.lastError.message));
+                } else {
+                    resolve({
+                        profiles: result.profiles || [],
+                        lastActiveProfileId: result.lastActiveProfileId
+                    });
+                }
+            });
+        } catch (e) {
+            const msg = "Extension context invalidated. Please refresh the page.";
+            alert(msg);
+            reject(new Error(msg));
+        }
     });
 }
 
@@ -487,7 +640,7 @@ async function applyMappingSingle(mapping, profilePic) {
                     console.warn('Could not set file input:', e);
                 }
             } else if (element.type === 'radio' || element.type === 'checkbox') {
-                if (element.value === value || element.value === value.toString()) {
+                if (value !== null && value !== undefined && (element.value === value || element.value === value.toString())) {
                     if (!element.checked) {
                         element.click(); // Click is often better for radios/checkboxes
                         // Fallback if click didn't work
@@ -504,7 +657,7 @@ async function applyMappingSingle(mapping, profilePic) {
 
                 // First try exact value match
                 for (let option of element.options) {
-                    if (option.value === value || option.value === value.toString()) {
+                    if (value !== null && value !== undefined && (option.value === value || option.value === value.toString())) {
                         setNativeValue(element, option.value);
                         optionFound = true;
                         break;
@@ -512,10 +665,11 @@ async function applyMappingSingle(mapping, profilePic) {
                 }
 
                 // If not found, try matching by text content
-                if (!optionFound) {
+                if (!optionFound && value !== null && value !== undefined) {
+                    const valStr = value.toString().toLowerCase();
                     for (let option of element.options) {
-                        if (option.text.toLowerCase().includes(value.toString().toLowerCase()) ||
-                            value.toString().toLowerCase().includes(option.text.toLowerCase())) {
+                        if (option.text.toLowerCase().includes(valStr) ||
+                            valStr.includes(option.text.toLowerCase())) {
                             setNativeValue(element, option.value);
                             optionFound = true;
                             break;
