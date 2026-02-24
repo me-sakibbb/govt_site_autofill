@@ -1,8 +1,53 @@
 // Create and inject the floating button
 // Supported sites for autofill button
+
+// Indian Visa field definitions (inlined — content scripts cannot use ES module imports)
+const INDIAN_VISA_PAGE1_FIELDS = [
+    { id: 'countryname_id',  name: 'appl.countryname',    type: 'select', label: 'Country/Region applying from' },
+    { id: 'missioncode_id',  name: 'appl.missioncode',    type: 'select', label: 'Indian Mission/Office' },
+    { id: 'nationality_id',  name: 'appl.nationality',    type: 'select', label: 'Nationality/Region' },
+    { id: 'dob_id',          name: 'appl.birthdate',      type: 'text',   label: 'Date of Birth (DD/MM/YYYY)' },
+    { id: 'email_id',        name: 'appl.email',          type: 'text',   label: 'Email ID' },
+    { id: 'email_re_id',     name: 'appl.email_re',       type: 'text',   label: 'Re-enter Email ID' },
+    { id: 'jouryney_id',     name: 'appl.journeydate',    type: 'text',   label: 'Expected Date of Arrival (DD/MM/YYYY)' },
+    { id: 'visaService',     name: 'appl.visa_service_id',type: 'select', label: 'Visa Type' },
+    { id: 'purpose',         name: 'appl.purpose',        type: 'select', label: 'Purpose of Visit' },
+    // captcha is intentionally omitted
+];
+
+const INDIAN_VISA_PAGE2_FIELDS = [
+    { id: 'surname',              name: 'appl.surname',                        type: 'text',     label: 'Surname (as in Passport)' },
+    { id: 'givenName',            name: 'appl.applname',                       type: 'text',     label: 'Given Name/s (as in Passport)' },
+    { id: 'changedSurnameCheck',  name: 'appl.changedSurnameCheck',            type: 'checkbox', label: 'Have you ever changed your name?' },
+    { id: 'prev_surname',         name: 'appl.prev_surname',                   type: 'text',     label: 'Previous Surname' },
+    { id: 'prev_given_name',      name: 'appl.prev_given_name',                type: 'text',     label: 'Previous Given Name' },
+    { id: 'gender',               name: 'appl.applsex',                        type: 'select',   label: 'Gender (M/F/X)' },
+    { id: 'birth_place',          name: 'appl.placbrth',                       type: 'text',     label: 'Town/City of Birth' },
+    { id: 'country_birth',        name: 'appl.country_of_birth',               type: 'select',   label: 'Country/Region of Birth' },
+    { id: 'nic_number',           name: 'appl.nic_no',                         type: 'text',     label: 'Citizenship/National Id No.' },
+    { id: 'religion',             name: 'appl.religion',                       type: 'select',   label: 'Religion' },
+    { id: 'religion_other',       name: 'appl.religionOther',                  type: 'text',     label: 'Religion (if Others)' },
+    { id: 'identity_marks',       name: 'appl.visual_mark',                    type: 'text',     label: 'Visible identification marks' },
+    { id: 'education',            name: 'appl.edu_id',                         type: 'select',   label: 'Educational Qualification' },
+    { id: 'nationality_by',       name: 'appl.nationality_by',                 type: 'select',   label: 'Nationality acquired by birth or naturalization?' },
+    { id: 'prev_nationality',     name: 'appl.prev_nationality',               type: 'select',   label: 'Previous Nationality/Region' },
+    { id: 'passport_no',          name: 'appl.passport_number',                type: 'text',     label: 'Passport Number' },
+    { id: 'passport_issue_place', name: 'appl.passport_issue_place',           type: 'text',     label: 'Passport Place of Issue' },
+    { id: 'passport_issue_date',  name: 'appl.passport_issue_date',            type: 'text',     label: 'Passport Date of Issue (DD/MM/YYYY)' },
+    { id: 'passport_expiry_date', name: 'appl.passport_expiry_date',           type: 'text',     label: 'Passport Date of Expiry (DD/MM/YYYY)' },
+    { id: 'other_ppt_1',          name: 'appl.oth_ppt',                        type: 'radio',    label: 'Any other valid Passport - YES' },
+    { id: 'other_ppt_2',          name: 'appl.oth_ppt',                        type: 'radio',    label: 'Any other valid Passport - NO' },
+    { id: 'other_ppt_country_issue', name: 'appl.prev_passport_country_issue', type: 'select',   label: 'Other Passport Country of Issue' },
+    { id: 'other_ppt_no',         name: 'appl.oth_pptno',                      type: 'text',     label: 'Other Passport No.' },
+    { id: 'other_ppt_issue_date', name: 'appl.previous_passport_issue_date',   type: 'text',     label: 'Other Passport Date of Issue (DD/MM/YYYY)' },
+    { id: 'other_ppt_issue_place',name: 'appl.other_ppt_issue_place',          type: 'text',     label: 'Other Passport Place of Issue' },
+    { id: 'other_ppt_nat',        name: 'appl.other_ppt_nationality',          type: 'select',   label: 'Other Passport Nationality mentioned therein' },
+];
+
 const SUPPORTED_SITES = [
     /bdris\.gov\.bd/,
     /teletalk\.com\.bd/,
+    /indianvisa-bangladesh\.nic\.in/,
     /localhost/,
     /127\.0\.0\.1/,
     /options\.html/ // Allow on options page for testing
@@ -63,9 +108,15 @@ async function handleAutofillClick() {
             return;
         }
 
+        const isIndianVisa = window.location.href.includes('indianvisa-bangladesh.nic.in');
+
         if (profiles.length === 1) {
             // Only one profile, use it directly
-            startAutofill(profiles[0]);
+            if (isIndianVisa) {
+                startIndianVisaAutofill(profiles[0]);
+            } else {
+                startAutofill(profiles[0]);
+            }
         } else {
             // Multiple profiles, ask user
             showProfileSelector(profiles, lastActiveProfileId);
@@ -176,6 +227,7 @@ function showProfileSelector(profiles, lastActiveProfileId) {
 
     const sites = [
         { value: 'bdris', text: 'BDRIS (Birth Reg)' },
+        { value: 'indian_visa', text: 'Indian Visa Application' },
         { value: 'teletalk', text: 'Teletalk (Jobs)' },
         { value: 'custom', text: 'Custom / Generic' }
     ];
@@ -200,6 +252,13 @@ function showProfileSelector(profiles, lastActiveProfileId) {
 
     // Trigger change once to set initial site
     profileSelect.dispatchEvent(new Event('change'));
+
+    // Auto-detect site from current URL and override the dropdown
+    if (window.location.href.includes('indianvisa-bangladesh.nic.in')) {
+        siteSelect.value = 'indian_visa';
+    } else if (window.location.href.includes('bdris.gov.bd')) {
+        siteSelect.value = 'bdris';
+    }
 
     // Actions
     const actionGroup = document.createElement('div');
@@ -241,12 +300,14 @@ function showProfileSelector(profiles, lastActiveProfileId) {
         const selectedProfile = profiles.find(p => p.id === profileSelect.value);
         const selectedSite = siteSelect.value;
 
-        // We can attach the selected site to the profile object temporarily for this session
-        // or pass it separately. For now, let's just update the profile object in memory.
         if (selectedProfile) {
             selectedProfile.site = selectedSite; // Override or set site
             modal.remove();
-            startAutofill(selectedProfile);
+            if (selectedSite === 'indian_visa') {
+                startIndianVisaAutofill(selectedProfile);
+            } else {
+                startAutofill(selectedProfile);
+            }
         }
     };
 
@@ -256,6 +317,203 @@ function showProfileSelector(profiles, lastActiveProfileId) {
 
     modal.appendChild(card);
     document.body.appendChild(modal);
+}
+
+async function startIndianVisaAutofill(profile) {
+    setLoading(true);
+    const isPage1 = !!document.getElementById('countryname_id');
+    const isPage2 = !!document.getElementById('surname');
+    const pageLabel = isPage1 ? 'Page 1 (Registration)' : isPage2 ? 'Page 2 (Applicant Details)' : 'Unknown Page';
+
+    console.log(`[Indian Visa] Starting autofill on ${pageLabel}`);
+
+    const STORAGE_KEY = 'indianVisaMapping';
+
+    try {
+        let mapping = null;
+
+        // Try to load a saved mapping from a prior page
+        const stored = await new Promise(resolve => {
+            chrome.runtime.sendMessage({ action: 'SESSION_GET', key: STORAGE_KEY }, (response) => {
+                resolve((response && response.value) ? response.value : null);
+            });
+        });
+
+        if (stored) {
+            console.log('[Indian Visa] Using stored mapping from previous page.');
+            mapping = stored;
+        } else {
+            // Build fields list for AI — send all fields from BOTH pages so we only call AI once.
+            // Enrich each field with live <option> data from the DOM where available.
+            const profileValues = Object.values(profile.data)
+                .filter(v => v && String(v).length > 1)
+                .map(v => String(v).toLowerCase());
+
+            // Country/nationality dropdowns are huge (~250 options) and default to Bangladesh.
+            // Skip sending them to AI — hardcode BGD/BANGLADESH directly in the mapping.
+            const COUNTRY_FIELD_DEFAULTS = {
+                'countryname_id':        'BGD',
+                'nationality_id':        'BGD',
+                'country_birth':         'BGD',
+                'prev_nationality':      '',    // usually blank
+                'other_ppt_country_issue': '',  // usually blank
+                'other_ppt_nat':         '',    // usually blank
+            };
+
+            const allFields = [...INDIAN_VISA_PAGE1_FIELDS, ...INDIAN_VISA_PAGE2_FIELDS]
+                .filter(field => !(field.id in COUNTRY_FIELD_DEFAULTS))
+                .map(field => {
+                const enriched = { ...field };
+                if (field.type === 'select') {
+                    const el = document.getElementById(field.id);
+                    if (el && el.tagName.toLowerCase() === 'select') {
+                        const allOptions = Array.from(el.options);
+
+                        // Smart-filter: keep options that match any profile value
+                        let relevant = allOptions.filter(opt => {
+                            const text = opt.text.toLowerCase();
+                            const val = opt.value.toLowerCase();
+                            return profileValues.some(pv => text.includes(pv) || pv.includes(text) || val === pv);
+                        });
+
+                        // Always keep the first "Select..." placeholder option
+                        if (allOptions.length > 0 && !relevant.includes(allOptions[0])) {
+                            relevant.unshift(allOptions[0]);
+                        }
+
+                        // If list is short (<= 20 options total), just send all — no need to filter
+                        const finalOptions = (allOptions.length <= 20 || relevant.length > 1)
+                            ? (allOptions.length <= 20 ? allOptions : relevant)
+                            : allOptions.slice(0, 15);
+
+                        enriched.options = [...new Set(finalOptions)].map(opt => ({
+                            value: opt.value,
+                            text: opt.text
+                        }));
+
+                        if (allOptions.length > enriched.options.length) {
+                            enriched.options.push({
+                                value: '',
+                                text: `... (${allOptions.length - enriched.options.length} more options not shown)`
+                            });
+                        }
+                    }
+                }
+                return enriched;
+            });
+
+            console.log(`[Indian Visa] Sending ${allFields.length} fields to AI for mapping...`);
+
+            const result = await new Promise((resolve, reject) => {
+                const timeout = setTimeout(() => reject(new Error('AI mapping timed out after 60s')), 60000);
+                chrome.runtime.sendMessage({
+                    action: 'MAP_FIELDS',
+                    payload: {
+                        formFields: allFields,
+                        userData: profile.data,
+                        site: 'indian_visa'
+                    }
+                }, (response) => {
+                    clearTimeout(timeout);
+                    if (chrome.runtime.lastError) {
+                        reject(new Error(chrome.runtime.lastError.message));
+                    } else if (response && response.success) {
+                        resolve(response);
+                    } else {
+                        reject(new Error(response?.error || 'Mapping failed'));
+                    }
+                });
+            });
+
+            mapping = result.mapping;
+
+            // Merge in the hardcoded country/nationality defaults (skipped from AI)
+            for (const [fieldId, defaultValue] of Object.entries(COUNTRY_FIELD_DEFAULTS)) {
+                if (defaultValue !== '') {
+                    mapping[fieldId] = defaultValue;
+                }
+            }
+
+            console.log('[Indian Visa] Received mapping:', mapping);
+
+            if (result.usageMetadata) {
+                console.log('[Indian Visa] Token usage:', result.usageMetadata);
+            }
+
+            // Store mapping so page 2 can reuse it
+            await new Promise(resolve => {
+                chrome.runtime.sendMessage({ action: 'SESSION_SET', key: STORAGE_KEY, value: mapping }, resolve);
+            });
+            console.log('[Indian Visa] Mapping saved to session storage for next page.');
+        }
+
+        // Determine which fields are relevant to the current page
+        const pageFields = isPage1 ? INDIAN_VISA_PAGE1_FIELDS : INDIAN_VISA_PAGE2_FIELDS;
+        const pageFieldIds = new Set(pageFields.map(f => f.id));
+
+        // Filter mapping to only current page fields
+        const pageMapping = {};
+        for (const [key, val] of Object.entries(mapping)) {
+            if (pageFieldIds.has(key)) {
+                pageMapping[key] = val;
+            }
+        }
+
+        console.log(`[Indian Visa] Applying ${Object.keys(pageMapping).length} mapped fields for ${pageLabel}`);
+
+        let filledCount = 0;
+
+        if (isPage1) {
+            // Page 1 has cascading dropdowns:
+            //   countryname_id → onchange → populates missioncode_id options
+            //   missioncode_id → onchange → populates nationality_id options
+            // We must fill them in order and wait between each.
+
+            // Step 1: countryname_id
+            if (pageMapping['countryname_id']) {
+                filledCount += await applyMappingSingle({ 'countryname_id': pageMapping['countryname_id'] }, profile.profilePic);
+                await new Promise(r => setTimeout(r, 800));
+            }
+
+            // Step 2: missioncode_id (triggers get_nationality())
+            if (pageMapping['missioncode_id']) {
+                filledCount += await applyMappingSingle({ 'missioncode_id': pageMapping['missioncode_id'] }, profile.profilePic);
+                await new Promise(r => setTimeout(r, 1200)); // wait for nationality options to load
+            }
+
+            // Step 3: nationality_id (now populated)
+            if (pageMapping['nationality_id']) {
+                filledCount += await applyMappingSingle({ 'nationality_id': pageMapping['nationality_id'] }, profile.profilePic);
+                await new Promise(r => setTimeout(r, 600));
+            }
+
+            // Step 4: visaService (triggers fetchPurposeList())
+            if (pageMapping['visaService']) {
+                filledCount += await applyMappingSingle({ 'visaService': pageMapping['visaService'] }, profile.profilePic);
+                await new Promise(r => setTimeout(r, 800));
+            }
+
+            // Step 5: remaining fields (purpose, dob, email, etc.)
+            const handled = new Set(['countryname_id', 'missioncode_id', 'nationality_id', 'visaService']);
+            const rest = {};
+            for (const [k, v] of Object.entries(pageMapping)) {
+                if (!handled.has(k)) rest[k] = v;
+            }
+            filledCount += await applyMappingSingle(rest, profile.profilePic);
+
+        } else {
+            filledCount = await applyMappingSingle(pageMapping, profile.profilePic);
+        }
+
+        console.log(`[Indian Visa] Filled ${filledCount} fields on ${pageLabel}`);
+        alert(`✅ Indian Visa Autofill: ${filledCount} fields filled on ${pageLabel}.\n\nNote: Captcha must be filled manually.\nMapping is saved — click Autofill again on the next page.`);
+
+    } catch (error) {
+        console.error('[Indian Visa] Autofill error:', error);
+        alert('Indian Visa Autofill error: ' + error.message);
+    } finally {
+        setLoading(false);
+    }
 }
 
 async function startAutofill(profile) {

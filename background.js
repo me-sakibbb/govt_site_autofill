@@ -13,6 +13,19 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         handleMapping(request.payload, sendResponse);
         return true;
     }
+    // Session storage proxied through background so content scripts can access it
+    if (request.action === 'SESSION_GET') {
+        chrome.storage.session.get([request.key], (result) => {
+            sendResponse({ value: result[request.key] ?? null });
+        });
+        return true;
+    }
+    if (request.action === 'SESSION_SET') {
+        chrome.storage.session.set({ [request.key]: request.value }, () => {
+            sendResponse({ success: true });
+        });
+        return true;
+    }
 });
 
 async function getApiKey() {

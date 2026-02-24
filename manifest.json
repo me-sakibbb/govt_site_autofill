@@ -9,7 +9,9 @@
     "scripting"
   ],
   "host_permissions": [
-    "https://api.groq.com/*"
+    "https://api.groq.com/*",
+    "https://generativelanguage.googleapis.com/*",
+    "https://indianvisa-bangladesh.nic.in/*"
   ],
   "options_page": "options.html",
   "background": {

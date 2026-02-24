@@ -1,5 +1,6 @@
 import { BDRIS_FIELDS, BDRIS_DUMMY_PROFILE } from './modules/bdris_config.js';
 import { TELETALK_FIELDS, TELETALK_DUMMY_PROFILE } from './modules/teletalk_config.js';
+import { INDIAN_VISA_FIELDS, INDIAN_VISA_DUMMY_PROFILE } from './modules/indian_visa_config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const fieldsContainer = document.getElementById('fieldsContainer');
@@ -33,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (profiles.length === 0) {
                     profiles.push(BDRIS_DUMMY_PROFILE);
                     profiles.push(TELETALK_DUMMY_PROFILE);
+                    profiles.push(INDIAN_VISA_DUMMY_PROFILE);
                 }
 
                 // Restore last active profile if it exists
@@ -181,6 +183,8 @@ document.addEventListener('DOMContentLoaded', () => {
             initialData = { ...BDRIS_FIELDS };
         } else if (wizardState.site === 'teletalk') {
             initialData = { ...TELETALK_FIELDS };
+        } else if (wizardState.site === 'indian_visa') {
+            initialData = { ...INDIAN_VISA_FIELDS };
         }
 
         const newProfile = {
