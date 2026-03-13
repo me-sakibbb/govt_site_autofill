@@ -1,24 +1,148 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="options.css">
     <style>
         body {
-            width: 200px;
-            padding: 10px;
+            width: 320px;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f8fafc;
         }
 
-        button {
+        .popup-container {
+            padding: 1.25rem;
+        }
+
+        .limit-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        }
+
+        .progress-bar {
             width: 100%;
-            padding: 10px;
+            height: 6px;
+            background-color: #f1f5f9;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #3b82f6;
+            border-radius: 999px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.625rem 1.25rem;
+            background-color: #2563eb;
+            color: white;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: none;
             cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        }
+
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn-autofill {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #2563eb;
+            color: white;
+            border-radius: 0.5rem;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .btn-autofill:hover {
+            background-color: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .btn-autofill:active {
+            transform: translateY(0);
+        }
+
+        .btn-autofill:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
     </style>
 </head>
 
 <body>
-    <button id="autofill-btn">Autofill Now</button>
-    <button id="options-btn" style="margin-top: 10px; background-color: #f3f4f6; color: #333;">Settings</button>
+    <div class="popup-container">
+        <header class="flex items-center justify-between mb-4 px-1">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-blue-600"></div>
+                <h1 class="text-base font-bold text-slate-900 m-0">AI Autofill</h1>
+            </div>
+            <button id="options-btn" class="p-2 text-slate-400 hover:text-blue-600 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+            </button>
+        </header>
+
+        <div id="login-required" class="text-center py-4">
+            <p class="text-sm text-slate-500 mb-4" style="margin-bottom: 20px;">Login required to use AI Autofill.</p>
+            <button id="login-settings-btn" class="btn-primary">
+                Open Settings
+            </button>
+        </div>
+
+        <div id="popup-content" class="hidden">
+            <div id="account-info" class="limit-card">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Account Status</span>
+                    <span id="popup-plan"
+                        class="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded-md font-bold uppercase transition-all">Trial</span>
+                </div>
+                <div class="mb-3">
+                    <p id="popup-email" class="text-sm font-semibold text-slate-800 truncate m-0"></p>
+                </div>
+                <div id="popup-limits" class="space-y-1">
+                    <!-- Loaded by JS -->
+                </div>
+            </div>
+
+            <button id="autofill-btn" class="btn-autofill">
+                Autofill Form Now
+            </button>
+
+            <p class="text-[10px] text-center text-slate-400 mt-4 leading-relaxed">
+                Requests are processed via <b>Next AI Solution</b> server.<br>
+                Limit will be deducted on success.
+            </p>
+        </div>
+    </div>
     <script src="popup.js"></script>
 </body>
 

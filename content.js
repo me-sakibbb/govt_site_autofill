@@ -1,1148 +1,687 @@
-// Create and inject the floating button
-// Supported sites for autofill button
+// content.js - Form autofill content script
 
-// Indian Visa field definitions (inlined — content scripts cannot use ES module imports)
+// Indian Visa field definitions (inlined - content scripts cannot use ES modules)
 const INDIAN_VISA_PAGE1_FIELDS = [
-    { id: 'countryname_id',  name: 'appl.countryname',    type: 'select', label: 'Country/Region applying from' },
-    { id: 'missioncode_id',  name: 'appl.missioncode',    type: 'select', label: 'Indian Mission/Office' },
-    { id: 'nationality_id',  name: 'appl.nationality',    type: 'select', label: 'Nationality/Region' },
-    { id: 'dob_id',          name: 'appl.birthdate',      type: 'text',   label: 'Date of Birth (DD/MM/YYYY)' },
-    { id: 'email_id',        name: 'appl.email',          type: 'text',   label: 'Email ID' },
-    { id: 'email_re_id',     name: 'appl.email_re',       type: 'text',   label: 'Re-enter Email ID' },
-    { id: 'jouryney_id',     name: 'appl.journeydate',    type: 'text',   label: 'Expected Date of Arrival (DD/MM/YYYY)' },
-    { id: 'visaService',     name: 'appl.visa_service_id',type: 'select', label: 'Visa Type' },
-    { id: 'purpose',         name: 'appl.purpose',        type: 'select', label: 'Purpose of Visit' },
-    // captcha is intentionally omitted
+    { id: 'countryname_id', name: 'appl.countryname', type: 'select', label: 'Country/Region applying from' },
+    { id: 'missioncode_id', name: 'appl.missioncode', type: 'select', label: 'Indian Mission/Office' },
+    { id: 'nationality_id', name: 'appl.nationality', type: 'select', label: 'Nationality/Region' },
+    { id: 'dob_id', name: 'appl.birthdate', type: 'text', label: 'Date of Birth (DD/MM/YYYY)' },
+    { id: 'email_id', name: 'appl.email', type: 'text', label: 'Email ID' },
+    { id: 'email_re_id', name: 'appl.email_re', type: 'text', label: 'Re-enter Email ID' },
+    { id: 'jouryney_id', name: 'appl.journeydate', type: 'text', label: 'Expected Date of Arrival (DD/MM/YYYY)' },
+    { id: 'visaService', name: 'appl.visa_service_id', type: 'select', label: 'Visa Type' },
+    { id: 'purpose', name: 'appl.purpose', type: 'select', label: 'Purpose of Visit' },
 ];
 
 const INDIAN_VISA_PAGE2_FIELDS = [
-    { id: 'surname',              name: 'appl.surname',                        type: 'text',     label: 'Surname (as in Passport)' },
-    { id: 'givenName',            name: 'appl.applname',                       type: 'text',     label: 'Given Name/s (as in Passport)' },
-    { id: 'changedSurnameCheck',  name: 'appl.changedSurnameCheck',            type: 'checkbox', label: 'Have you ever changed your name?' },
-    { id: 'prev_surname',         name: 'appl.prev_surname',                   type: 'text',     label: 'Previous Surname' },
-    { id: 'prev_given_name',      name: 'appl.prev_given_name',                type: 'text',     label: 'Previous Given Name' },
-    { id: 'gender',               name: 'appl.applsex',                        type: 'select',   label: 'Gender (M/F/X)' },
-    { id: 'birth_place',          name: 'appl.placbrth',                       type: 'text',     label: 'Town/City of Birth' },
-    { id: 'country_birth',        name: 'appl.country_of_birth',               type: 'select',   label: 'Country/Region of Birth' },
-    { id: 'nic_number',           name: 'appl.nic_no',                         type: 'text',     label: 'Citizenship/National Id No.' },
-    { id: 'religion',             name: 'appl.religion',                       type: 'select',   label: 'Religion' },
-    { id: 'religion_other',       name: 'appl.religionOther',                  type: 'text',     label: 'Religion (if Others)' },
-    { id: 'identity_marks',       name: 'appl.visual_mark',                    type: 'text',     label: 'Visible identification marks' },
-    { id: 'education',            name: 'appl.edu_id',                         type: 'select',   label: 'Educational Qualification' },
-    { id: 'nationality_by',       name: 'appl.nationality_by',                 type: 'select',   label: 'Nationality acquired by birth or naturalization?' },
-    { id: 'prev_nationality',     name: 'appl.prev_nationality',               type: 'select',   label: 'Previous Nationality/Region' },
-    { id: 'passport_no',          name: 'appl.passport_number',                type: 'text',     label: 'Passport Number' },
-    { id: 'passport_issue_place', name: 'appl.passport_issue_place',           type: 'text',     label: 'Passport Place of Issue' },
-    { id: 'passport_issue_date',  name: 'appl.passport_issue_date',            type: 'text',     label: 'Passport Date of Issue (DD/MM/YYYY)' },
-    { id: 'passport_expiry_date', name: 'appl.passport_expiry_date',           type: 'text',     label: 'Passport Date of Expiry (DD/MM/YYYY)' },
-    { id: 'other_ppt_1',          name: 'appl.oth_ppt',                        type: 'radio',    label: 'Any other valid Passport - YES' },
-    { id: 'other_ppt_2',          name: 'appl.oth_ppt',                        type: 'radio',    label: 'Any other valid Passport - NO' },
-    { id: 'other_ppt_country_issue', name: 'appl.prev_passport_country_issue', type: 'select',   label: 'Other Passport Country of Issue' },
-    { id: 'other_ppt_no',         name: 'appl.oth_pptno',                      type: 'text',     label: 'Other Passport No.' },
-    { id: 'other_ppt_issue_date', name: 'appl.previous_passport_issue_date',   type: 'text',     label: 'Other Passport Date of Issue (DD/MM/YYYY)' },
-    { id: 'other_ppt_issue_place',name: 'appl.other_ppt_issue_place',          type: 'text',     label: 'Other Passport Place of Issue' },
-    { id: 'other_ppt_nat',        name: 'appl.other_ppt_nationality',          type: 'select',   label: 'Other Passport Nationality mentioned therein' },
+    { id: 'surname', name: 'appl.surname', type: 'text', label: 'Surname (as in Passport)' },
+    { id: 'givenName', name: 'appl.applname', type: 'text', label: 'Given Name/s (as in Passport)' },
+    { id: 'changedSurnameCheck', name: 'appl.changedSurnameCheck', type: 'checkbox', label: 'Have you ever changed your name?' },
+    { id: 'prev_surname', name: 'appl.prev_surname', type: 'text', label: 'Previous Surname' },
+    { id: 'prev_given_name', name: 'appl.prev_given_name', type: 'text', label: 'Previous Given Name' },
+    { id: 'gender', name: 'appl.applsex', type: 'select', label: 'Gender (M/F/X)' },
+    { id: 'birth_place', name: 'appl.placbrth', type: 'text', label: 'Town/City of Birth' },
+    { id: 'country_birth', name: 'appl.country_of_birth', type: 'select', label: 'Country/Region of Birth' },
+    { id: 'nic_number', name: 'appl.nic_no', type: 'text', label: 'Citizenship/National Id No.' },
+    { id: 'religion', name: 'appl.religion', type: 'select', label: 'Religion' },
+    { id: 'religion_other', name: 'appl.religionOther', type: 'text', label: 'Religion (if Others)' },
+    { id: 'identity_marks', name: 'appl.visual_mark', type: 'text', label: 'Visible identification marks' },
+    { id: 'education', name: 'appl.edu_id', type: 'select', label: 'Educational Qualification' },
+    { id: 'nationality_by', name: 'appl.nationality_by', type: 'select', label: 'Nationality acquired by birth or naturalization?' },
+    { id: 'prev_nationality', name: 'appl.prev_nationality', type: 'select', label: 'Previous Nationality/Region' },
+    { id: 'passport_no', name: 'appl.passport_number', type: 'text', label: 'Passport Number' },
+    { id: 'passport_issue_place', name: 'appl.passport_issue_place', type: 'text', label: 'Passport Place of Issue' },
+    { id: 'passport_issue_date', name: 'appl.passport_issue_date', type: 'text', label: 'Passport Date of Issue (DD/MM/YYYY)' },
+    { id: 'passport_expiry_date', name: 'appl.passport_expiry_date', type: 'text', label: 'Passport Date of Expiry (DD/MM/YYYY)' },
+    { id: 'other_ppt_1', name: 'appl.oth_ppt', type: 'radio', label: 'Any other valid Passport - YES' },
+    { id: 'other_ppt_2', name: 'appl.oth_ppt', type: 'radio', label: 'Any other valid Passport - NO' },
+    { id: 'other_ppt_country_issue', name: 'appl.prev_passport_country_issue', type: 'select', label: 'Other Passport Country of Issue' },
+    { id: 'other_ppt_no', name: 'appl.oth_pptno', type: 'text', label: 'Other Passport No.' },
+    { id: 'other_ppt_issue_date', name: 'appl.previous_passport_issue_date', type: 'text', label: 'Other Passport Date of Issue (DD/MM/YYYY)' },
+    { id: 'other_ppt_issue_place', name: 'appl.other_ppt_issue_place', type: 'text', label: 'Other Passport Place of Issue' },
+    { id: 'other_ppt_nat', name: 'appl.other_ppt_nationality', type: 'select', label: 'Other Passport Nationality mentioned therein' },
 ];
 
+// Site detection
 const SUPPORTED_SITES = [
     /bdris\.gov\.bd/,
     /teletalk\.com\.bd/,
     /indianvisa-bangladesh\.nic\.in/,
     /localhost/,
     /127\.0\.0\.1/,
-    /options\.html/ // Allow on options page for testing
 ];
 
 function isSupportedSite() {
-    return SUPPORTED_SITES.some(pattern => pattern.test(window.location.href));
+    return SUPPORTED_SITES.some(p => p.test(window.location.href));
 }
 
-// Create and inject the floating button ONLY if on a supported site
+// Floating button
 let floatBtn = null;
 
 if (isSupportedSite()) {
     floatBtn = document.createElement('button');
-    floatBtn.innerText = '✨ Autofill';
     floatBtn.id = 'ai-autofill-btn';
     Object.assign(floatBtn.style, {
-        position: 'fixed',
-        bottom: '20px',
-        right: '20px',
-        zIndex: '9999',
-        padding: '12px 24px',
-        backgroundColor: '#2563eb',
-        color: 'white',
-        border: 'none',
-        borderRadius: '50px',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-        cursor: 'pointer',
-        fontSize: '16px',
-        fontWeight: '600',
-        fontFamily: 'system-ui, -apple-system, sans-serif',
-        transition: 'transform 0.2s, background-color 0.2s'
+        position: 'fixed', bottom: '20px', right: '20px', zIndex: '9999',
+        padding: '12px 24px', backgroundColor: '#2b2d42', color: 'white',
+        border: '3px solid #2563eb', borderRadius: '50px', cursor: 'pointer',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.3)', fontSize: '15px',
+        fontWeight: 'bold', fontFamily: 'system-ui, -apple-system, sans-serif',
+        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        display: 'flex', alignItems: 'center', gap: '8px'
     });
 
-    floatBtn.onmouseover = () => floatBtn.style.transform = 'scale(1.05)';
-    floatBtn.onmouseout = () => floatBtn.style.transform = 'scale(1)';
-    floatBtn.onclick = handleAutofillClick;
+    updateFloatBtn();
 
+    floatBtn.onmouseover = function () {
+        floatBtn.style.transform = 'translateY(-2px) scale(1.02)';
+        floatBtn.style.boxShadow = '0 6px 16px rgba(0,0,0,0.4)';
+    };
+    floatBtn.onmouseout = function () {
+        floatBtn.style.transform = 'translateY(0) scale(1)';
+        floatBtn.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+    };
+    floatBtn.onclick = handleAutofillClick;
     document.body.appendChild(floatBtn);
+
+    // Watch for login changes
+    chrome.storage.onChanged.addListener((changes) => {
+        if (changes.supabaseSession) updateFloatBtn();
+    });
 }
 
-// Also listen for messages from popup (if used)
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === "triggerAutofill") {
-        handleAutofillClick();
-    }
+function updateFloatBtn() {
+    if (!floatBtn) return;
+    chrome.storage.local.get(['supabaseSession'], (result) => {
+        const loggedIn = !!(result.supabaseSession && result.supabaseSession.access_token);
+        if (loggedIn) {
+            floatBtn.innerHTML = 'Autofill Now';
+            floatBtn.style.backgroundColor = '#2563eb';
+            floatBtn.style.opacity = '1';
+        } else {
+            floatBtn.innerHTML = 'Login to Use';
+            floatBtn.style.backgroundColor = '#4b5563';
+            floatBtn.style.opacity = '0.9';
+        }
+    });
+}
+
+// Listen for popup trigger
+chrome.runtime.onMessage.addListener(function (request) {
+    if (request.action === 'triggerAutofill') handleAutofillClick();
 });
 
+// Main autofill entry point
 async function handleAutofillClick() {
-    if (floatBtn) setLoading(true);
-
     try {
-        const { profiles, lastActiveProfileId } = await getProfilesData();
+        var result = await getProfilesData();
+        var profiles = result.profiles;
+        var lastActiveProfileId = result.lastActiveProfileId;
+        var session = result.supabaseSession;
+
+        if (!session || !session.access_token) {
+            if (confirm('Connection Required: Please login to Next AI Solution in extension settings to use AI Autofill.\n\nOpen Settings now?')) {
+                chrome.runtime.sendMessage({ action: 'OPEN_OPTIONS' });
+            }
+            return;
+        }
+
+        if (floatBtn) setLoading(true);
 
         if (!profiles || profiles.length === 0) {
             alert('Please create a profile in the extension options first.');
             if (floatBtn) setLoading(false);
             return;
         }
-
-        const isIndianVisa = window.location.href.includes('indianvisa-bangladesh.nic.in');
-
+        var isIndianVisa = window.location.href.includes('indianvisa-bangladesh.nic.in');
         if (profiles.length === 1) {
-            // Only one profile, use it directly
-            if (isIndianVisa) {
-                startIndianVisaAutofill(profiles[0]);
-            } else {
-                startAutofill(profiles[0]);
-            }
+            isIndianVisa ? startIndianVisaAutofill(profiles[0]) : startAutofill(profiles[0]);
         } else {
-            // Multiple profiles, ask user
             showProfileSelector(profiles, lastActiveProfileId);
         }
     } catch (error) {
-        console.error("Autofill initialization failed:", error);
         if (floatBtn) setLoading(false);
     }
 }
 
+// Profile selector modal
 function showProfileSelector(profiles, lastActiveProfileId) {
-    // Remove existing selector if any
-    const existing = document.getElementById('ai-profile-selector-modal');
+    var existing = document.getElementById('ai-profile-selector-modal');
     if (existing) existing.remove();
 
-    const modal = document.createElement('div');
+    var modal = document.createElement('div');
     modal.id = 'ai-profile-selector-modal';
     Object.assign(modal.style, {
-        position: 'fixed',
-        top: '0',
-        left: '0',
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        zIndex: '10000',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontFamily: 'system-ui, -apple-system, sans-serif'
+        position: 'fixed', top: '0', left: '0', width: '100%', height: '100%',
+        backgroundColor: 'rgba(0,0,0,0.5)', zIndex: '10000',
+        display: 'flex', justifyContent: 'center', alignItems: 'center',
+        fontFamily: 'system-ui, -apple-system, sans-serif',
     });
 
-    const card = document.createElement('div');
+    var card = document.createElement('div');
     Object.assign(card.style, {
-        backgroundColor: 'white',
-        padding: '24px',
-        borderRadius: '12px',
-        width: '320px',
-        boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px'
+        backgroundColor: 'white', padding: '24px', borderRadius: '12px',
+        width: '320px', boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
+        display: 'flex', flexDirection: 'column', gap: '16px',
     });
 
-    const title = document.createElement('h3');
+    var title = document.createElement('h3');
     title.innerText = 'Autofill Settings';
     title.style.margin = '0 0 8px 0';
     title.style.color = '#1f2937';
     card.appendChild(title);
 
-    // Profile Selector
-    const profileGroup = document.createElement('div');
-    const profileLabel = document.createElement('label');
-    profileLabel.innerText = 'Select Profile';
-    profileLabel.style.display = 'block';
-    profileLabel.style.fontSize = '14px';
-    profileLabel.style.fontWeight = '500';
-    profileLabel.style.marginBottom = '4px';
-    profileLabel.style.color = '#374151';
-
-    const profileSelect = document.createElement('select');
-    Object.assign(profileSelect.style, {
-        width: '100%',
-        padding: '8px',
-        borderRadius: '6px',
-        border: '1px solid #d1d5db',
-        fontSize: '14px'
-    });
-
-    profiles.forEach(p => {
-        const opt = document.createElement('option');
-        opt.value = p.id;
-        opt.text = p.name;
-        profileSelect.appendChild(opt);
-    });
-
-    // Pre-select last active profile
-    if (lastActiveProfileId && profiles.some(p => p.id === lastActiveProfileId)) {
-        profileSelect.value = lastActiveProfileId;
+    // Profile dropdown
+    var profileSelect = createLabeledSelect('Select Profile', profiles.map(function (p) { return { value: p.id, text: p.name }; }));
+    if (lastActiveProfileId && profiles.some(function (p) { return p.id === lastActiveProfileId; })) {
+        profileSelect.select.value = lastActiveProfileId;
     }
+    card.appendChild(profileSelect.group);
 
-    // Save selection on change
-    profileSelect.addEventListener('change', () => {
-        chrome.storage.local.set({ lastActiveProfileId: profileSelect.value });
-    });
-
-    profileGroup.appendChild(profileLabel);
-    profileGroup.appendChild(profileSelect);
-    card.appendChild(profileGroup);
-
-    // Site Selector
-    const siteGroup = document.createElement('div');
-    const siteLabel = document.createElement('label');
-    siteLabel.innerText = 'Select Site / Template';
-    siteLabel.style.display = 'block';
-    siteLabel.style.fontSize = '14px';
-    siteLabel.style.fontWeight = '500';
-    siteLabel.style.marginBottom = '4px';
-    siteLabel.style.color = '#374151';
-
-    const siteSelect = document.createElement('select');
-    Object.assign(siteSelect.style, {
-        width: '100%',
-        padding: '8px',
-        borderRadius: '6px',
-        border: '1px solid #d1d5db',
-        fontSize: '14px'
-    });
-
-    const sites = [
+    // Site dropdown
+    var sites = [
         { value: 'bdris', text: 'BDRIS (Birth Reg)' },
         { value: 'indian_visa', text: 'Indian Visa Application' },
         { value: 'teletalk', text: 'Teletalk (Jobs)' },
-        { value: 'custom', text: 'Custom / Generic' }
+        { value: 'custom', text: 'Custom / Generic' },
     ];
+    var siteSelect = createLabeledSelect('Select Site / Template', sites);
+    card.appendChild(siteSelect.group);
 
-    sites.forEach(s => {
-        const opt = document.createElement('option');
-        opt.value = s.value;
-        opt.text = s.text;
-        siteSelect.appendChild(opt);
+    profileSelect.select.addEventListener('change', function () {
+        chrome.storage.local.set({ lastActiveProfileId: profileSelect.select.value });
+        var sp = profiles.find(function (p) { return p.id === profileSelect.select.value; });
+        if (sp && sp.site) siteSelect.select.value = sp.site;
     });
-    siteGroup.appendChild(siteLabel);
-    siteGroup.appendChild(siteSelect);
-    card.appendChild(siteGroup);
+    profileSelect.select.dispatchEvent(new Event('change'));
 
-    // Update Site when Profile changes
-    profileSelect.addEventListener('change', () => {
-        const selectedProfile = profiles.find(p => p.id === profileSelect.value);
-        if (selectedProfile && selectedProfile.site) {
-            siteSelect.value = selectedProfile.site;
-        }
-    });
+    // Auto-detect site from URL
+    var url = window.location.href;
+    if (url.includes('indianvisa-bangladesh.nic.in')) siteSelect.select.value = 'indian_visa';
+    else if (url.includes('bdris.gov.bd')) siteSelect.select.value = 'bdris';
+    else if (url.includes('teletalk.com.bd')) siteSelect.select.value = 'teletalk';
 
-    // Trigger change once to set initial site
-    profileSelect.dispatchEvent(new Event('change'));
-
-    // Auto-detect site from current URL and override the dropdown
-    if (window.location.href.includes('indianvisa-bangladesh.nic.in')) {
-        siteSelect.value = 'indian_visa';
-    } else if (window.location.href.includes('bdris.gov.bd')) {
-        siteSelect.value = 'bdris';
-    }
-
-    // Actions
-    const actionGroup = document.createElement('div');
+    // Action buttons
+    var actionGroup = document.createElement('div');
     actionGroup.style.display = 'flex';
     actionGroup.style.gap = '10px';
     actionGroup.style.marginTop = '8px';
 
-    const cancelBtn = document.createElement('button');
-    cancelBtn.innerText = 'Cancel';
-    Object.assign(cancelBtn.style, {
-        flex: '1',
-        padding: '10px',
-        border: '1px solid #d1d5db',
-        borderRadius: '6px',
-        backgroundColor: 'white',
-        color: '#374151',
-        cursor: 'pointer',
-        fontWeight: '500'
-    });
-    cancelBtn.onclick = () => {
-        modal.remove();
-        setLoading(false);
-    };
+    var cancelBtn = createBtn('Cancel', 'white', '#374151', '1px solid #d1d5db');
+    cancelBtn.onclick = function () { modal.remove(); setLoading(false); };
 
-    const autofillBtn = document.createElement('button');
-    autofillBtn.innerText = 'Start Autofill';
-    Object.assign(autofillBtn.style, {
-        flex: '1',
-        padding: '10px',
-        border: 'none',
-        borderRadius: '6px',
-        backgroundColor: '#2563eb',
-        color: 'white',
-        cursor: 'pointer',
-        fontWeight: '500'
-    });
-
-    autofillBtn.onclick = () => {
-        const selectedProfile = profiles.find(p => p.id === profileSelect.value);
-        const selectedSite = siteSelect.value;
-
+    var autofillBtn = createBtn('Start Autofill', '#2563eb', 'white', 'none');
+    autofillBtn.onclick = function () {
+        var selectedProfile = profiles.find(function (p) { return p.id === profileSelect.select.value; });
+        var selectedSite = siteSelect.select.value;
         if (selectedProfile) {
-            selectedProfile.site = selectedSite; // Override or set site
+            selectedProfile.site = selectedSite;
             modal.remove();
-            if (selectedSite === 'indian_visa') {
-                startIndianVisaAutofill(selectedProfile);
-            } else {
-                startAutofill(selectedProfile);
-            }
+            selectedSite === 'indian_visa'
+                ? startIndianVisaAutofill(selectedProfile)
+                : startAutofill(selectedProfile);
         }
     };
 
     actionGroup.appendChild(cancelBtn);
     actionGroup.appendChild(autofillBtn);
     card.appendChild(actionGroup);
-
     modal.appendChild(card);
     document.body.appendChild(modal);
 }
 
+// UI Helpers
+function createLabeledSelect(labelText, options) {
+    var group = document.createElement('div');
+    var label = document.createElement('label');
+    label.innerText = labelText;
+    Object.assign(label.style, { display: 'block', fontSize: '14px', fontWeight: '500', marginBottom: '4px', color: '#374151' });
+    var select = document.createElement('select');
+    Object.assign(select.style, { width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #d1d5db', fontSize: '14px' });
+    options.forEach(function (o) {
+        var opt = document.createElement('option');
+        opt.value = o.value;
+        opt.text = o.text;
+        select.appendChild(opt);
+    });
+    group.appendChild(label);
+    group.appendChild(select);
+    return { group: group, select: select };
+}
+
+function createBtn(text, bg, color, border) {
+    var btn = document.createElement('button');
+    btn.innerText = text;
+    Object.assign(btn.style, {
+        flex: '1', padding: '10px', borderRadius: '6px', cursor: 'pointer',
+        fontWeight: '500', backgroundColor: bg, color: color, border: border,
+    });
+    return btn;
+}
+
+// Indian Visa autofill (multi-page, single AI call)
 async function startIndianVisaAutofill(profile) {
     setLoading(true);
-    const isPage1 = !!document.getElementById('countryname_id');
-    const isPage2 = !!document.getElementById('surname');
-    const pageLabel = isPage1 ? 'Page 1 (Registration)' : isPage2 ? 'Page 2 (Applicant Details)' : 'Unknown Page';
-
-    console.log(`[Indian Visa] Starting autofill on ${pageLabel}`);
-
-    const STORAGE_KEY = 'indianVisaMapping';
+    var isPage1 = !!document.getElementById('countryname_id');
+    var isPage2 = !!document.getElementById('surname');
+    var STORAGE_KEY = 'indianVisaMapping';
 
     try {
-        let mapping = null;
-
-        // Try to load a saved mapping from a prior page
-        const stored = await new Promise(resolve => {
-            chrome.runtime.sendMessage({ action: 'SESSION_GET', key: STORAGE_KEY }, (response) => {
-                resolve((response && response.value) ? response.value : null);
-            });
-        });
+        var mapping = null;
+        var stored = await sessionGet(STORAGE_KEY);
 
         if (stored) {
-            console.log('[Indian Visa] Using stored mapping from previous page.');
             mapping = stored;
         } else {
-            // Build fields list for AI — send all fields from BOTH pages so we only call AI once.
-            // Enrich each field with live <option> data from the DOM where available.
-            const profileValues = Object.values(profile.data)
-                .filter(v => v && String(v).length > 1)
-                .map(v => String(v).toLowerCase());
-
-            // Country/nationality dropdowns are huge (~250 options) and default to Bangladesh.
-            // Skip sending them to AI — hardcode BGD/BANGLADESH directly in the mapping.
-            const COUNTRY_FIELD_DEFAULTS = {
-                'countryname_id':        'BGD',
-                'nationality_id':        'BGD',
-                'country_birth':         'BGD',
-                'prev_nationality':      '',    // usually blank
-                'other_ppt_country_issue': '',  // usually blank
-                'other_ppt_nat':         '',    // usually blank
+            var COUNTRY_DEFAULTS = {
+                'countryname_id': 'BGD', 'nationality_id': 'BGD', 'country_birth': 'BGD',
+                'prev_nationality': '', 'other_ppt_country_issue': '', 'other_ppt_nat': '',
             };
+            var profileValues = getProfileValues(profile.data);
+            var allFields = [].concat(INDIAN_VISA_PAGE1_FIELDS, INDIAN_VISA_PAGE2_FIELDS)
+                .filter(function (f) { return !(f.id in COUNTRY_DEFAULTS); })
+                .map(function (f) { return enrichFieldWithOptions(f, profileValues); });
 
-            const allFields = [...INDIAN_VISA_PAGE1_FIELDS, ...INDIAN_VISA_PAGE2_FIELDS]
-                .filter(field => !(field.id in COUNTRY_FIELD_DEFAULTS))
-                .map(field => {
-                const enriched = { ...field };
-                if (field.type === 'select') {
-                    const el = document.getElementById(field.id);
-                    if (el && el.tagName.toLowerCase() === 'select') {
-                        const allOptions = Array.from(el.options);
-
-                        // Smart-filter: keep options that match any profile value
-                        let relevant = allOptions.filter(opt => {
-                            const text = opt.text.toLowerCase();
-                            const val = opt.value.toLowerCase();
-                            return profileValues.some(pv => text.includes(pv) || pv.includes(text) || val === pv);
-                        });
-
-                        // Always keep the first "Select..." placeholder option
-                        if (allOptions.length > 0 && !relevant.includes(allOptions[0])) {
-                            relevant.unshift(allOptions[0]);
-                        }
-
-                        // If list is short (<= 20 options total), just send all — no need to filter
-                        const finalOptions = (allOptions.length <= 20 || relevant.length > 1)
-                            ? (allOptions.length <= 20 ? allOptions : relevant)
-                            : allOptions.slice(0, 15);
-
-                        enriched.options = [...new Set(finalOptions)].map(opt => ({
-                            value: opt.value,
-                            text: opt.text
-                        }));
-
-                        if (allOptions.length > enriched.options.length) {
-                            enriched.options.push({
-                                value: '',
-                                text: `... (${allOptions.length - enriched.options.length} more options not shown)`
-                            });
-                        }
-                    }
-                }
-                return enriched;
-            });
-
-            console.log(`[Indian Visa] Sending ${allFields.length} fields to AI for mapping...`);
-
-            const result = await new Promise((resolve, reject) => {
-                const timeout = setTimeout(() => reject(new Error('AI mapping timed out after 60s')), 60000);
-                chrome.runtime.sendMessage({
-                    action: 'MAP_FIELDS',
-                    payload: {
-                        formFields: allFields,
-                        userData: profile.data,
-                        site: 'indian_visa'
-                    }
-                }, (response) => {
-                    clearTimeout(timeout);
-                    if (chrome.runtime.lastError) {
-                        reject(new Error(chrome.runtime.lastError.message));
-                    } else if (response && response.success) {
-                        resolve(response);
-                    } else {
-                        reject(new Error(response?.error || 'Mapping failed'));
-                    }
-                });
-            });
-
+            var result = await sendMappingRequest(allFields, profile.data, 'indian_visa');
             mapping = result.mapping;
 
-            // Merge in the hardcoded country/nationality defaults (skipped from AI)
-            for (const [fieldId, defaultValue] of Object.entries(COUNTRY_FIELD_DEFAULTS)) {
-                if (defaultValue !== '') {
-                    mapping[fieldId] = defaultValue;
+            for (var id in COUNTRY_DEFAULTS) {
+                if (COUNTRY_DEFAULTS[id]) mapping[id] = COUNTRY_DEFAULTS[id];
+            }
+            await sessionSet(STORAGE_KEY, mapping);
+        }
+
+        var pageFields = isPage1 ? INDIAN_VISA_PAGE1_FIELDS : INDIAN_VISA_PAGE2_FIELDS;
+        var pageFieldIds = {};
+        pageFields.forEach(function (f) { pageFieldIds[f.id] = true; });
+        var pageMapping = {};
+        for (var key in mapping) {
+            if (pageFieldIds[key]) pageMapping[key] = mapping[key];
+        }
+
+        var filledCount = 0;
+        if (isPage1) {
+            var cascadeOrder = ['countryname_id', 'missioncode_id', 'nationality_id', 'visaService'];
+            var delays = [800, 1200, 600, 800];
+            var handled = {};
+            for (var i = 0; i < cascadeOrder.length; i++) {
+                var fid = cascadeOrder[i];
+                if (pageMapping[fid]) {
+                    var m = {}; m[fid] = pageMapping[fid];
+                    filledCount += await applyMapping(m, profile.profilePic);
+                    await sleep(delays[i]);
+                    handled[fid] = true;
                 }
             }
-
-            console.log('[Indian Visa] Received mapping:', mapping);
-
-            if (result.usageMetadata) {
-                console.log('[Indian Visa] Token usage:', result.usageMetadata);
+            var rest = {};
+            for (var k in pageMapping) {
+                if (!handled[k]) rest[k] = pageMapping[k];
             }
-
-            // Store mapping so page 2 can reuse it
-            await new Promise(resolve => {
-                chrome.runtime.sendMessage({ action: 'SESSION_SET', key: STORAGE_KEY, value: mapping }, resolve);
-            });
-            console.log('[Indian Visa] Mapping saved to session storage for next page.');
-        }
-
-        // Determine which fields are relevant to the current page
-        const pageFields = isPage1 ? INDIAN_VISA_PAGE1_FIELDS : INDIAN_VISA_PAGE2_FIELDS;
-        const pageFieldIds = new Set(pageFields.map(f => f.id));
-
-        // Filter mapping to only current page fields
-        const pageMapping = {};
-        for (const [key, val] of Object.entries(mapping)) {
-            if (pageFieldIds.has(key)) {
-                pageMapping[key] = val;
-            }
-        }
-
-        console.log(`[Indian Visa] Applying ${Object.keys(pageMapping).length} mapped fields for ${pageLabel}`);
-
-        let filledCount = 0;
-
-        if (isPage1) {
-            // Page 1 has cascading dropdowns:
-            //   countryname_id → onchange → populates missioncode_id options
-            //   missioncode_id → onchange → populates nationality_id options
-            // We must fill them in order and wait between each.
-
-            // Step 1: countryname_id
-            if (pageMapping['countryname_id']) {
-                filledCount += await applyMappingSingle({ 'countryname_id': pageMapping['countryname_id'] }, profile.profilePic);
-                await new Promise(r => setTimeout(r, 800));
-            }
-
-            // Step 2: missioncode_id (triggers get_nationality())
-            if (pageMapping['missioncode_id']) {
-                filledCount += await applyMappingSingle({ 'missioncode_id': pageMapping['missioncode_id'] }, profile.profilePic);
-                await new Promise(r => setTimeout(r, 1200)); // wait for nationality options to load
-            }
-
-            // Step 3: nationality_id (now populated)
-            if (pageMapping['nationality_id']) {
-                filledCount += await applyMappingSingle({ 'nationality_id': pageMapping['nationality_id'] }, profile.profilePic);
-                await new Promise(r => setTimeout(r, 600));
-            }
-
-            // Step 4: visaService (triggers fetchPurposeList())
-            if (pageMapping['visaService']) {
-                filledCount += await applyMappingSingle({ 'visaService': pageMapping['visaService'] }, profile.profilePic);
-                await new Promise(r => setTimeout(r, 800));
-            }
-
-            // Step 5: remaining fields (purpose, dob, email, etc.)
-            const handled = new Set(['countryname_id', 'missioncode_id', 'nationality_id', 'visaService']);
-            const rest = {};
-            for (const [k, v] of Object.entries(pageMapping)) {
-                if (!handled.has(k)) rest[k] = v;
-            }
-            filledCount += await applyMappingSingle(rest, profile.profilePic);
-
+            filledCount += await applyMapping(rest, profile.profilePic);
         } else {
-            filledCount = await applyMappingSingle(pageMapping, profile.profilePic);
+            filledCount = await applyMapping(pageMapping, profile.profilePic);
         }
 
-        console.log(`[Indian Visa] Filled ${filledCount} fields on ${pageLabel}`);
-        alert(`✅ Indian Visa Autofill: ${filledCount} fields filled on ${pageLabel}.\n\nNote: Captcha must be filled manually.\nMapping is saved — click Autofill again on the next page.`);
-
+        var pageLabel = isPage1 ? 'Page 1 (Registration)' : 'Page 2 (Applicant Details)';
+        alert('Indian Visa: ' + filledCount + ' fields filled on ' + pageLabel + '.\nCaptcha must be filled manually.\nMapping saved for next page.');
     } catch (error) {
-        console.error('[Indian Visa] Autofill error:', error);
         alert('Indian Visa Autofill error: ' + error.message);
     } finally {
         setLoading(false);
     }
 }
 
+// Generic multi-pass autofill
 async function startAutofill(profile) {
     setLoading(true);
-    console.log('Starting multi-pass autofill with profile:', profile.name);
-
-    let totalTokens = { input: 0, output: 0, total: 0 };
-
     try {
-        let totalFilled = 0;
-        let previousFieldCount = 0;
-        let maxIterations = 3; // Limit to 3 passes as requested
-        let iteration = 0;
+        var totalFilled = 0;
+        var prevFieldCount = 0;
+        var MAX_PASSES = 3;
 
-        // Multi-pass autofill: keep filling until no new fields appear
-        while (iteration < maxIterations) {
-            iteration++;
-            console.log(`\n=== Pass ${iteration} ===`);
-
-            // 1. Scrape visible fields
-            const visibleFields = scrapeVisibleFields(profile.data);
-
-            // Optimization: Filter out fields that are already filled
-            const fieldsToSend = visibleFields.filter(f => {
-                const el = document.getElementById(f.id) || document.querySelector(`[name="${f.name}"]`);
+        for (var pass = 1; pass <= MAX_PASSES; pass++) {
+            var visibleFields = scrapeVisibleFields(profile.data);
+            var unfilled = visibleFields.filter(function (f) {
+                var el = document.getElementById(f.id) || document.querySelector('[name="' + f.name + '"]');
                 if (!el) return false;
-
-                // Check if empty
-                if (el.value === '' || el.value === null) return true;
-
-                // For radios/checkboxes, check if NOT checked
                 if (el.type === 'radio' || el.type === 'checkbox') return !el.checked;
-
-                // For selects, check if value is default/empty
-                if (el.tagName.toLowerCase() === 'select') return el.value === '' || el.value === '-1';
-
-                return false;
+                if (el.tagName.toLowerCase() === 'select') return !el.value || el.value === '-1';
+                return !el.value;
             });
 
-            const currentFieldCount = visibleFields.length;
-            console.log(`Found ${currentFieldCount} visible fields, sending ${fieldsToSend.length} to AI`);
+            if (unfilled.length === 0) break;
+            if (pass > 1 && visibleFields.length === prevFieldCount) break;
+            prevFieldCount = visibleFields.length;
 
-            if (fieldsToSend.length === 0) {
-                console.log('No unfilled fields found, stopping.');
-                break;
-            }
+            var result = await sendMappingRequest(unfilled, profile.data, profile.site);
+            var filled = await applyMapping(result.mapping, profile.profilePic);
+            totalFilled += filled;
 
-            // If no new fields appeared and we are not in the first pass, we might stop
-            if (iteration > 1 && currentFieldCount === previousFieldCount && fieldsToSend.length === 0) {
-                console.log('No new fields detected, stopping.');
-                break;
-            }
-
-            previousFieldCount = currentFieldCount;
-
-            // 2. Send to AI for mapping
-            const result = await new Promise((resolve) => {
-                chrome.runtime.sendMessage({
-                    action: 'MAP_FIELDS',
-                    payload: {
-                        formFields: fieldsToSend, // Send only filtered fields
-                        userData: profile.data,
-                        site: profile.site
-                    }
-                }, (response) => {
-                    if (chrome.runtime.lastError) {
-                        console.error('Mapping error:', chrome.runtime.lastError.message);
-                        resolve({ mapping: {} });
-                    } else if (response && response.success) {
-                        if (Object.keys(response.mapping).length === 0) {
-                            console.warn('AI returned empty mapping.');
-                            console.log('Raw AI Response:', response.raw_response);
-                            if (response.parse_error) console.error('Parse Error:', response.parse_error);
-                        }
-                        resolve({ mapping: response.mapping, usage: response.usageMetadata });
-                    } else {
-                        console.error('Mapping failed:', response?.error);
-                        resolve({ mapping: {} });
-                    }
-                });
-            });
-
-            const mapping = result.mapping;
-            if (result.usage) {
-                totalTokens.input += result.usage.promptTokenCount || 0;
-                totalTokens.output += result.usage.candidatesTokenCount || 0;
-                totalTokens.total += result.usage.totalTokenCount || 0;
-            }
-
-            console.log('Received mapping:', mapping);
-
-            // 3. Apply mapping and track filled count
-            const filledThisRound = await applyMappingSingle(mapping, profile.profilePic);
-            totalFilled += filledThisRound;
-
-            console.log(`Filled ${filledThisRound} fields this pass, ${totalFilled} total`);
-
-            if (filledThisRound === 0) {
-                console.log('No fields filled this pass, stopping.');
-                break;
-            }
-
-            // Wait longer for cascading fields to appear and become visible
-            console.log('Waiting 1.5 seconds for cascading fields...');
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            if (filled === 0) break;
+            await sleep(1500);
         }
 
-        console.log(`\n=== Autofill Complete ===`);
-        console.log(`Total: ${totalFilled} fields filled in ${iteration} pass${iteration > 1 ? 'es' : ''}`);
-
-        const tokenMsg = `Token Usage: Input: ${totalTokens.input}, Output: ${totalTokens.output}, Total: ${totalTokens.total}`;
-        console.log(tokenMsg);
-        alert(`✅ Autofilled ${totalFilled} fields in ${iteration} pass${iteration > 1 ? 'es' : ''}!\n\n${tokenMsg}`);
-
+        alert('Autofilled ' + totalFilled + ' fields.');
     } catch (error) {
-        console.error('Autofill Error:', error);
-        alert('An error occurred: ' + error.message);
+        alert('Autofill error: ' + error.message);
     } finally {
         setLoading(false);
     }
 }
 
+// Data helpers
 function getProfilesData() {
-    return new Promise((resolve, reject) => {
+    return new Promise(function (resolve, reject) {
         if (!chrome || !chrome.storage || !chrome.storage.local) {
-            const msg = "Extension updated or reloaded. Please refresh this page to use the autofill feature.";
+            var msg = 'Extension context invalidated. Please refresh the page.';
             alert(msg);
-            reject(new Error(msg));
-            return;
+            return reject(new Error(msg));
         }
-        try {
-            chrome.storage.local.get(['profiles', 'lastActiveProfileId'], (result) => {
-                if (chrome.runtime.lastError) {
-                    reject(new Error(chrome.runtime.lastError.message));
-                } else {
-                    resolve({
-                        profiles: result.profiles || [],
-                        lastActiveProfileId: result.lastActiveProfileId
-                    });
-                }
+        chrome.storage.local.get(['profiles', 'lastActiveProfileId', 'supabaseSession'], function (result) {
+            if (chrome.runtime.lastError) reject(new Error(chrome.runtime.lastError.message));
+            else resolve({
+                profiles: result.profiles || [],
+                lastActiveProfileId: result.lastActiveProfileId,
+                supabaseSession: result.supabaseSession
             });
-        } catch (e) {
-            const msg = "Extension context invalidated. Please refresh the page.";
-            alert(msg);
-            reject(new Error(msg));
-        }
+        });
     });
 }
 
-function scrapeVisibleFields(profileData = {}) {
-    const inputs = document.querySelectorAll('input, select, textarea');
-    const fields = [];
+function sessionGet(key) {
+    return new Promise(function (resolve) {
+        chrome.runtime.sendMessage({ action: 'SESSION_GET', key: key }, function (r) {
+            resolve(r && r.value ? r.value : null);
+        });
+    });
+}
 
-    // Prepare profile values for smart filtering (lowercase, string, ignore short)
-    const profileValues = Object.values(profileData)
-        .filter(v => v && String(v).length > 1)
-        .map(v => String(v).toLowerCase());
+function sessionSet(key, value) {
+    return new Promise(function (resolve) {
+        chrome.runtime.sendMessage({ action: 'SESSION_SET', key: key, value: value }, resolve);
+    });
+}
 
-    inputs.forEach(input => {
-        // Check visibility
+function sendMappingRequest(formFields, userData, site) {
+    return new Promise(function (resolve, reject) {
+        var timeout = setTimeout(function () { reject(new Error('AI mapping timed out after 60s')); }, 60000);
+        chrome.runtime.sendMessage({
+            action: 'MAP_FIELDS',
+            payload: { formFields: formFields, userData: userData, site: site },
+        }, function (response) {
+            clearTimeout(timeout);
+            if (chrome.runtime.lastError) reject(new Error(chrome.runtime.lastError.message));
+            else if (response && response.success) resolve(response);
+            else reject(new Error((response && response.error) || 'Mapping failed'));
+        });
+    });
+}
+
+// Shared option-filtering for select elements
+function getProfileValues(data) {
+    var values = [];
+    for (var key in data) {
+        var v = data[key];
+        if (v && String(v).length > 1) values.push(String(v).toLowerCase());
+    }
+    return values;
+}
+
+function filterSelectOptions(el, profileValues) {
+    var allOpts = Array.from(el.options);
+    if (allOpts.length <= 20) return allOpts.map(function (o) { return { value: o.value, text: o.text }; });
+
+    var relevant = allOpts.filter(function (opt) {
+        var t = opt.text.toLowerCase(), v = opt.value.toLowerCase();
+        return profileValues.some(function (pv) { return t.includes(pv) || pv.includes(t) || v === pv; });
+    });
+
+    if (allOpts.length > 0 && relevant.indexOf(allOpts[0]) === -1) relevant.unshift(allOpts[0]);
+
+    var final = relevant.length > 1 ? relevant : allOpts.slice(0, 15);
+    var unique = [];
+    var seen = {};
+    final.forEach(function (o) {
+        var k = o.value + '|' + o.text;
+        if (!seen[k]) { seen[k] = true; unique.push(o); }
+    });
+
+    var mapped = unique.map(function (o) { return { value: o.value, text: o.text }; });
+    if (allOpts.length > mapped.length) {
+        mapped.push({ value: '', text: '... (' + (allOpts.length - mapped.length) + ' more)' });
+    }
+    return mapped;
+}
+
+function enrichFieldWithOptions(field, profileValues) {
+    var enriched = {};
+    for (var key in field) enriched[key] = field[key];
+    if (field.type === 'select') {
+        var el = document.getElementById(field.id);
+        if (el && el.tagName && el.tagName.toLowerCase() === 'select') {
+            enriched.options = filterSelectOptions(el, profileValues);
+        }
+    }
+    return enriched;
+}
+
+// Field scraping
+function scrapeVisibleFields(profileData) {
+    var inputs = document.querySelectorAll('input, select, textarea');
+    var fields = [];
+    var profileValues = getProfileValues(profileData || {});
+
+    inputs.forEach(function (input) {
         if (!isVisible(input)) return;
         if (input.type === 'hidden' || input.type === 'submit' || input.type === 'button') return;
 
-        // Get label
-        let label = '';
+        var label = '';
         if (input.id) {
-            const labelElem = document.querySelector(`label[for="${input.id}"]`);
-            if (labelElem) label = labelElem.innerText.trim();
+            var labelEl = document.querySelector('label[for="' + input.id + '"]');
+            if (labelEl) label = labelEl.innerText.trim();
         }
         if (!label && input.parentElement) {
-            // Try finding label in parent
-            const parentLabel = input.parentElement.querySelector('label');
+            var parentLabel = input.parentElement.querySelector('label');
             if (parentLabel) label = parentLabel.innerText.trim();
         }
-        // Fallback to placeholder or name
         if (!label) label = input.placeholder || input.name || '';
 
-        const fieldInfo = {
-            id: input.id || input.name, // Prefer ID, fallback to name
+        var fieldInfo = {
+            id: input.id || input.name,
             type: input.type,
             tagName: input.tagName.toLowerCase(),
             label: label,
             placeholder: input.placeholder || '',
-            name: input.name || ''
+            name: input.name || '',
         };
 
-        // For select elements, include available options (Smart Filtered)
         if (input.tagName.toLowerCase() === 'select') {
-            const allOptions = Array.from(input.options);
-
-            // Filter: Keep options that match ANY profile value
-            let relevantOptions = allOptions.filter(opt => {
-                const text = opt.text.toLowerCase();
-                const val = opt.value.toLowerCase();
-                // Match against all profile values
-                return profileValues.some(pv => text.includes(pv) || pv.includes(text) || val === pv);
-            });
-
-            // Always include the first option (usually "Select...")
-            if (allOptions.length > 0 && !relevantOptions.includes(allOptions[0])) {
-                relevantOptions.unshift(allOptions[0]);
-            }
-
-            // If we found matches, use them. If not, cap at 10 to show format.
-            // Also if list is small (<20), just send all.
-            let finalOptions = (relevantOptions.length > 1 || allOptions.length < 20)
-                ? (relevantOptions.length > 1 ? relevantOptions : allOptions)
-                : allOptions.slice(0, 10);
-
-            // Deduplicate just in case
-            finalOptions = [...new Set(finalOptions)];
-
-            fieldInfo.options = finalOptions.map(opt => ({
-                value: opt.value,
-                text: opt.text
-            }));
-
-            if (allOptions.length > fieldInfo.options.length) {
-                fieldInfo.options.push({
-                    value: "",
-                    text: `... (${allOptions.length - fieldInfo.options.length} more options)`
-                });
-            }
+            fieldInfo.options = filterSelectOptions(input, profileValues);
         }
 
         fields.push(fieldInfo);
     });
-
     return fields;
 }
 
 function isVisible(elem) {
-    if (!elem) return false;
-    return !!(elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length);
+    return !!(elem && (elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length));
 }
 
-async function applyMappingSingle(mapping, profilePic) {
-    let filledCount = 0;
-    const entries = Object.entries(mapping);
+// Apply mapping to DOM (single consolidated version)
+async function applyMapping(mapping, profilePic) {
+    var filledCount = 0;
+    for (var key in mapping) {
+        var value = mapping[key];
+        var el = document.getElementById(key) || document.querySelector('[name="' + key + '"]');
+        if (!el) continue;
 
-    // Process fields sequentially
-    for (const [key, value] of entries) {
-        // Try finding by ID first, then Name
-        let element = document.getElementById(key);
-        if (!element) {
-            element = document.querySelector(`[name="${key}"]`);
-        }
+        var filled = false;
 
-        if (element) {
-            // Check if element is actually visible to the user
-            // If we fill hidden fields, it might break the form logic or just be confusing
-            // But sometimes we WANT to fill hidden fields. 
-            // For now, let's try to fill everything but log it.
-
-            let filled = false;
-
-            if (element.type === 'file' && profilePic) {
-                // Handle File Input (Profile Pic)
-                try {
-                    const blob = dataURItoBlob(profilePic);
-                    const file = new File([blob], "profile_pic.jpg", { type: "image/jpeg" });
-                    const dataTransfer = new DataTransfer();
-                    dataTransfer.items.add(file);
-                    element.files = dataTransfer.files;
-                    element.dispatchEvent(new Event('change', { bubbles: true }));
-                    filled = true;
-                } catch (e) {
-                    console.warn('Could not set file input:', e);
-                }
-            } else if (element.type === 'radio' || element.type === 'checkbox') {
-                if (element.value === value || element.value === value.toString()) {
-                    if (!element.checked) {
-                        element.click(); // Click is often better for radios/checkboxes
-                        // Fallback if click didn't work
-                        if (!element.checked) {
-                            element.checked = true;
-                            element.dispatchEvent(new Event('change', { bubbles: true }));
-                        }
-                        filled = true;
-                    }
-                }
-            } else if (element.tagName.toLowerCase() === 'select') {
-                // Handle Select Dropdown
-                let optionFound = false;
-
-                // First try exact value match
-                for (let option of element.options) {
-                    if (option.value === value || option.value === value.toString()) {
-                        setNativeValue(element, option.value);
-                        optionFound = true;
-                        break;
-                    }
-                }
-
-                // If not found, try matching by text content
-                if (!optionFound) {
-                    for (let option of element.options) {
-                        if (option.text.toLowerCase().includes(value.toString().toLowerCase()) ||
-                            value.toString().toLowerCase().includes(option.text.toLowerCase())) {
-                            setNativeValue(element, option.value);
-                            optionFound = true;
-                            break;
-                        }
-                    }
-                }
-
-                if (optionFound) {
-                    filled = true;
-                    // Extra delay for selects to allow cascading
-                    await new Promise(resolve => setTimeout(resolve, 300));
-                }
-            } else {
-                // Handle text, date, and other inputs
-                let finalValue = value;
-
-                // Date Handling: Check if it's a date field and reformat if necessary
-                if (isDateField(element)) {
-                    const formattedDate = formatDateToDDMMYYYY(value);
-                    if (formattedDate) {
-                        finalValue = formattedDate;
-                        console.log(`Formatted date '${value}' to '${finalValue}' for field '${element.id}'`);
-
-                        // Special handling for datepickers
-                        if (element.classList.contains('datepicker') || element.classList.contains('hasDatepicker')) {
-                            handleDatepicker(element, finalValue);
-                            filled = true;
-                            // Skip standard setter if handled by datepicker logic
-                            // But we might want to do both just in case
-                        }
-                    }
-                }
-
-                // Use robust setter (even if handled by datepicker, setting native value is good backup)
-                setNativeValue(element, finalValue);
+        if (el.type === 'file' && profilePic) {
+            filled = trySetFile(el, profilePic);
+        } else if (el.type === 'radio' || el.type === 'checkbox') {
+            if (value != null && el.value === String(value) && !el.checked) {
+                el.click();
+                if (!el.checked) { el.checked = true; el.dispatchEvent(new Event('change', { bubbles: true })); }
                 filled = true;
             }
-
-            if (filled) {
-                filledCount++;
-                // Highlight filled field
-                element.style.backgroundColor = '#e6fffa';
-                element.style.transition = 'background-color 0.5s';
-                setTimeout(() => element.style.backgroundColor = '', 2000);
+        } else if (el.tagName.toLowerCase() === 'select') {
+            filled = setSelectValue(el, value);
+            if (filled) await sleep(300);
+        } else {
+            var finalValue = value;
+            if (isDateField(el)) {
+                finalValue = el.type === 'date'
+                    ? (formatDateToYYYYMMDD(value) || value)
+                    : (formatDateToDDMMYYYY(value) || value);
+                if (el.classList.contains('datepicker') || el.classList.contains('hasDatepicker')) {
+                    handleDatepicker(el, finalValue);
+                    filled = true;
+                    // Skip setNativeValue — jQuery datepicker manages the field itself
+                    if (filled) {
+                        filledCount++;
+                        el.style.backgroundColor = '#e6fffa';
+                        el.style.transition = 'background-color 0.5s';
+                        (function (elem) { setTimeout(function () { elem.style.backgroundColor = ''; }, 2000); })(el);
+                    }
+                    continue;
+                }
             }
+            checkConditionalCheckbox(el);
+            setNativeValue(el, finalValue);
+            filled = true;
+        }
+
+        if (filled) {
+            filledCount++;
+            el.style.backgroundColor = '#e6fffa';
+            el.style.transition = 'background-color 0.5s';
+            (function (elem) { setTimeout(function () { elem.style.backgroundColor = ''; }, 2000); })(el);
         }
     }
-
     return filledCount;
 }
 
-async function applyMappingSingle(mapping, profilePic) {
-    let filledCount = 0;
-    const entries = Object.entries(mapping);
-
-    // Process fields sequentially
-    for (const [key, value] of entries) {
-        // Try finding by ID first, then Name
-        let element = document.getElementById(key);
-        if (!element) {
-            element = document.querySelector(`[name="${key}"]`);
-        }
-
-        if (element) {
-            // Check if element is actually visible to the user
-            // If we fill hidden fields, it might break the form logic or just be confusing
-            // But sometimes we WANT to fill hidden fields. 
-            // For now, let's try to fill everything but log it.
-
-            let filled = false;
-
-            if (element.type === 'file' && profilePic) {
-                // Handle File Input (Profile Pic)
-                try {
-                    const blob = dataURItoBlob(profilePic);
-                    const file = new File([blob], "profile_pic.jpg", { type: "image/jpeg" });
-                    const dataTransfer = new DataTransfer();
-                    dataTransfer.items.add(file);
-                    element.files = dataTransfer.files;
-                    element.dispatchEvent(new Event('change', { bubbles: true }));
-                    filled = true;
-                } catch (e) {
-                    console.warn('Could not set file input:', e);
-                }
-            } else if (element.type === 'radio' || element.type === 'checkbox') {
-                if (value !== null && value !== undefined && (element.value === value || element.value === value.toString())) {
-                    if (!element.checked) {
-                        element.click(); // Click is often better for radios/checkboxes
-                        // Fallback if click didn't work
-                        if (!element.checked) {
-                            element.checked = true;
-                            element.dispatchEvent(new Event('change', { bubbles: true }));
-                        }
-                        filled = true;
-                    }
-                }
-            } else if (element.tagName.toLowerCase() === 'select') {
-                // Handle Select Dropdown
-                let optionFound = false;
-
-                // First try exact value match
-                for (let option of element.options) {
-                    if (value !== null && value !== undefined && (option.value === value || option.value === value.toString())) {
-                        setNativeValue(element, option.value);
-                        optionFound = true;
-                        break;
-                    }
-                }
-
-                // If not found, try matching by text content
-                if (!optionFound && value !== null && value !== undefined) {
-                    const valStr = value.toString().toLowerCase();
-                    for (let option of element.options) {
-                        if (option.text.toLowerCase().includes(valStr) ||
-                            valStr.includes(option.text.toLowerCase())) {
-                            setNativeValue(element, option.value);
-                            optionFound = true;
-                            break;
-                        }
-                    }
-                }
-
-                if (optionFound) {
-                    filled = true;
-                    // Extra delay for selects to allow cascading
-                    await new Promise(resolve => setTimeout(resolve, 300));
-                }
-            } else {
-                // Handle text, date, and other inputs
-                let finalValue = value;
-
-                // Date Handling: Check if it's a date field and reformat if necessary
-                if (isDateField(element)) {
-                    // For HTML5 date inputs (type="date"), use YYYY-MM-DD format
-                    if (element.type === 'date') {
-                        const formattedDate = formatDateToYYYYMMDD(value);
-                        if (formattedDate) {
-                            finalValue = formattedDate;
-                            console.log(`Formatted date '${value}' to '${finalValue}' (YYYY-MM-DD) for field '${element.id}'`);
-                        }
-                    } else {
-                        // For datepicker inputs, use DD/MM/YYYY format
-                        const formattedDate = formatDateToDDMMYYYY(value);
-                        if (formattedDate) {
-                            finalValue = formattedDate;
-                            console.log(`Formatted date '${value}' to '${finalValue}' (DD/MM/YYYY) for field '${element.id}'`);
-
-                            // Special handling for datepickers
-                            if (element.classList.contains('datepicker') || element.classList.contains('hasDatepicker')) {
-                                handleDatepicker(element, finalValue);
-                                filled = true;
-                            }
-                        }
-                    }
-                }
-
-                // Check if this field belongs to a conditional section and auto-check the "If Applicable" checkbox
-                checkConditionalSectionCheckbox(element);
-
-                // Use robust setter (even if handled by datepicker, setting native value is good backup)
-                setNativeValue(element, finalValue);
-                filled = true;
-            }
-
-            if (filled) {
-                filledCount++;
-                // Highlight filled field
-                element.style.backgroundColor = '#e6fffa';
-                element.style.transition = 'background-color 0.5s';
-                setTimeout(() => element.style.backgroundColor = '', 2000);
-            }
-        }
-    }
-
-    return filledCount;
-}
-
-// Robust value setter for React/Angular/Vue compatibility
+// DOM manipulation helpers
 function setNativeValue(element, value) {
-    const lastValue = element.value;
+    var last = element.value;
     element.value = value;
-    const event = new Event('input', { bubbles: true });
-
-    // React 15/16 hack
-    const tracker = element._valueTracker;
-    if (tracker) {
-        tracker.setValue(lastValue);
+    var tracker = element._valueTracker;
+    if (tracker) tracker.setValue(last);
+    var events = ['focus', 'input', 'change', 'blur'];
+    for (var i = 0; i < events.length; i++) {
+        element.dispatchEvent(new Event(events[i], { bubbles: true }));
     }
+}
 
-    element.dispatchEvent(new Event('focus', { bubbles: true }));
-    element.dispatchEvent(event);
-    element.dispatchEvent(new Event('change', { bubbles: true }));
-    element.dispatchEvent(new Event('blur', { bubbles: true }));
+function setSelectValue(el, value) {
+    if (value == null) return false;
+    var valStr = String(value).toLowerCase();
+    var i;
+    for (i = 0; i < el.options.length; i++) {
+        if (el.options[i].value === String(value)) { setNativeValue(el, el.options[i].value); return true; }
+    }
+    for (i = 0; i < el.options.length; i++) {
+        var optText = el.options[i].text.toLowerCase();
+        if (optText.includes(valStr) || valStr.includes(optText)) {
+            setNativeValue(el, el.options[i].value);
+            return true;
+        }
+    }
+    return false;
+}
+
+function trySetFile(el, dataURI) {
+    try {
+        var byteString = atob(dataURI.split(',')[1]);
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        var ab = new ArrayBuffer(byteString.length);
+        var ia = new Uint8Array(ab);
+        for (var i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
+        var file = new File([new Blob([ab], { type: mimeString })], 'profile_pic.jpg', { type: 'image/jpeg' });
+        var dt = new DataTransfer();
+        dt.items.add(file);
+        el.files = dt.files;
+        el.dispatchEvent(new Event('change', { bubbles: true }));
+        return true;
+    } catch (e) { return false; }
 }
 
 function setLoading(isLoading) {
-    if (isLoading) {
-        floatBtn.innerText = '⏳ Working...';
-        floatBtn.disabled = true;
-        floatBtn.style.opacity = '0.7';
-    } else {
-        floatBtn.innerText = '✨ Autofill';
-        floatBtn.disabled = false;
-        floatBtn.style.opacity = '1';
-    }
+    if (!floatBtn) return;
+    floatBtn.innerText = isLoading ? 'Working...' : 'Autofill';
+    floatBtn.disabled = isLoading;
+    floatBtn.style.opacity = isLoading ? '0.7' : '1';
 }
 
-// Helper to convert Base64 to Blob
-function dataURItoBlob(dataURI) {
-    const byteString = atob(dataURI.split(',')[1]);
-    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-    }
-    return new Blob([ab], { type: mimeString });
+function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+// Date helpers
+function isDateField(el) {
+    if (el.type === 'date') return true;
+    var haystack = [el.id, el.name, el.placeholder, el.className].join(' ').toLowerCase();
+    return /date|dob|dd\/mm\/yyyy|yyyy-mm-dd|datepicker/.test(haystack);
 }
 
-// Helper to check if an element is a date field
-function isDateField(element) {
-    if (element.type === 'date') return true;
-    const id = element.id.toLowerCase();
-    const name = element.name.toLowerCase();
-    const placeholder = (element.placeholder || '').toLowerCase();
-    const className = element.className.toLowerCase();
-
-    return id.includes('date') ||
-        id.includes('dob') ||
-        name.includes('date') ||
-        name.includes('dob') ||
-        placeholder.includes('dd/mm/yyyy') ||
-        placeholder.includes('yyyy-mm-dd') ||
-        className.includes('datepicker');
-}
-
-// Helper to format date to DD/MM/YYYY (for datepickers)
 function formatDateToDDMMYYYY(value) {
     if (!value) return null;
-
-    // Check if already in DD/MM/YYYY
     if (/^\d{2}\/\d{2}\/\d{4}$/.test(value)) return value;
-
-    // Try parsing YYYY-MM-DD
-    const isoMatch = value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-    if (isoMatch) {
-        return `${isoMatch[3]}/${isoMatch[2]}/${isoMatch[1]}`;
+    var iso = value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (iso) return iso[3] + '/' + iso[2] + '/' + iso[1];
+    var d = new Date(value);
+    if (!isNaN(d.getTime())) {
+        return String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + d.getFullYear();
     }
-
-    // Try parsing other formats using Date object
-    const date = new Date(value);
-    if (!isNaN(date.getTime())) {
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const year = date.getFullYear();
-        return `${day}/${month}/${year}`;
-    }
-
-    return value; // Return original if parsing fails
+    return value;
 }
 
-// Helper to format date to YYYY-MM-DD (for HTML5 date inputs)
 function formatDateToYYYYMMDD(value) {
     if (!value) return null;
-
-    // Check if already in YYYY-MM-DD
     if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
-
-    // Try parsing DD/MM/YYYY
-    const ddmmyyyyMatch = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
-    if (ddmmyyyyMatch) {
-        return `${ddmmyyyyMatch[3]}-${ddmmyyyyMatch[2]}-${ddmmyyyyMatch[1]}`;
+    var ddmm = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if (ddmm) return ddmm[3] + '-' + ddmm[2] + '-' + ddmm[1];
+    var d = new Date(value);
+    if (!isNaN(d.getTime())) {
+        return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
     }
-
-    // Try parsing other formats using Date object
-    const date = new Date(value);
-    if (!isNaN(date.getTime())) {
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const year = date.getFullYear();
-        return `${year}-${month}-${day}`;
-    }
-
-    return value; // Return original if parsing fails
+    return value;
 }
 
-// Helper to check if a field belongs to a conditional section and auto-check the checkbox
-function checkConditionalSectionCheckbox(element) {
-    // Check for Masters section fields
-    if (element.id && (element.id.startsWith('mas_') || element.name?.startsWith('mas_'))) {
-        const checkbox = document.getElementById('if_applicable_mas');
-        if (checkbox && !checkbox.checked) {
-            console.log('Auto-checking Masters "If Applicable" checkbox');
-            checkbox.click();
-        }
+function checkConditionalCheckbox(el) {
+    if (el.id && (el.id.indexOf('mas_') === 0 || (el.name && el.name.indexOf('mas_') === 0))) {
+        var cb = document.getElementById('if_applicable_mas');
+        if (cb && !cb.checked) cb.click();
     }
-
-    // Check for Job Experience section fields
-    if (element.id && (element.id.includes('employment_type') || element.id.includes('designation') ||
-        element.id.includes('organization') || element.id.includes('job_start_date') ||
-        element.name?.includes('job['))) {
-        const checkbox = document.getElementById('if_applicable_exp');
-        if (checkbox && !checkbox.checked) {
-            console.log('Auto-checking Job Experience "If Applicable" checkbox');
-            checkbox.click();
-        }
+    if (el.id && /employment_type|designation|organization|job_start_date/.test(el.id) || (el.name && el.name.indexOf('job[') !== -1)) {
+        var cb2 = document.getElementById('if_applicable_exp');
+        if (cb2 && !cb2.checked) cb2.click();
     }
 }
 
-// Aggressive Datepicker Handler
-function handleDatepicker(element, value) {
-    // 1. Focus
-    element.focus();
-    element.click();
-
-    // 2. Set Value directly and via attribute
-    element.value = value;
-    element.setAttribute('value', value);
-
-    // 3. Dispatch events
-    const events = ['keydown', 'keypress', 'input', 'keyup', 'change', 'blur'];
-    events.forEach(eventType => {
-        element.dispatchEvent(new Event(eventType, { bubbles: true }));
-    });
-
-    // 4. jQuery Datepicker specific (if jQuery is present on page)
-    // We can't access page's jQuery directly from content script easily without injecting script.
-    // But we can try to trigger standard events that jQuery listens to.
-
-    // 5. Try closing the datepicker if it opened
-    // Sometimes clicking opens it, we might want to close it or let user close it.
-    // element.blur(); 
+function handleDatepicker(el, value) {
+    // value is already in DD/MM/YYYY at this point
+    // Try jQuery datepicker API first (Indian Visa uses jQuery UI datepicker)
+    if (typeof window.jQuery !== 'undefined' && window.jQuery(el).data('datepicker')) {
+        try {
+            // jQuery UI datepicker expects DD/MM/YYYY when dateFormat is 'dd/mm/yy'
+            window.jQuery(el).datepicker('setDate', value);
+            // Also sync the hidden input that shares the same name
+            var hidden = document.querySelector('input[type="hidden"][name="' + el.name + '"]');
+            if (hidden) {
+                hidden.value = value;
+                hidden.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+            return;
+        } catch (e) { /* fall through to manual approach */ }
+    }
+    // Fallback: manual value + event cascade
+    el.focus();
+    el.click();
+    el.value = value;
+    el.setAttribute('value', value);
+    var events = ['keydown', 'keypress', 'input', 'keyup', 'change', 'blur'];
+    for (var i = 0; i < events.length; i++) {
+        el.dispatchEvent(new Event(events[i], { bubbles: true }));
+    }
 }

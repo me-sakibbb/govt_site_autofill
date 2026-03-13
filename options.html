@@ -10,12 +10,82 @@
 
 <body class="bg-slate-50 text-slate-800 font-sans antialiased">
     <div class="max-w-3xl mx-auto p-6">
-        <header class="mb-8 text-center">
-            <h1 class="text-3xl font-bold text-slate-900 mb-2">AI Form Autofill Settings</h1>
-            <p class="text-slate-500">Manage your profiles and data for intelligent autofilling.</p>
+        <header class="mb-6 text-center">
+            <h1 class="text-3xl font-bold text-slate-900 mb-2">AI Form Autofill</h1>
+            <p class="text-slate-500">Intelligent data extraction and form filling powered by Next AI Solution.</p>
         </header>
 
-        <main>
+        <!-- Login Section - Always visible, but shows different state -->
+        <section class="card bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
+            <div id="loginFormContainer">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="p-2 bg-blue-100 rounded-lg text-blue-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-semibold text-slate-900 m-0">Connect your Account</h2>
+                        <p class="text-xs text-slate-500 m-0">Login to use your active subscription and AI limits.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-5">
+                    <div>
+                        <label>Email Address</label>
+                        <input type="email" id="loginEmailInput" placeholder="your@email.com">
+                    </div>
+                    <div>
+                        <label>Password</label>
+                        <input type="password" id="loginPasswordInput" placeholder="••••••••">
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 mt-10">
+                    <button id="loginBtn"
+                        class="inline-flex items-center px-6 py-2 border border-transparent text-sm font-semibold rounded-lg shadow-sm text-white bg-blue-600 hover:bg-blue-700 transition-colors">
+                        Login
+                    </button>
+                    <span id="loginStatus" class="text-sm"></span>
+                </div>
+            </div>
+
+            <div id="loggedInContainer"
+                style="display: none; background: white; border-radius: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); border: 1px solid #e2e8f0; padding: 24px;">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div id="userAvatar"
+                            style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #6366f1); color: white; font-weight: 800; font-size: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(59,130,246,0.3); border: 3px solid white; outline: 2px solid #dbeafe;">
+                        </div>
+                        <div>
+                            <p
+                                style="font-size: 10px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 2px 0;">
+                                Account Profile</p>
+                            <h3 id="loggedInEmail"
+                                style="font-size: 15px; font-weight: 700; color: #0f172a; margin: 0;"></h3>
+                        </div>
+                    </div>
+                    <button id="logoutBtn"
+                        style="padding: 8px 16px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 13px; font-weight: 600; color: #475569; background: white; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: all 0.2s;"
+                        onmouseover="this.style.color='#dc2626'; this.style.borderColor='#fecaca'; this.style.background='#fff5f5';"
+                        onmouseout="this.style.color='#475569'; this.style.borderColor='#e2e8f0'; this.style.background='white';">
+                        Logout
+                    </button>
+                </div>
+
+                <hr style="border: none; border-top: 1px solid #f1f5f9; margin: 20px 0;">
+
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+                    <span
+                        style="font-size: 12px; font-weight: 700; color: #1e293b; letter-spacing: -0.01em;">Subscription
+                        Limits</span>
+                </div>
+                <div id="userLimits" style="width: 100%;"></div>
+            </div>
+        </section>
+
+        <main class="hidden">
             <!-- Profile Management -->
             <section class="card bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
                 <div class="flex items-center justify-between mb-4">
@@ -24,7 +94,7 @@
                 <div class="flex flex-col sm:flex-row gap-3">
                     <div class="flex-grow">
                         <select id="profileSelector"
-                            class="w-full rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            class="w-full p-2.5 rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 bg-slate-50 transition-all outline-none">
                             <!-- Options populated by JS -->
                         </select>
                     </div>
@@ -39,71 +109,97 @@
                 </div>
             </section>
 
-            <!-- Profile Picture -->
-            <section class="card bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
-                <h2 class="text-lg font-semibold text-slate-900 mb-1">1. Profile Picture</h2>
-                <p class="text-sm text-slate-500 mb-4">Upload a photo to be used for file inputs (e.g., passport size
-                    photo).</p>
-
-                <div class="flex flex-col items-center justify-center w-full">
-                    <label for="profilePicInput"
-                        class="flex flex-col items-center justify-center w-full h-64 border-2 border-slate-300 border-dashed rounded-lg cursor-pointer bg-slate-50 hover:bg-slate-100 transition-colors relative overflow-hidden group">
-                        <div class="flex flex-col items-center justify-center pt-5 pb-6 z-10">
-                            <svg class="w-8 h-8 mb-4 text-slate-500" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                            </svg>
-                            <p class="mb-2 text-sm text-slate-500"><span class="font-semibold">Click to upload</span> or
-                                drag and drop</p>
-                            <p class="text-xs text-slate-500">SVG, PNG, JPG or GIF</p>
-                        </div>
-                        <input id="profilePicInput" type="file" class="hidden" accept="image/*" />
-                        <div id="profilePicPreview"
-                            class="absolute inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                            <!-- Preview image will appear here via JS, but we handle the preview container differently in JS -->
-                        </div>
-                        <!-- We need a persistent preview container that JS targets -->
-                        <div id="profilePicPreview"
-                            class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <!-- JS replaces content here -->
-                        </div>
-                    </label>
-                </div>
-            </section>
-
             <!-- Document Extraction -->
-            <section class="card bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6"
-                id="doc-upload-section">
-                <h2 class="text-lg font-semibold text-slate-900 mb-1">2. Document Extraction</h2>
-                <p class="text-sm text-slate-500 mb-4">Upload a document (ID, Passport, etc.) to automatically extract
-                    details.</p>
+            <section id="doc-upload-section"
+                style="background: white; border-radius: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); border: 1px solid #e2e8f0; padding: 24px; margin-bottom: 24px;">
+                <div style="margin-bottom: 16px;">
+                    <h2 style="font-size: 16px; font-weight: 700; color: #0f172a; margin: 0 0 4px 0;">1. Document
+                        Extraction</h2>
+                    <p style="font-size: 13px; color: #64748b; margin: 0;">Upload a document to automatically extract
+                        your personal details using AI.</p>
+                </div>
 
-                <div class="space-y-4" id="doc-upload">
-                    <input type="file" id="docInput" accept="image/*,application/pdf" class="block w-full text-sm text-slate-500
-                        file:mr-4 file:py-2 file:px-4
-                        file:rounded-full file:border-0
-                        file:text-sm file:font-semibold
-                        file:bg-blue-50 file:text-blue-700
-                        hover:file:bg-blue-100
-                    " />
+                <!-- Drag & Drop Zone -->
+                <label for="docInput" id="docDropZone"
+                    style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; min-height: 200px; border: 2px dashed #cbd5e1; border-radius: 14px; cursor: pointer; background: #f8fafc; transition: all 0.2s; box-sizing: border-box; padding: 32px 16px; text-align: center;"
+                    onmouseover="this.style.borderColor='#3b82f6'; this.style.background='#eff6ff';"
+                    onmouseout="this.style.borderColor='#cbd5e1'; this.style.background='#f8fafc';">
 
-                    <div class="flex items-center gap-3">
-                        <button id="extractBtn"
-                            class="inline-flex items-center px-4 py-2 border border-slate-300 shadow-sm text-sm font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
-                            <svg class="w-4 h-4 mr-2 text-slate-500" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
-                                </path>
-                            </svg>
-                            Extract Data with AI
-                        </button>
-                        <div id="extractionStatus" class="text-sm font-medium"></div>
+                    <!-- Icon -->
+                    <div
+                        style="width: 52px; height: 52px; border-radius: 50%; background: #eff6ff; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; flex-shrink: 0;">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                            <polyline points="17 8 12 3 7 8" />
+                            <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
                     </div>
+
+                    <p id="docDropLabel" style="font-size: 14px; font-weight: 600; color: #1e293b; margin: 0 0 4px 0;">
+                        Click to upload or drag &amp; drop</p>
+                    <p style="font-size: 12px; color: #94a3b8; margin: 0 0 16px 0;">Supports PDF, DOCX, TXT, JPG, PNG,
+                        WEBP</p>
+
+                    <!-- File Type Badges -->
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;">
+                        <span
+                            style="padding: 3px 10px; border-radius: 999px; background: #fee2e2; color: #dc2626; font-size: 10px; font-weight: 700;">PDF</span>
+                        <span
+                            style="padding: 3px 10px; border-radius: 999px; background: #dbeafe; color: #2563eb; font-size: 10px; font-weight: 700;">DOCX</span>
+                        <span
+                            style="padding: 3px 10px; border-radius: 999px; background: #dcfce7; color: #16a34a; font-size: 10px; font-weight: 700;">TXT</span>
+                        <span
+                            style="padding: 3px 10px; border-radius: 999px; background: #fef3c7; color: #d97706; font-size: 10px; font-weight: 700;">JPG</span>
+                        <span
+                            style="padding: 3px 10px; border-radius: 999px; background: #ede9fe; color: #7c3aed; font-size: 10px; font-weight: 700;">PNG</span>
+                    </div>
+
+                    <input type="file" id="docInput"
+                        accept="image/*,application/pdf,.pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.txt,text/plain"
+                        style="display: none;" />
+                </label>
+
+                <!-- Selected File Info -->
+                <div id="docFileInfo"
+                    style="display: none; margin-top: 12px; padding: 12px 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; align-items: center; justify-content: space-between; gap: 10px;">
+                    <div style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0;">
+                        <div
+                            style="width: 36px; height: 36px; border-radius: 8px; background: #eff6ff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                            </svg>
+                        </div>
+                        <div style="flex: 1; min-width: 0;">
+                            <p id="docFileName"
+                                style="font-size: 13px; font-weight: 600; color: #1e293b; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            </p>
+                            <p id="docFileSize" style="font-size: 11px; color: #94a3b8; margin: 0;"></p>
+                        </div>
+                    </div>
+                    <button id="docClearBtn"
+                        style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #fee2e2; border: none; color: #dc2626; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; line-height: 1;">×</button>
+                </div>
+
+                <!-- Extract Button + Status -->
+                <div style="margin-top: 16px; display: flex; align-items: center; gap: 12px;">
+                    <button id="extractBtn"
+                        style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: #3b82f6; color: white; border: none; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 1px 4px rgba(59,130,246,0.3);"
+                        onmouseover="this.style.background='#2563eb'; this.style.boxShadow='0 4px 12px rgba(59,130,246,0.4)';"
+                        onmouseout="this.style.background='#3b82f6'; this.style.boxShadow='0 1px 4px rgba(59,130,246,0.3)';">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        </svg>
+                        Extract with AI
+                    </button>
+                    <div id="extractionStatus" style="font-size: 13px; font-weight: 500;"></div>
                 </div>
             </section>
+
 
             <!-- Personal Data -->
             <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
@@ -122,7 +218,7 @@
             </section>
         </main>
 
-        <footer class="sticky bottom-6 mt-8">
+        <footer class="sticky bottom-6 mt-8 hidden">
             <div
                 class="bg-white/90 backdrop-blur border border-slate-200 shadow-lg rounded-xl p-4 flex items-center justify-between">
                 <div id="saveStatus" class="text-sm font-medium"></div>
@@ -135,28 +231,29 @@
     </div>
 
     <!-- Profile Creation Modal -->
-    <div id="profileModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog"
-        aria-modal="true">
+    <div id="profileModal" style="display: none; position: fixed; inset: 0; z-index: 50; overflow-y: auto;"
+        aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <!-- Backdrop -->
-        <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity"></div>
+        <div style="position: fixed; inset: 0; background: rgba(15,23,42,0.5); backdrop-filter: blur(4px);"></div>
 
-        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+        <div style="display: flex; min-height: 100%; align-items: center; justify-content: center; padding: 16px;">
             <div
-                class="relative transform overflow-hidden rounded-xl bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                style="position: relative; width: 100%; max-width: 512px; background: white; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); overflow: hidden;">
 
                 <!-- Header -->
-                <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 border-b border-slate-100">
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-lg font-semibold leading-6 text-slate-900" id="modalTitle">Create New Profile
-                        </h3>
-                        <button id="closeModalBtn" class="text-slate-400 hover:text-slate-500 transition-colors">
-                            <span class="sr-only">Close</span>
-                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
+                <div
+                    style="padding: 20px 24px; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between;">
+                    <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin: 0;" id="modalTitle">Create New
+                        Profile</h3>
+                    <button id="closeModalBtn"
+                        style="color: #94a3b8; background: none; border: none; cursor: pointer; padding: 4px; border-radius: 6px; display: flex; align-items: center; justify-content: center;"
+                        onmouseover="this.style.color='#475569'; this.style.background='#f1f5f9';"
+                        onmouseout="this.style.color='#94a3b8'; this.style.background='none';">
+                        <svg style="width: 20px; height: 20px;" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
                 </div>
 
                 <!-- Body -->
@@ -178,7 +275,7 @@
                     </div>
 
                     <!-- Step 2: Site Selection -->
-                    <div id="step2" class="step-content hidden space-y-4">
+                    <div id="step2" class="step-content space-y-4" style="display:none">
                         <label class="block text-sm font-medium text-slate-700">Select Site / Template</label>
                         <div class="grid grid-cols-2 gap-3 sm:grid-cols-2">
                             <!-- BDRIS -->
@@ -253,7 +350,7 @@
                     </div>
 
                     <!-- Step 3: Method Selection -->
-                    <div id="step3" class="step-content hidden space-y-4">
+                    <div id="step3" class="step-content space-y-4" style="display:none">
                         <label class="block text-sm font-medium text-slate-700">How do you want to start?</label>
                         <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
                             <button id="methodScan"
@@ -306,13 +403,18 @@
     </div>
 
     <template id="fieldTemplate">
-        <div class="field-row flex items-center gap-2 group">
-            <input type="text"
-                class="field-key block w-1/3 rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm bg-slate-50"
-                placeholder="Label">
-            <input type="text"
-                class="field-value block w-full rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                placeholder="Value">
+        <div
+            class="field-row flex items-center gap-3 group bg-slate-50/50 p-2 rounded-lg border border-transparent hover:border-slate-200 transition-all">
+            <div class="w-1/3">
+                <input type="text"
+                    class="field-key block w-full p-2.5 rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm bg-white"
+                    placeholder="Field Label">
+            </div>
+            <div class="flex-grow">
+                <input type="text"
+                    class="field-value block w-full p-2.5 rounded-lg border-slate-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm bg-white"
+                    placeholder="Value">
+            </div>
             <button
                 class="remove-field-btn text-slate-400 hover:text-red-500 p-2 rounded-full hover:bg-red-50 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
                 title="Remove Field">

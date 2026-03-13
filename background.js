@@ -1,233 +1,131 @@
-importScripts('config.js');
+// background.js - Gemini AI service worker
+const MODEL = 'gemini-2.5-flash-lite';
+const SERVER_URL = 'http://localhost:3000'; // Change this to your production domain later
 
-const MODEL = 'gemini-2.5-flash-lite'
-const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
-
-// Listen for messages
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === 'EXTRACT_DATA') {
-        handleExtraction(request.payload, sendResponse);
-        return true; // Keep channel open for async response
-    }
-    if (request.action === 'MAP_FIELDS') {
-        handleMapping(request.payload, sendResponse);
-        return true;
-    }
-    // Session storage proxied through background so content scripts can access it
-    if (request.action === 'SESSION_GET') {
-        chrome.storage.session.get([request.key], (result) => {
-            sendResponse({ value: result[request.key] ?? null });
-        });
-        return true;
-    }
-    if (request.action === 'SESSION_SET') {
-        chrome.storage.session.set({ [request.key]: request.value }, () => {
-            sendResponse({ success: true });
-        });
-        return true;
-    }
+    const handlers = {
+        EXTRACT_DATA: () => handleExtraction(request.payload, sendResponse),
+        MAP_FIELDS: () => handleMapping(request.payload, sendResponse),
+        SESSION_GET: () => chrome.storage.session.get([request.key], r => sendResponse({ value: r[request.key] ?? null })),
+        SESSION_SET: () => chrome.storage.session.set({ [request.key]: request.value }, () => sendResponse({ success: true })),
+        OPEN_OPTIONS: () => { chrome.runtime.openOptionsPage(); sendResponse({ success: true }); },
+    };
+    if (handlers[request.action]) { handlers[request.action](); return true; }
 });
 
-async function getApiKey() {
-    return GEMINI_API_KEY;
+// Shared Gemini caller (via Next JS Server)
+async function callGemini(parts) {
+    const { supabaseSession, nextAiServerUrl } = await chrome.storage.local.get(['supabaseSession', 'nextAiServerUrl']);
+
+    if (!supabaseSession || !supabaseSession.access_token) {
+        throw new Error('Not logged in. Open extension Options to login to Next AI Solution.');
+    }
+
+    const API_ENDPOINT = `${nextAiServerUrl || SERVER_URL}/api/extension/gemini`;
+
+    const res = await fetch(API_ENDPOINT, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${supabaseSession.access_token}`
+        },
+        body: JSON.stringify({ parts }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        throw new Error(data.error || 'Server error calling Gemini');
+    }
+
+    return { parsed: data.parsed, usage: data.usage };
 }
 
+// Extraction (document to structured profile data)
 async function handleExtraction(payload, sendResponse) {
     try {
-        const apiKey = await getApiKey();
-        if (!apiKey) {
-            sendResponse({ success: false, error: 'API Key not found. Please set it in Options.' });
-            return;
-        }
+        const { image, textContent, targetFields } = payload;
 
-        const { image, targetFields } = payload;
-        // Image comes as "data:image/jpeg;base64,..."
-        // Gemini needs just the base64 string
-        const base64Image = image.split(',')[1];
-        const mimeType = image.split(';')[0].split(':')[1];
+        // Build the core instruction
+        let prompt = `You are an expert data extraction assistant. Your job is to extract personal information from a document and fill a profile form.\n\n`;
 
-        let prompt = `
-You are an expert Data Extraction AI.
-Your goal is to extract personal information from the provided document image with high accuracy.
+        if (targetFields && targetFields.length > 0) {
+            prompt += `TARGET PROFILE FIELDS (these are the EXACT keys you must use in your response):\n`;
+            prompt += JSON.stringify(targetFields, null, 2) + '\n\n';
 
-### Process:
-1. **Analyze**: First, carefully scan the entire document to understand its structure and identify where personal data is located.
-2. **Reason**: Think about which text corresponds to which requested field. Consider semantic matches (e.g., "Mother's Name" might be labeled as "Name of Mother" or "Matriarch").
-3. **Extract**: Extract the exact values.
-
-### Output Format:
-Return a single JSON object.
-- Include a key "_reasoning" where you briefly explain your thought process and any ambiguities you resolved.
-- Keys must match the "Target Fields" exactly if provided.
-- If "Target Fields" are not provided, use descriptive snake_case keys.
-
-`;
-
-        if (targetFields && Array.isArray(targetFields) && targetFields.length > 0) {
-            prompt += `
-### Target Fields:
-${JSON.stringify(targetFields)}
-
-### Extraction Rules:
-1. **Exact Keys**: You MUST use the exact keys listed in "Target Fields".
-2. **Semantic Mapping**: If a field label in the document is slightly different from the Target Field key, use your reasoning to map it correctly.
-   - Example: Target "date_of_birth" -> Document "DOB" or "Birth Date".
-   - Example: Target "permanent_address" -> Document "Home Address" or "Address (Perm)".
-3. **Bilingual Handling**:
-   - If a field has (English) and (Bangla) versions in the target list, try to find both.
-   - If only one language is present in the document, TRANSLATE or TRANSLITERATE to fill the missing one.
-   - Ensure (English) fields contain ONLY English characters.
-   - Ensure (Bangla) fields contain ONLY Bangla characters.
-4. **Missing Data**: If a field is absolutely not found and cannot be inferred, return an empty string "".
-`;
+            prompt += `EXTRACTION RULES:\n`;
+            prompt += `1. Return ONLY a valid JSON object using the EXACT keys listed above.\n`;
+            prompt += `2. Perform DEEP SEMANTIC MATCHING - the document labels may be different from the target keys. Use meaning, not exact text.\n`;
+            prompt += `   Examples of semantic matching:\n`;
+            prompt += `   - "নাম" or "Name" or "Full Name" → match to keys like "Child Name (English)" or "Father's Name (Bangla)" based on context\n`;
+            prompt += `   - "জন্ম তারিখ" or "DOB" or "Date of Birth" → "Date of Birth" or "Father's Date of Birth" etc.\n`;
+            prompt += `   - "জাতীয় পরিচয়পত্র নং" or "NID" or "National ID" → "Father's National ID" or "Mother's National ID"\n`;
+            prompt += `   - "পিতার নাম" or "Father" → "Father's Name (Bangla)" and/or "Father's Name (English)"\n`;
+            prompt += `   - "মাতার নাম" or "Mother" → "Mother's Name (Bangla)" and/or "Mother's Name (English)"\n`;
+            prompt += `3. If a field has both Bangla and English variants (e.g. "Father's Name (Bangla)" and "Father's Name (English)"):\n`;
+            prompt += `   - If the document has the name in Bangla script, fill the Bangla field and transliterate to fill the English one.\n`;
+            prompt += `   - If the document has it in English, fill the English field and transliterate for the Bangla one.\n`;
+            prompt += `4. DERIVE fields when possible:\n`;
+            prompt += `   - If you see a full name "Mohammad Ahmed Hossain", you can split/use it for both Bangla and English name fields.\n`;
+            prompt += `   - If you see a date "15-07-1990", convert to "15/07/1990" format for date fields.\n`;
+            prompt += `5. For fields NOT found in the document, use empty string "" - do NOT guess or hallucinate values.\n`;
+            prompt += `6. Ignore fields that are completely irrelevant to the document (e.g. address fields when document only has personal info).\n`;
+            prompt += `7. Be aggressive about filling fields - it's better to fill a field with a reasonable match than leave it empty. However do NOT fill in wrong information.\n`;
+            prompt += `8. If a field has both Bangla and English variants (e.g. "Father's Name (Bangla)" and "Father's Name (English)"):\n`;
+            prompt += `   - If the document has the name in Bangla script, fill the Bangla field and transliterate to fill the English one.\n`;
+            prompt += `   - If the document has it in English, fill the English field and transliterate for the Bangla one.\n`;
+            prompt += `9. Be intelligent about filling the fields. Check if any field can be filled from the given information.\n`;
         } else {
-            prompt += `
-### Task:
-Extract all available personal data (Name, Parents' Names, DOB, NID, Address, etc.) as a flat JSON object.
-`;
+            prompt += `Extract ALL personal data from the document as a flat JSON object with descriptive English snake_case keys.\n`;
+            prompt += `Include: name, father_name, mother_name, date_of_birth, national_id, address, phone, email, occupation, etc.\n`;
         }
 
-        prompt += "\nReturn ONLY the JSON object. No markdown formatting.";
+        prompt += `\nReturn ONLY the JSON object, no explanation, no markdown.`;
 
-        const response = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                contents: [{
-                    parts: [
-                        { text: prompt },
-                        {
-                            inline_data: {
-                                mime_type: mimeType,
-                                data: base64Image
-                            }
-                        }
-                    ]
-                }],
-                generationConfig: {
-                    // response_mime_type: "application/json" // Not supported by gemma-3-27b-it
-                }
-            })
-        });
+        const parts = [];
 
-        const data = await response.json();
-        if (data.usageMetadata) {
-            console.log('Extraction Token Usage:', data.usageMetadata);
-        }
-        if (data.error) {
-            throw new Error(data.error.message);
+        // Add content - either text or image
+        if (textContent) {
+            // For plain text files (TXT, etc.)
+            parts.push({ text: prompt + `\n\nDOCUMENT CONTENT:\n${textContent}` });
+        } else if (image) {
+            const base64Image = image.split(',')[1];
+            const mimeType = image.split(';')[0].split(':')[1];
+            parts.push({ text: prompt });
+            parts.push({ inline_data: { mime_type: mimeType, data: base64Image } });
+        } else {
+            throw new Error('No document content provided');
         }
 
-        let content = data.candidates[0].content.parts[0].text;
+        const { parsed, usage } = await callGemini(parts);
 
-        // Robust JSON extraction
-        const jsonMatch = content.match(/\{[\s\S]*\}/);
-        if (jsonMatch) {
-            content = jsonMatch[0];
-        }
-
-        const extractedData = JSON.parse(content);
-
-        // Log reasoning and then remove it from payload
-        if (extractedData._reasoning) {
-            console.log("AI Extraction Reasoning:", extractedData._reasoning);
-            delete extractedData._reasoning;
-        }
-
-        sendResponse({ success: true, data: extractedData, usageMetadata: data.usageMetadata });
-
+        sendResponse({ success: true, data: parsed, usageMetadata: usage });
     } catch (error) {
-        console.error('Extraction Error:', error);
         sendResponse({ success: false, error: error.message });
     }
 }
 
+// Mapping (user data to form field IDs)
 async function handleMapping(payload, sendResponse) {
     try {
-        const apiKey = await getApiKey();
-        if (!apiKey) {
-            sendResponse({ success: false, error: 'API Key not found.' });
-            return;
-        }
-
         const { formFields, userData, site } = payload;
 
-        // Optimization: Concise but clear prompt
-        let prompt = `
-You are a form autofill assistant.
-Task: Map "User Data" values to "Form Fields".
-
-Rules:
-1. Match User Data keys to Form Field IDs/Labels/Names.
-2. Return a JSON object: { "Field_ID": "Value" }.
-3. For Dropdowns/Radios: Return the "value" (preferred) or "text" that matches the User Data.
-4. If no match found for a field, omit it.
-5. Output ONLY valid JSON. Do not use markdown formatting or code blocks.
-`;
+        let prompt = 'Map user data values to form fields. Return JSON: {"field_id": "value"}.\n';
+        prompt += 'Rules:\n';
+        prompt += '- Match by semantic meaning of labels/names/IDs.\n';
+        prompt += '- For dropdowns/radios: return the option "value" attribute that best matches.\n';
+        prompt += '- Omit fields with no matching data.\n';
 
         if (site === 'bdris') {
-            prompt += `
-Special Rule for BDRIS:
-- If the target field is 'Nationality' or 'জাতীয়তা' and no matching value is found in User Data, use 'বাংলাদেশী'.
-`;
+            prompt += '- Default Nationality to "bangladeshi" if not in user data.\n';
         }
 
-        prompt += `
-User Data:
-${JSON.stringify(userData)}
+        prompt += '\nUser Data:\n' + JSON.stringify(userData) + '\n\nForm Fields:\n' + JSON.stringify(formFields);
 
-Form Fields:
-${JSON.stringify(formFields)}
-`;
+        const { parsed, usage } = await callGemini([{ text: prompt }]);
 
-        const response = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                contents: [{
-                    parts: [
-                        { text: prompt }
-                    ]
-                }],
-                generationConfig: {
-                    // response_mime_type: "application/json" // Not supported by gemma-3-27b-it
-                }
-            })
-        });
-
-        const data = await response.json();
-        if (data.usageMetadata) {
-            console.log('Mapping Token Usage:', data.usageMetadata);
-        }
-        if (data.error) {
-            throw new Error(data.error.message);
-        }
-
-        let content = data.candidates[0].content.parts[0].text;
-
-        // Robust JSON extraction
-        const jsonMatch = content.match(/\{[\s\S]*\}/);
-        if (jsonMatch) {
-            content = jsonMatch[0];
-        }
-
-        let mapping = {};
-        let parseError = null;
-        try {
-            mapping = JSON.parse(content);
-        } catch (e) {
-            console.error('JSON Parse Error:', e);
-            parseError = e.message;
-        }
-
-        sendResponse({ success: true, mapping: mapping, raw_response: content, parse_error: parseError, usageMetadata: data.usageMetadata });
-
+        sendResponse({ success: true, mapping: parsed, usageMetadata: usage });
     } catch (error) {
-        console.error('Mapping Error:', error);
         sendResponse({ success: false, error: error.message });
     }
 }
