@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const deleteProfileBtn = document.getElementById('deleteProfileBtn');
 
     // Configuration
-    const SERVER_URL = 'http://localhost:3000'; // Change this to your production domain later
+    const SERVER_URL = 'https://nexitsolution.bd/'; // Change this to your production domain later
 
     // Server & Login Elements
     const loginFormContainer = document.getElementById('loginFormContainer');
@@ -418,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Load template based on site
         if (wizardState.site === 'bdris') {
-            initialData = { ...BDRIS_FIELDS };
+            initialData = { ...BDRIS_DUMMY_PROFILE.data };
         } else if (wizardState.site === 'teletalk') {
             initialData = { ...TELETALK_FIELDS };
         } else if (wizardState.site === 'indian_visa') {
@@ -475,11 +475,37 @@ document.addEventListener('DOMContentLoaded', () => {
     // Field Management
     // ====================
 
+    function formatLabel(key) {
+        let label = key;
+        
+        // Try to get label from BDRIS_FIELDS if that matches
+        if (BDRIS_FIELDS[key] && BDRIS_FIELDS[key].label) {
+            label = BDRIS_FIELDS[key].label;
+        }
+
+        // If it's empty, fallback to the key itself
+        return label;
+    }
+
     function addFieldRow(key = '', value = '') {
         const template = document.getElementById('fieldTemplate');
         const row = template.content.cloneNode(true).querySelector('.field-row');
 
-        row.querySelector('.field-key').value = key;
+        if (key) {
+            row.dataset.key = key;
+        }
+
+        const keyInput = row.querySelector('.field-key');
+        if (key) {
+            // Replace the input with a simple text element (span)
+            const textLabel = document.createElement('span');
+            textLabel.className = 'block w-full text-sm font-medium text-slate-700 truncate px-1';
+            textLabel.textContent = formatLabel(key);
+            keyInput.parentNode.replaceChild(textLabel, keyInput);
+        } else {
+            keyInput.value = '';
+        }
+
         row.querySelector('.field-value').value = value;
 
         row.querySelector('.remove-field-btn').addEventListener('click', () => {
@@ -493,7 +519,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = {};
         const rows = fieldsContainer.querySelectorAll('.field-row');
         rows.forEach(row => {
-            const key = row.querySelector('.field-key').value.trim();
+            let key = row.dataset.key;
+            if (!key) {
+                const keyInput = row.querySelector('.field-key');
+                key = keyInput ? keyInput.value.trim() : '';
+            }
             const value = row.querySelector('.field-value').value.trim();
             if (key) {
                 data[key] = value;
@@ -671,8 +701,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const isText = file.type === 'text/plain' || file.name.endsWith('.txt');
         const isDocx = file.name.endsWith('.docx') || file.type.includes('wordprocessingml');
 
-        // Profile field labels (the keys) as targets for AI
-        const targetFields = Object.keys(profile.data);
+        // Profile field labels as targets for AI
+        let activeSiteFields = {};
+        if (profile.site === 'bdris') activeSiteFields = BDRIS_FIELDS;
+        else if (profile.site === 'indian_visa') activeSiteFields = INDIAN_VISA_FIELDS;
+        else if (profile.site === 'teletalk') activeSiteFields = TELETALK_FIELDS;
+
+        const targetFields = {};
+        Object.keys(profile.data).forEach(key => {
+            targetFields[key] = activeSiteFields[key] ? activeSiteFields[key].label : key;
+        });
 
         const setStatus = (msg, color = '#3b82f6') => {
             extractionStatus.textContent = msg;

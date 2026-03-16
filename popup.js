@@ -7,7 +7,7 @@ const popupEmail = document.getElementById('popup-email');
 const popupPlan = document.getElementById('popup-plan');
 const popupLimits = document.getElementById('popup-limits');
 
-const SERVER_URL = 'http://localhost:3000'; // Change this to your production domain later
+const SERVER_URL = 'https://nexitsolution.bd/'; // Change this to your production domain later
 
 document.addEventListener('DOMContentLoaded', () => {
     chrome.storage.local.get(['supabaseSession', 'nextAiServerUrl'], async (result) => {

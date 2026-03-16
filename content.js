@@ -402,18 +402,43 @@ function sessionSet(key, value) {
     });
 }
 
+function localMapFields(formFields, userData, site) {
+    if (!userData || Object.keys(userData).length === 0) return null;
+    var mapping = {};
+    var matchedCount = 0;
+    
+    formFields.forEach(function(f) {
+        var val = null;
+        var key = f.name || f.id;
+        
+        if (key && userData.hasOwnProperty(key) && userData[key]) {
+            val = userData[key];
+        } else {
+            // Also try to find a key in userData that matches the input name exactly
+            var matchedKey = Object.keys(userData).find(k => k === f.id || k === f.name);
+            if (matchedKey && userData[matchedKey]) {
+                val = userData[matchedKey];
+            }
+        }
+        
+        if (val) {
+            mapping[f.id] = val;
+            matchedCount++;
+        }
+    });
+    
+    // Use local mapping exclusively if there's any match 
+    if (matchedCount > 0) {
+        return { success: true, mapping: mapping };
+    }
+    return { success: true, mapping: {} };
+}
+
 function sendMappingRequest(formFields, userData, site) {
-    return new Promise(function (resolve, reject) {
-        var timeout = setTimeout(function () { reject(new Error('AI mapping timed out after 60s')); }, 60000);
-        chrome.runtime.sendMessage({
-            action: 'MAP_FIELDS',
-            payload: { formFields: formFields, userData: userData, site: site },
-        }, function (response) {
-            clearTimeout(timeout);
-            if (chrome.runtime.lastError) reject(new Error(chrome.runtime.lastError.message));
-            else if (response && response.success) resolve(response);
-            else reject(new Error((response && response.error) || 'Mapping failed'));
-        });
+    return new Promise(function (resolve) {
+        var localResult = localMapFields(formFields, userData, site);
+        console.log('Using local mapping for', site);
+        return resolve(localResult);
     });
 }
 
@@ -577,18 +602,57 @@ function setNativeValue(element, value) {
 
 function setSelectValue(el, value) {
     if (value == null) return false;
-    var valStr = String(value).toLowerCase();
+    var valStr = String(value).toLowerCase().trim();
     var i;
+    
+    // 1. Exact value match
     for (i = 0; i < el.options.length; i++) {
-        if (el.options[i].value === String(value)) { setNativeValue(el, el.options[i].value); return true; }
+        if (el.options[i].value === String(value)) { 
+            setNativeValue(el, el.options[i].value); 
+            return true; 
+        }
     }
+    
+    // 2. Exact text match
     for (i = 0; i < el.options.length; i++) {
-        var optText = el.options[i].text.toLowerCase();
-        if (optText.includes(valStr) || valStr.includes(optText)) {
+        if (el.options[i].text.toLowerCase().trim() === valStr) {
             setNativeValue(el, el.options[i].value);
             return true;
         }
     }
+
+    // 3. Best partial match (find option with highest similarity or inclusion)
+    var bestMatchIndex = -1;
+    var bestMatchScore = 0;
+
+    var valueWords = valStr.split(/\s+/);
+
+    for (i = 0; i < el.options.length; i++) {
+        var optText = el.options[i].text.toLowerCase().trim();
+        if (!optText) continue;
+
+        if (optText.includes(valStr) || valStr.includes(optText)) {
+            // Give preference to includes matches
+            setNativeValue(el, el.options[i].value);
+            return true;
+        }
+
+        var matchCount = 0;
+        valueWords.forEach(word => {
+            if (word.length > 2 && optText.includes(word)) matchCount++;
+        });
+
+        if (matchCount > bestMatchScore) {
+            bestMatchScore = matchCount;
+            bestMatchIndex = i;
+        }
+    }
+    
+    if (bestMatchIndex !== -1) {
+        setNativeValue(el, el.options[bestMatchIndex].value);
+        return true;
+    }
+
     return false;
 }
 

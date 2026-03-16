@@ -1,123 +1,125 @@
-export const BDRIS_FIELDS = {
+import os
+
+bdris_config = """export const BDRIS_FIELDS = {
     "personFirstNameBn": {
         "name": "personInfoForBirth.personFirstNameBn",
-        "label": "First Name (Bengali)"
+        "label": "personFirstNameBn"
     },
     "personLastNameBn": {
         "name": "personInfoForBirth.personLastNameBn",
-        "label": "Last Name (Bengali)"
+        "label": "personLastNameBn"
     },
     "personFirstNameEn": {
         "name": "personInfoForBirth.personFirstNameEn",
-        "label": "First Name (English)"
+        "label": "personFirstNameEn"
     },
     "personLastNameEn": {
         "name": "personInfoForBirth.personLastNameEn",
-        "label": "Last Name (English)"
+        "label": "personLastNameEn"
     },
     "personBirthDate": {
         "name": "personInfoForBirth.personBirthDate",
-        "label": "Date of Birth"
+        "label": "personBirthDate"
     },
     "thChild": {
         "name": "personInfoForBirth.thChild",
-        "label": "Child Order (N-th Child)"
+        "label": "thChild"
     },
     "gender": {
         "name": "personInfoForBirth.gender",
-        "label": "Gender (Bangla) [পুরুষ, মহিলা]"
+        "label": "gender"
     },
     "personNid": {
         "name": "personInfoForBirth.personNid",
-        "label": "National ID (NID)"
+        "label": "personNid"
     },
     "birthPlaceCountry": {
         "name": "birthPlaceCountry",
-        "label": "Birth Place Country (Bangla)"
+        "label": "birthPlaceCountry"
     },
     "birthPlaceDiv": {
         "name": "birthPlaceDiv",
-        "label": "Birth Place Division"
+        "label": "birthPlaceDiv"
     },
     "birthPlaceDist": {
         "name": "birthPlaceDist",
-        "label": "Birth Place District"
+        "label": "birthPlaceDist"
     },
     "birthPlaceCityCorpCantOrUpazila": {
         "name": "birthPlaceCityCorpCantOrUpazila",
-        "label": "Birth City Corporation / Upazila"
+        "label": "birthPlaceCityCorpCantOrUpazila"
     },
     "birthPlacePaurasavaOrUnion": {
         "name": "birthPlacePaurasavaOrUnion",
-        "label": "Birth Paurasava / Union"
+        "label": "birthPlacePaurasavaOrUnion"
     },
     "birthPlaceWardInPaurasavaOrUnion": {
         "name": "birthPlaceWardInPaurasavaOrUnion",
-        "label": "Birth Ward / Village"
+        "label": "birthPlaceWardInPaurasavaOrUnion"
     },
     "birthPlacePostOfc": {
         "name": "birthPlacePostOfc",
-        "label": "Birth Post Office (Bengali)"
+        "label": "birthPlacePostOfc"
     },
     "birthPlacePostOfcEn": {
         "name": "birthPlacePostOfcEn",
-        "label": "Birth Post Office (English)"
+        "label": "birthPlacePostOfcEn"
     },
     "birthPlaceVilAreaTownBn": {
         "name": "birthPlaceVilAreaTownBn",
-        "label": "Birth Village/Area/Town (Bengali)"
+        "label": "birthPlaceVilAreaTownBn"
     },
     "birthPlaceVilAreaTownEn": {
         "name": "birthPlaceVilAreaTownEn",
-        "label": "Birth Village/Area/Town (English)"
+        "label": "birthPlaceVilAreaTownEn"
     },
     "birthPlaceHouseRoadBn": {
         "name": "birthPlaceHouseRoadBn",
-        "label": "Birth House/Road (Bengali)"
+        "label": "birthPlaceHouseRoadBn"
     },
     "birthPlaceHouseRoadEn": {
         "name": "birthPlaceHouseRoadEn",
-        "label": "Birth House/Road (English)"
+        "label": "birthPlaceHouseRoadEn"
     },
     "fatherBrn": {
-        "name": "fatherBrn",
-        "label": "Father's BRN"
+        "name": "personInfoForBirth.father.ubrn",
+        "label": "fatherBrn"
     },
     "fatherBirthDate": {
-        "name": "fatherBirthDate",
-        "label": "Father's Date of Birth"
+        "name": "personInfoForBirth.father.personBirthDate",
+        "label": "fatherBirthDate"
     },
     "fatherNameBn": {
-        "name": "fatherNameBn",
-        "label": "Father's Name (Bengali)"
+        "name": "personInfoForBirth.father.personNameBn",
+        "label": "fatherNameBn"
     },
     "fatherNameEn": {
-        "name": "fatherNameEn",
-        "label": "Father's Name (English)"
+        "name": "personInfoForBirth.father.personNameEn",
+        "label": "fatherNameEn"
     },
     "fatherNationality": {
-        "name": "fatherNationality",
-        "label": "Father's Nationality"
+        "name": "personInfoForBirth.father.personNationality",
+        "label": "fatherNationality"
     },
     "motherBrn": {
-        "name": "motherBrn",
-        "label": "Mother's BRN"
+        "name": "personInfoForBirth.mother.ubrn",
+        "label": "motherBrn"
     },
     "motherBirthDate": {
-        "name": "motherBirthDate",
-        "label": "Mother's Date of Birth"
+        "name": "personInfoForBirth.mother.personBirthDate",
+        "label": "motherBirthDate"
     },
     "motherNameBn": {
-        "name": "motherNameBn",
-        "label": "Mother's Name (Bengali)"
+        "name": "personInfoForBirth.mother.personNameBn",
+        "label": "motherNameBn"
     },
     "motherNameEn": {
-        "name": "motherNameEn",
-        "label": "Mother's Name (English)"
+        "name": "personInfoForBirth.mother.personNameEn",
+        "label": "motherNameEn"
     },
     "motherNationality": {
-        "name": "motherNationality",
-        "label": "Mother's Nationality"
+        "name": "personInfoForBirth.mother.personNationality",
+        "label": "motherNationality"
     }
 };
 
@@ -157,4 +159,7 @@ export const BDRIS_DUMMY_PROFILE = {
         "motherNameEn": "",
         "motherNationality": ""
     }
-};
+};"""
+
+with open("modules/bdris_config.js", "w", encoding="utf-8") as f:
+    f.write(bdris_config)

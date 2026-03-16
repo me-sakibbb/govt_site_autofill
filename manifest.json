@@ -11,7 +11,8 @@
   "host_permissions": [
     "https://*.supabase.co/*",
     "http://localhost/*",
-    "http://127.0.0.1/*"
+    "http://127.0.0.1/*",
+    "https://nexitsolution.bd/*"
   ],
   "options_page": "options.html",
   "background": {

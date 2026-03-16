@@ -1,11 +1,10 @@
 // background.js - Gemini AI service worker
 const MODEL = 'gemini-2.5-flash-lite';
-const SERVER_URL = 'http://localhost:3000'; // Change this to your production domain later
+const SERVER_URL = 'https://nexitsolution.bd'; // Removed trailing slash to prevent double slashes
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     const handlers = {
         EXTRACT_DATA: () => handleExtraction(request.payload, sendResponse),
-        MAP_FIELDS: () => handleMapping(request.payload, sendResponse),
         SESSION_GET: () => chrome.storage.session.get([request.key], r => sendResponse({ value: r[request.key] ?? null })),
         SESSION_SET: () => chrome.storage.session.set({ [request.key]: request.value }, () => sendResponse({ success: true })),
         OPEN_OPTIONS: () => { chrome.runtime.openOptionsPage(); sendResponse({ success: true }); },
@@ -49,13 +48,14 @@ async function handleExtraction(payload, sendResponse) {
         // Build the core instruction
         let prompt = `You are an expert data extraction assistant. Your job is to extract personal information from a document and fill a profile form.\n\n`;
 
-        if (targetFields && targetFields.length > 0) {
-            prompt += `TARGET PROFILE FIELDS (these are the EXACT keys you must use in your response):\n`;
+        if (targetFields && Object.keys(targetFields).length > 0) {
+            prompt += `TARGET PROFILE FIELDS:\n`;
+            prompt += `You must extract the information and return a JSON object where the keys are EXACTLY the following IDs. I have provided the human-readable label for each ID to help you map the data:\n`;
             prompt += JSON.stringify(targetFields, null, 2) + '\n\n';
 
             prompt += `EXTRACTION RULES:\n`;
-            prompt += `1. Return ONLY a valid JSON object using the EXACT keys listed above.\n`;
-            prompt += `2. Perform DEEP SEMANTIC MATCHING - the document labels may be different from the target keys. Use meaning, not exact text.\n`;
+            prompt += `1. Return ONLY a valid JSON object using the EXACT IDs (keys) listed above. Never use the labels as keys in the JSON.\n`;
+            prompt += `2. Perform DEEP SEMANTIC MATCHING - use the provided labels to understand what each ID means. Match document text to the labels, but output the ID.\n`;
             prompt += `   Examples of semantic matching:\n`;
             prompt += `   - "নাম" or "Name" or "Full Name" → match to keys like "Child Name (English)" or "Father's Name (Bangla)" based on context\n`;
             prompt += `   - "জন্ম তারিখ" or "DOB" or "Date of Birth" → "Date of Birth" or "Father's Date of Birth" etc.\n`;
@@ -68,7 +68,10 @@ async function handleExtraction(payload, sendResponse) {
             prompt += `4. DERIVE fields when possible:\n`;
             prompt += `   - If you see a full name "Mohammad Ahmed Hossain", you can split/use it for both Bangla and English name fields.\n`;
             prompt += `   - If you see a date "15-07-1990", convert to "15/07/1990" format for date fields.\n`;
-            prompt += `5. For fields NOT found in the document, use empty string "" - do NOT guess or hallucinate values.\n`;
+            prompt += `   - If you see age field, and you have the date of birth, calculate the age  `
+            prompt += `   - If the country is not present in the document, set it to Bangladesh anyway.`
+            prompt += `   - If gender is not specified in the doc, guess the gender from the name.`
+            prompt += `5. For fields NOT found in the document, use empty string "" - do NOT guess or hallucinate values. However, if it is possible to derive any value, do it. \n`;
             prompt += `6. Ignore fields that are completely irrelevant to the document (e.g. address fields when document only has personal info).\n`;
             prompt += `7. Be aggressive about filling fields - it's better to fill a field with a reasonable match than leave it empty. However do NOT fill in wrong information.\n`;
             prompt += `8. If a field has both Bangla and English variants (e.g. "Father's Name (Bangla)" and "Father's Name (English)"):\n`;
@@ -100,31 +103,6 @@ async function handleExtraction(payload, sendResponse) {
         const { parsed, usage } = await callGemini(parts);
 
         sendResponse({ success: true, data: parsed, usageMetadata: usage });
-    } catch (error) {
-        sendResponse({ success: false, error: error.message });
-    }
-}
-
-// Mapping (user data to form field IDs)
-async function handleMapping(payload, sendResponse) {
-    try {
-        const { formFields, userData, site } = payload;
-
-        let prompt = 'Map user data values to form fields. Return JSON: {"field_id": "value"}.\n';
-        prompt += 'Rules:\n';
-        prompt += '- Match by semantic meaning of labels/names/IDs.\n';
-        prompt += '- For dropdowns/radios: return the option "value" attribute that best matches.\n';
-        prompt += '- Omit fields with no matching data.\n';
-
-        if (site === 'bdris') {
-            prompt += '- Default Nationality to "bangladeshi" if not in user data.\n';
-        }
-
-        prompt += '\nUser Data:\n' + JSON.stringify(userData) + '\n\nForm Fields:\n' + JSON.stringify(formFields);
-
-        const { parsed, usage } = await callGemini([{ text: prompt }]);
-
-        sendResponse({ success: true, mapping: parsed, usageMetadata: usage });
     } catch (error) {
         sendResponse({ success: false, error: error.message });
     }
