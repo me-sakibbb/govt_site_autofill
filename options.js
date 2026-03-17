@@ -420,9 +420,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (wizardState.site === 'bdris') {
             initialData = { ...BDRIS_DUMMY_PROFILE.data };
         } else if (wizardState.site === 'teletalk') {
-            initialData = { ...TELETALK_FIELDS };
+            initialData = { ...TELETALK_DUMMY_PROFILE.data };
         } else if (wizardState.site === 'indian_visa') {
-            initialData = { ...INDIAN_VISA_FIELDS };
+            initialData = { ...INDIAN_VISA_DUMMY_PROFILE.data };
         }
 
         const newProfile = {
@@ -467,7 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Display fields
         fieldsContainer.innerHTML = '';
         Object.entries(profile.data).forEach(([key, value]) => {
-            addFieldRow(key, value);
+            addFieldRow(key, value, profile.site);
         });
     }
 
@@ -475,19 +475,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // Field Management
     // ====================
 
-    function formatLabel(key) {
+    function formatLabel(key, site) {
         let label = key;
-        
-        // Try to get label from BDRIS_FIELDS if that matches
-        if (BDRIS_FIELDS[key] && BDRIS_FIELDS[key].label) {
-            label = BDRIS_FIELDS[key].label;
+
+        let fieldsObj = null;
+        if (site === 'bdris' && typeof BDRIS_FIELDS !== 'undefined') fieldsObj = BDRIS_FIELDS;
+        else if (site === 'teletalk' && typeof TELETALK_FIELDS !== 'undefined') fieldsObj = TELETALK_FIELDS;
+        else if (site === 'indian_visa' && typeof INDIAN_VISA_FIELDS !== 'undefined') fieldsObj = INDIAN_VISA_FIELDS;
+
+        if (fieldsObj) {
+            // Try direct key match
+            if (fieldsObj[key] && fieldsObj[key].label) {
+                label = fieldsObj[key].label;
+            } else {
+                // Otherwise try matching the 'name' or 'id' property
+                const matchedField = Object.values(fieldsObj).find(f => f.name === key || f.id === key);
+                if (matchedField && matchedField.label) {
+                    label = matchedField.label;
+                }
+            }
         }
 
-        // If it's empty, fallback to the key itself
+        // If it's empty, fallback to the key itself    
         return label;
-    }
-
-    function addFieldRow(key = '', value = '') {
+    }    function addFieldRow(key = '', value = '', site = '') {
         const template = document.getElementById('fieldTemplate');
         const row = template.content.cloneNode(true).querySelector('.field-row');
 
@@ -500,7 +511,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Replace the input with a simple text element (span)
             const textLabel = document.createElement('span');
             textLabel.className = 'block w-full text-sm font-medium text-slate-700 truncate px-1';
-            textLabel.textContent = formatLabel(key);
+            textLabel.textContent = formatLabel(key, site);
             keyInput.parentNode.replaceChild(textLabel, keyInput);
         } else {
             keyInput.value = '';

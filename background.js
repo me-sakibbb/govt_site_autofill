@@ -12,12 +12,54 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (handlers[request.action]) { handlers[request.action](); return true; }
 });
 
+async function getValidSession() {
+    let { supabaseSession } = await chrome.storage.local.get(['supabaseSession']);
+    if (!supabaseSession || !supabaseSession.access_token) return null;
+
+    try {
+        const payloadBase64 = supabaseSession.access_token.split('.')[1];
+        // Decode base64 URL safe
+        const payload = JSON.parse(atob(payloadBase64.replace(/-/g, '+').replace(/_/g, '/')));
+        const expiresAt = payload.exp;
+        
+        // Refresh token if it expires in less than 5 minutes
+        if (Date.now() / 1000 > expiresAt - 300) {
+            console.log('Token expired or expiring soon, refreshing...');
+            const supabaseUrl = "https://yowcwwmswbxutklckwgt.supabase.co"; 
+            const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlvd2N3d21zd2J4dXRrbGNrd2d0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAwMjMwMDEsImV4cCI6MjA4NTU5OTAwMX0.NLRig5wdJb-NnUEZuHwqsaSEwo7tJt5hKsNsny33S8Y";
+            
+            const res = await fetch(`${supabaseUrl}/auth/v1/token?grant_type=refresh_token`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': supabaseAnonKey,
+                },
+                body: JSON.stringify({ refresh_token: supabaseSession.refresh_token })
+            });
+
+            if (res.ok) {
+                const newData = await res.json();
+                supabaseSession = newData;
+                await chrome.storage.local.set({ supabaseSession: newData });
+            } else {
+                return null;
+            }
+        }
+    } catch (e) {
+        console.error('Error handling session token:', e);
+    }
+    
+    return supabaseSession;
+}
+
 // Shared Gemini caller (via Next JS Server)
 async function callGemini(parts) {
-    const { supabaseSession, nextAiServerUrl } = await chrome.storage.local.get(['supabaseSession', 'nextAiServerUrl']);
-
+    const { nextAiServerUrl } = await chrome.storage.local.get(['nextAiServerUrl']);
+    
+    const supabaseSession = await getValidSession();
+    
     if (!supabaseSession || !supabaseSession.access_token) {
-        throw new Error('Not logged in. Open extension Options to login to Next AI Solution.');
+        throw new Error('Login expired. Please open extension Options to log in again.');
     }
 
     const API_ENDPOINT = `${nextAiServerUrl || SERVER_URL}/api/extension/gemini`;
