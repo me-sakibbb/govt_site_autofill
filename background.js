@@ -73,7 +73,16 @@ async function callGemini(parts) {
         body: JSON.stringify({ parts }),
     });
 
-    const data = await res.json();
+    const responseText = await res.text();
+    let data;
+    try {
+        data = JSON.parse(responseText);
+    } catch (err) {
+        if (responseText.includes('Request Entity Too Large') || res.status === 413) {
+            throw new Error('The document is too large. Please use a smaller file or compress the image before extracting.');
+        }
+        throw new Error(`Server returned an invalid response (Status ${res.status}). Error: ${responseText.substring(0, 30)}...`);
+    }
 
     if (!res.ok) {
         throw new Error(data.error || 'Server error calling Gemini');

@@ -175,6 +175,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             } else {
                 console.error('API Error:', data);
+                if (response.status === 401 || response.status === 403 || (data.error && data.error.toLowerCase().includes('token'))) {
+                    chrome.storage.local.remove(['supabaseSession'], () => {
+                        showLoggedOut();
+                    });
+                    return;
+                }
                 userLimits.innerHTML = `
                     <div class="text-xs text-red-500 mt-2 bg-red-50 p-2 rounded-md border border-red-100 font-medium">
                         ${data.error || 'Failed to sync with server. Please log out and re-login.'}
@@ -607,6 +613,55 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Helper: compress image and return as base64
+    function compressImageToBase64(file, maxSizeMB = 1.5) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    
+                    // Cap dimensions to save memory and size
+                    const MAX_DIMENSION = 1600;
+                    if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
+                        if (width > height) {
+                            height = Math.round((height * MAX_DIMENSION) / width);
+                            width = MAX_DIMENSION;
+                        } else {
+                            width = Math.round((width * MAX_DIMENSION) / height);
+                            height = MAX_DIMENSION;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    // Try compressing with quality until it fits under maxSizeMB
+                    const targetBytes = maxSizeMB * 1024 * 1024;
+                    let quality = 0.9;
+                    let base64 = canvas.toDataURL('image/jpeg', quality);
+                    
+                    // base64 size roughly = length * 0.75
+                    while (base64.length * 0.75 > targetBytes && quality > 0.1) {
+                        quality -= 0.1;
+                        base64 = canvas.toDataURL('image/jpeg', quality);
+                    }
+                    
+                    resolve(base64);
+                };
+                img.onerror = reject;
+                img.src = event.target.result;
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    }
+
     // Helper: extract plain text from a DOCX file client-side
     // DOCX = ZIP archive containing word/document.xml (DEFLATE compressed)
     async function extractDocxText(file) {
@@ -733,8 +788,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let payload;
 
-            if (isImage || isPdf) {
-                // Image / PDF: send as base64 inline_data for Gemini vision
+            if (isImage) {
+                setStatus('🖼️ Compressing image...');
+                const base64 = await compressImageToBase64(file, 1.5);
+                payload = { image: base64, targetFields };
+            } else if (isPdf) {
+                if (file.size > 3.5 * 1024 * 1024) throw new Error('PDF file is too large (over 3.5MB). Please compress it first to avoid server limits.');
                 const base64 = await readFileAsBase64(file);
                 payload = { image: base64, targetFields };
             } else if (isText) {
