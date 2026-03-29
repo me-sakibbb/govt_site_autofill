@@ -1,6 +1,7 @@
 import { BDRIS_FIELDS, BDRIS_DUMMY_PROFILE } from './modules/bdris_config.js';
 import { TELETALK_FIELDS, TELETALK_DUMMY_PROFILE } from './modules/teletalk_config.js';
 import { INDIAN_VISA_FIELDS, INDIAN_VISA_DUMMY_PROFILE } from './modules/indian_visa_config.js';
+import { PCC_FIELDS, PCC_DUMMY_PROFILE } from './modules/pcc_config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const fieldsContainer = document.getElementById('fieldsContainer');
@@ -276,11 +277,12 @@ document.addEventListener('DOMContentLoaded', () => {
             chrome.storage.local.get(['profiles', 'lastActiveProfileId'], (result) => {
                 profiles = result.profiles || [];
 
-                // Initialize with dummy profiles if empty
+                // Add default dummy profiles if it's the user's first time
                 if (profiles.length === 0) {
                     profiles.push(BDRIS_DUMMY_PROFILE);
                     profiles.push(TELETALK_DUMMY_PROFILE);
                     profiles.push(INDIAN_VISA_DUMMY_PROFILE);
+                    profiles.push(PCC_DUMMY_PROFILE);
                 }
 
                 // Restore last active profile if it exists
@@ -427,17 +429,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function createProfileFromWizard() {
         let initialData = {};
+            
+            if (wizardState.site === 'bdris') {
+                initialData = { ...BDRIS_DUMMY_PROFILE.data };
+            } else if (wizardState.site === 'teletalk') {
+                initialData = { ...TELETALK_DUMMY_PROFILE.data };
+            } else if (wizardState.site === 'indian_visa') {
+                initialData = { ...INDIAN_VISA_DUMMY_PROFILE.data };
+            } else if (wizardState.site === 'pcc') {
+                initialData = { ...PCC_DUMMY_PROFILE.data };
+            }
 
-        // Load template based on site
-        if (wizardState.site === 'bdris') {
-            initialData = { ...BDRIS_DUMMY_PROFILE.data };
-        } else if (wizardState.site === 'teletalk') {
-            initialData = { ...TELETALK_DUMMY_PROFILE.data };
-        } else if (wizardState.site === 'indian_visa') {
-            initialData = { ...INDIAN_VISA_DUMMY_PROFILE.data };
-        }
-
-        const newProfile = {
+            const newProfile = {
             id: 'profile_' + Date.now(),
             name: wizardState.name,
             site: wizardState.site, // Store the site type
@@ -494,6 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (site === 'bdris' && typeof BDRIS_FIELDS !== 'undefined') fieldsObj = BDRIS_FIELDS;
         else if (site === 'teletalk' && typeof TELETALK_FIELDS !== 'undefined') fieldsObj = TELETALK_FIELDS;
         else if (site === 'indian_visa' && typeof INDIAN_VISA_FIELDS !== 'undefined') fieldsObj = INDIAN_VISA_FIELDS;
+        else if (site === 'pcc' && typeof PCC_FIELDS !== 'undefined') fieldsObj = PCC_FIELDS;
 
         if (fieldsObj) {
             // Try direct key match
@@ -778,11 +782,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (profile.site === 'bdris') activeSiteFields = BDRIS_FIELDS;
         else if (profile.site === 'indian_visa') activeSiteFields = INDIAN_VISA_FIELDS;
         else if (profile.site === 'teletalk') activeSiteFields = TELETALK_FIELDS;
+        else if (profile.site === 'pcc') activeSiteFields = PCC_FIELDS;
 
         const targetFields = {};
-        Object.keys(profile.data).forEach(key => {
-            targetFields[key] = activeSiteFields[key] ? activeSiteFields[key].label : key;
-        });
+        for (const [sectionKey, sectionData] of Object.entries(activeSiteFields)) {
+            for (const fieldKey of Object.keys(sectionData)) {
+                targetFields[fieldKey] = sectionData[fieldKey].label || fieldKey;
+            }
+        }
 
         const setStatus = (msg, color = '#3b82f6') => {
             extractionStatus.textContent = msg;

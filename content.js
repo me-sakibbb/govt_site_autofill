@@ -93,11 +93,61 @@ const INDIAN_VISA_PAGE3_FIELDS = [
     { id: 'previous_posting', name: 'appl.previous_posting', type: 'text', label: 'Previous Place of Posting' },
 ];
 
+const PCC_FIELDS = [
+    { id: 'P12_PASSPORT_NO', label: 'Passport No', type: 'text' },
+    { id: 'P12_NATIONALITY', label: 'Issuing Country', type: 'select' },
+    { id: 'P12_ISSUE_DATE', label: 'Issue Date (DD-MON-YYYY)', type: 'date' },
+    { id: 'P12_ISSUE_PLACE', label: 'Issue Place', type: 'text' },
+    { id: 'P12_EXPIRE_DATE', label: 'Expiry Date (DD-MON-YYYY)', type: 'date' },
+    { id: 'P12_MOBILE_NO', label: 'Mobile No (Applicant)', type: 'text' },
+    { id: 'P12_EMAIL', label: 'Email ID (Applicant)', type: 'text' },
+    { id: 'P12_NID', label: 'NID (Numbers only)', type: 'text' },
+    { id: 'P12_GENDER', label: 'Salutation (Mr./Ms./None)', type: 'radio_group' },
+    { id: 'P12_PERSON_NAME', label: 'Full Name', type: 'text' },
+    { id: 'P12_RELATION', label: 'Relation (Father/Spouse)', type: 'radio_group' },
+    { id: 'P12_FATHER_NAME', label: 'Father\'s / Husband Name', type: 'text' },
+    { id: 'P12_MOTHER_NAME', label: 'Mother\'s Name', type: 'text' },
+    { id: 'P12_DOB', label: 'Date of Birth (DD-MON-YYYY)', type: 'date' },
+
+    { id: 'P60_EMER_PUBLIC_DIVISION', label: 'Emergency Division', type: 'select' },
+    { id: 'P60_EMER_DISTRICT', label: 'Emergency District', type: 'select' },
+    { id: 'P60_EMER_THANA', label: 'Emergency Thana', type: 'select' },
+    { id: 'P60_EMER_POST_CODE', label: 'Emergency Post Code', type: 'text' },
+    { id: 'P60_EMER_POST_OFFICE', label: 'Emergency Post Office', type: 'text' },
+    { id: 'P60_EMER_VILL_AREA', label: 'Emergency Village/Area/Sector', type: 'text' },
+    { id: 'P60_EMER_HOUSE_ROAD', label: 'Emergency Road', type: 'text' },
+    { id: 'P60_EMER_HOUSE', label: 'Emergency House', type: 'text' },
+
+    { id: 'P60_SET_PERM_ADDRESS', label: 'Permanent Address Match (emer/man)', type: 'radio_group' },
+    { id: 'P60_PERM_PUBLIC_DIVISION', label: 'Permanent Division', type: 'select' },
+    { id: 'P60_PERM_DISTRICT', label: 'Permanent District', type: 'select' },
+    { id: 'P60_PERM_THANA', label: 'Permanent Thana', type: 'select' },
+    { id: 'P60_PERM_POST_CODE', label: 'Permanent Post Code', type: 'text' },
+    { id: 'P60_PERM_POST_OFFICE', label: 'Permanent Post Office', type: 'text' },
+    { id: 'P60_PERM_VILL_AREA', label: 'Permanent Village/Area/Sector', type: 'text' },
+    { id: 'P60_PERM_HOUSE_ROAD', label: 'Permanent Road', type: 'text' },
+    { id: 'P60_PERM_HOUSE', label: 'Permanent House', type: 'text' },
+
+    { id: 'P60_SET_PRES_ADDRESS', label: 'Present Address Match (emer/perm/man)', type: 'radio_group' },
+    { id: 'P60_PRES_PUBLIC_DIVISION', label: 'Present Division', type: 'select' },
+    { id: 'P60_PRES_DISTRICT', label: 'Present District', type: 'select' },
+    { id: 'P60_PRES_THANA', label: 'Present Thana', type: 'select' },
+    { id: 'P60_PRES_POST_CODE', label: 'Present Post Code', type: 'text' },
+    { id: 'P60_PRES_POST_OFFICE', label: 'Present Post Office', type: 'text' },
+    { id: 'P60_PRES_VILL_AREA', label: 'Present Village/Area/Sector', type: 'text' },
+    { id: 'P60_PRES_HOUSE_ROAD', label: 'Present Road', type: 'text' },
+    { id: 'P60_PRES_HOUSE', label: 'Present House', type: 'text' },
+
+    { id: 'P60_DELIVERY_TYPE', label: 'Delivery Type', type: 'select' },
+    { id: 'P60_DELIVERY_FROM', label: 'Delivery From', type: 'select' }
+];
+
 // Site detection
 const SUPPORTED_SITES = [
     /bdris\.gov\.bd/,
     /teletalk\.com\.bd/,
     /indianvisa-bangladesh\.nic\.in/,
+    /pcc\.police\.gov\.bd/
 ];
 
 function isSupportedSite() {
@@ -183,8 +233,11 @@ async function handleAutofillClick() {
             return;
         }
         var isIndianVisa = window.location.href.includes('indianvisa-bangladesh.nic.in');
+        var isPCC = window.location.href.includes('pcc.police.gov.bd');
         if (profiles.length === 1) {
-            isIndianVisa ? startIndianVisaAutofill(profiles[0]) : startAutofill(profiles[0]);
+            if (isIndianVisa) startIndianVisaAutofill(profiles[0]);
+            else if (isPCC) startPCCAutofill(profiles[0]);
+            else startAutofill(profiles[0]);
         } else {
             showProfileSelector(profiles, lastActiveProfileId);
         }
@@ -310,10 +363,28 @@ function createBtn(text, bg, color, border) {
 
 // Indian Visa autofill (multi-page, single AI call)
 async function startIndianVisaAutofill(profile) {
+    let fieldsToFill;
+    let url = window.location.href;
+    
+    if (url.includes('Reg_Page1')) fieldsToFill = INDIAN_VISA_PAGE1_FIELDS;
+    else if (url.includes('Reg_Page2')) fieldsToFill = INDIAN_VISA_PAGE2_FIELDS;
+    else if (url.includes('Reg_Page3')) fieldsToFill = INDIAN_VISA_PAGE3_FIELDS;
+    else {
+        alert("This page doesn't seem to be a recognized Indian Visa form page.");
+        if(floatBtn) setLoading(false);
+        return;
+    }
+    
+    await executeAIAutofill(profile, fieldsToFill);
+}
+
+async function startPCCAutofill(profile) {
+    await executeAIAutofill(profile, PCC_FIELDS);
+}
+
+// Central AI API Call (Shared for all sites)
+async function executeAIAutofill(profile, fieldsToFill) {
     setLoading(true);
-    var isPage1 = !!document.getElementById('countryname_id');
-    var isPage2 = !!document.getElementById('surname');
-    var isPage3 = !!document.getElementById('pres_add1');
     var STORAGE_KEY = 'indianVisaMapping';
 
     try {
@@ -328,7 +399,7 @@ async function startIndianVisaAutofill(profile) {
                 'prev_nationality': '', 'other_ppt_country_issue': '', 'other_ppt_nat': '',
             };
             var profileValues = getProfileValues(profile.data);
-            var allFields = [].concat(INDIAN_VISA_PAGE1_FIELDS, INDIAN_VISA_PAGE2_FIELDS, INDIAN_VISA_PAGE3_FIELDS)
+            var allFields = fieldsToFill
                 .filter(function (f) { return !(f.id in COUNTRY_DEFAULTS); })
                 .map(function (f) { return enrichFieldWithOptions(f, profileValues); });
 
@@ -341,7 +412,7 @@ async function startIndianVisaAutofill(profile) {
             await sessionSet(STORAGE_KEY, mapping);
         }
 
-        var pageFields = isPage1 ? INDIAN_VISA_PAGE1_FIELDS : (isPage2 ? INDIAN_VISA_PAGE2_FIELDS : INDIAN_VISA_PAGE3_FIELDS);
+        var pageFields = fieldsToFill;
         var pageFieldIds = {};
         pageFields.forEach(function (f) { pageFieldIds[f.id] = true; });
         var pageMapping = {};
@@ -356,7 +427,7 @@ async function startIndianVisaAutofill(profile) {
         }
 
         var filledCount = 0;
-        if (isPage1) {
+        if (fieldsToFill === INDIAN_VISA_PAGE1_FIELDS) {
             var cascadeOrder = ['countryname_id', 'missioncode_id', 'nationality_id', 'visaService'];
             var delays = [800, 1200, 600, 800];
             var handled = {};
@@ -378,9 +449,9 @@ async function startIndianVisaAutofill(profile) {
             filledCount = await applyMapping(pageMapping, profile.profilePic);
         }
 
-        var pageLabel = isPage1 ? 'Page 1 (Registration)' : (isPage2 ? 'Page 2 (Applicant Details)' : 'Page 3 (Address & Family)');
+        var pageLabel = fieldsToFill === INDIAN_VISA_PAGE1_FIELDS ? 'Page 1 (Registration)' : (fieldsToFill === INDIAN_VISA_PAGE2_FIELDS ? 'Page 2 (Applicant Details)' : 'Page 3 (Address & Family)');
 
-        if (!isPage1 && !isPage2 && !isPage3) {
+        if (fieldsToFill !== INDIAN_VISA_PAGE1_FIELDS && fieldsToFill !== INDIAN_VISA_PAGE2_FIELDS && fieldsToFill !== INDIAN_VISA_PAGE3_FIELDS) {
             pageLabel = 'Page Detect Error';
         }
 
@@ -630,7 +701,34 @@ async function applyMapping(mapping, profilePic) {
                 filled = true;
             }
         } else if (el.tagName.toLowerCase() === 'select') {
-            filled = setSelectValue(el, value);
+            if (window.location.href.includes('pcc.police.gov.bd') && el.classList.contains('select2-hidden-accessible')) {
+                // PCC Select2 specific handler
+                let valueToFind = String(value).toLowerCase().trim();
+                let bestMatch = null;
+                for (let option of el.options) {
+                    if (!option.value) continue;
+                    let optText = option.innerText.toLowerCase().trim();
+                    let optVal = option.value.toLowerCase().trim();
+                    if (optText === valueToFind || optVal === valueToFind) {
+                        bestMatch = option.value;
+                        break;
+                    }
+                    if (optText.includes(valueToFind) || valueToFind.includes(optText)) {
+                        bestMatch = option.value;
+                    }
+                }
+                if (bestMatch) {
+                    el.value = bestMatch;
+                    el.dispatchEvent(new Event('change', { bubbles: true }));
+                    const scriptWrapper = document.createElement('script');
+                    scriptWrapper.textContent = `if (typeof jQuery !== 'undefined') jQuery('#${el.id}').val('${bestMatch}').trigger('change');`;
+                    document.body.appendChild(scriptWrapper);
+                    scriptWrapper.remove();
+                    filled = true;
+                }
+            } else {
+                filled = setSelectValue(el, value);
+            }
             if (filled) await sleep(300);
         } else {
             var finalValue = value;
@@ -749,83 +847,179 @@ function trySetFile(el, dataURI) {
         el.files = dt.files;
         el.dispatchEvent(new Event('change', { bubbles: true }));
         return true;
-    } catch (e) { return false; }
+    } catch (e) { }
 }
 
-function setLoading(isLoading) {
-    if (!floatBtn) return;
-    floatBtn.innerText = isLoading ? 'Working...' : 'Autofill';
-    floatBtn.disabled = isLoading;
-    floatBtn.style.opacity = isLoading ? '0.7' : '1';
-}
+// BDRIS API Calls & execution logic
+async function executeBDRISAutofill(profile, session) {
+    setLoading(true);
+    var STORAGE_KEY = 'indianVisaMapping';
 
-function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+    try {
+        var mapping = null;
+        var stored = await sessionGet(STORAGE_KEY);
 
-// Date helpers
-function isDateField(el) {
-    if (el.type === 'date') return true;
-    var haystack = [el.id, el.name, el.placeholder, el.className].join(' ').toLowerCase();
-    return /date|dob|dd\/mm\/yyyy|yyyy-mm-dd|datepicker/.test(haystack);
-}
+        if (stored) {
+            mapping = stored;
+        } else {
+            var COUNTRY_DEFAULTS = {
+                'countryname_id': 'BGD', 'nationality_id': 'BGD', 'country_birth': 'BGD',
+                'prev_nationality': '', 'other_ppt_country_issue': '', 'other_ppt_nat': '',
+            };
+            var profileValues = getProfileValues(profile.data);
+            var allFields = PCC_FIELDS
+                .filter(function (f) { return !(f.id in COUNTRY_DEFAULTS); })
+                .map(function (f) { return enrichFieldWithOptions(f, profileValues); });
 
-function formatDateToDDMMYYYY(value) {
-    if (!value) return null;
-    if (/^\d{2}\/\d{2}\/\d{4}$/.test(value)) return value;
-    var iso = value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-    if (iso) return iso[3] + '/' + iso[2] + '/' + iso[1];
-    var d = new Date(value);
-    if (!isNaN(d.getTime())) {
-        return String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + d.getFullYear();
-    }
-    return value;
-}
+            var result = await sendMappingRequest(allFields, profile.data, 'bdris');
+            mapping = result.mapping;
 
-function formatDateToYYYYMMDD(value) {
-    if (!value) return null;
-    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
-    var ddmm = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
-    if (ddmm) return ddmm[3] + '-' + ddmm[2] + '-' + ddmm[1];
-    var d = new Date(value);
-    if (!isNaN(d.getTime())) {
-        return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
-    }
-    return value;
-}
-
-function checkConditionalCheckbox(el) {
-    if (el.id && (el.id.indexOf('mas_') === 0 || (el.name && el.name.indexOf('mas_') === 0))) {
-        var cb = document.getElementById('if_applicable_mas');
-        if (cb && !cb.checked) cb.click();
-    }
-    if (el.id && /employment_type|designation|organization|job_start_date/.test(el.id) || (el.name && el.name.indexOf('job[') !== -1)) {
-        var cb2 = document.getElementById('if_applicable_exp');
-        if (cb2 && !cb2.checked) cb2.click();
-    }
-}
-
-function handleDatepicker(el, value) {
-    // value is already in DD/MM/YYYY at this point
-    // Try jQuery datepicker API first (Indian Visa uses jQuery UI datepicker)
-    if (typeof window.jQuery !== 'undefined' && window.jQuery(el).data('datepicker')) {
-        try {
-            // jQuery UI datepicker expects DD/MM/YYYY when dateFormat is 'dd/mm/yy'
-            window.jQuery(el).datepicker('setDate', value);
-            // Also sync the hidden input that shares the same name
-            var hidden = document.querySelector('input[type="hidden"][name="' + el.name + '"]');
-            if (hidden) {
-                hidden.value = value;
-                hidden.dispatchEvent(new Event('change', { bubbles: true }));
+            for (var id in COUNTRY_DEFAULTS) {
+                if (COUNTRY_DEFAULTS[id]) mapping[id] = COUNTRY_DEFAULTS[id];
             }
+            await sessionSet(STORAGE_KEY, mapping);
+        }
+
+        // Check limits/allowance
+        var limitResponse = await fetch(`${CONFIG.SERVER_URL}/api/extension/check-limit`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${session.access_token}`
+            },
+            body: JSON.stringify({ action: 'autofill', site: 'bdris' }),
+        });
+
+        if (!limitResponse.ok) {
+            var err = await limitResponse.json();
+            throw new Error(err.error || 'Server error');
+        }
+
+        var limitData = await limitResponse.json();
+        if (!limitData.allowed) {
+            alert('Autofill not allowed. Please check your extension balance/limits.');
+            if(floatBtn) setLoading(false);
             return;
-        } catch (e) { /* fall through to manual approach */ }
-    }
-    // Fallback: manual value + event cascade
-    el.focus();
-    el.click();
-    el.value = value;
-    el.setAttribute('value', value);
-    var events = ['keydown', 'keypress', 'input', 'keyup', 'change', 'blur'];
-    for (var i = 0; i < events.length; i++) {
-        el.dispatchEvent(new Event(events[i], { bubbles: true }));
+        }
+
+        // Setup the payload specifically for the current site logic
+        // This execution block wraps the custom mapping if provided
+        
+        let targetFields = PCC_FIELDS;
+        let pccSelect2 = window.location.href.includes('pcc.police.gov.bd');
+
+        // AI Request
+        var response = await fetch(`${CONFIG.SERVER_URL}/api/extension/autofill-visa`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${session.access_token}`
+            },
+            body: JSON.stringify({
+                profile: JSON.stringify(profileData),
+                fields: JSON.stringify(targetFields)
+            }),
+        });
+
+        if (!response.ok) {
+            var err = await response.json();
+            throw new Error(err.error || 'Server error');
+        }
+
+        var data = await response.json();
+        let mapping = data.mapping;
+        let profilePic = profile.personal.profilePic;
+
+        var filledCount = 0;
+        
+        // Custom filling for fixed sets of fields
+        for (var i = 0; i < targetFields.length; i++) {
+            var field = targetFields[i];
+            var fieldData = mapping.find(m => m.id === field.id || m.name === field.name);
+            
+            if (fieldData && fieldData.value) {
+                var el = document.getElementById(field.id) || document.querySelector('[name="' + (field.name || field.id) + '"]');
+                if (el) {
+                    if (el.tagName === 'SELECT') {
+                        if (pccSelect2 && el.classList.contains('select2-hidden-accessible')) {
+                            let valueToFind = String(fieldData.value).toLowerCase().trim();
+                            let bestMatch = null;
+                            for (let option of el.options) {
+                                if (!option.value) continue;
+                                let optText = option.innerText.toLowerCase().trim();
+                                let optVal = option.value.toLowerCase().trim();
+                                if (optText === valueToFind || optVal === valueToFind) {
+                                    bestMatch = option.value;
+                                    break;
+                                }
+                                if (optText.includes(valueToFind) || valueToFind.includes(optText)) {
+                                    bestMatch = option.value;
+                                }
+                            }
+                            if (bestMatch) {
+                                el.value = bestMatch;
+                                el.dispatchEvent(new Event('change', { bubbles: true }));
+                                const scriptWrapper = document.createElement('script');
+                                scriptWrapper.textContent = `if (typeof jQuery !== 'undefined') jQuery('#${el.id}').val('${bestMatch}').trigger('change');`;
+                                document.body.appendChild(scriptWrapper);
+                                scriptWrapper.remove();
+                                filledCount++;
+                            }
+                        } else {
+                            let valueToFind = String(fieldData.value).toLowerCase().trim();
+                            let match = Array.from(el.options).find(opt => 
+                                opt.value.toLowerCase() === valueToFind || 
+                                opt.text.toLowerCase() === valueToFind
+                            );
+                            if (!match) {
+                                match = Array.from(el.options).find(opt => 
+                                    opt.value.toLowerCase().includes(valueToFind) || 
+                                    opt.text.toLowerCase().includes(valueToFind)
+                                );
+                            }
+                            if (match) {
+                                el.value = match.value;
+                                el.dispatchEvent(new Event('change', { bubbles: true }));
+                                filledCount++;
+                            }
+                        }
+                    } else if (el.type === 'radio' || field.type === 'radio' || field.type === 'radiogroup' || field.type === 'radio_group') {
+                        const container = document.getElementById(`${field.id}_CONTAINER`) || document.getElementById(field.id) || el.parentElement;
+                        if (container) {
+                            const radios = Array.from(container.querySelectorAll('input[type="radio"]'));
+                            const targetValStr = String(fieldData.value).toLowerCase().trim();
+                            for (const r of radios) {
+                               const rVal = String(r.value).toLowerCase().trim();
+                               const rLabel = (document.querySelector(`label[for="${r.id}"]`)?.innerText || '').toLowerCase().trim();
+                               const rDataDisplay = (r.getAttribute('data-display') || '').toLowerCase().trim();
+                               
+                               if (rVal === targetValStr || rLabel.includes(targetValStr) || rDataDisplay.includes(targetValStr)) {
+                                   r.click();
+                                   r.checked = true;
+                                   r.dispatchEvent(new Event('change', { bubbles: true }));
+                                   break;
+                               }
+                            }
+                            filledCount++;
+                        }
+                    } else if (el.type === 'checkbox') {
+                        if (value != null && el.value === String(value) && !el.checked) {
+                            el.click();
+                            if (!el.checked) { el.checked = true; el.dispatchEvent(new Event('change', { bubbles: true })); }
+                            filled = true;
+                        }
+                    } else {
+                        setNativeValue(el, fieldData.value);
+                        filled = true;
+                    }
+                }
+            }
+        }
+
+        alert('PCC Autofill: ' + filledCount + ' fields filled.');
+    } catch (error) {
+        alert('PCC Autofill error: ' + error.message);
+    } finally {
+        setLoading(false);
     }
 }

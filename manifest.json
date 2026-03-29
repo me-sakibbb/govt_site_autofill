@@ -25,7 +25,8 @@
       "matches": [
         "*://*.bdris.gov.bd/*",
         "*://*.teletalk.com.bd/*",
-        "*://*.indianvisa-bangladesh.nic.in/*"
+        "*://*.indianvisa-bangladesh.nic.in/*",
+        "*://pcc.police.gov.bd/*"
       ],
       "js": [
         "content.js"
