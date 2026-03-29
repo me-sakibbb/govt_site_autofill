@@ -1,22 +1,24 @@
 const autofillBtn = document.getElementById('autofill-btn');
 const optionsBtn = document.getElementById('options-btn');
+const sidebarBtn = document.getElementById('sidebar-btn');
 const loginRequired = document.getElementById('login-required');
 const popupContent = document.getElementById('popup-content');
 const loginSettingsBtn = document.getElementById('login-settings-btn');
 const popupEmail = document.getElementById('popup-email');
+const popupName = document.getElementById('popup-name');
+const popupShop = document.getElementById('popup-shop');
 const popupPlan = document.getElementById('popup-plan');
 const popupLimits = document.getElementById('popup-limits');
 
-const SERVER_URL = 'https://nexitsolution.bd/'; // Change this to your production domain later
-
 document.addEventListener('DOMContentLoaded', () => {
-    chrome.storage.local.get(['supabaseSession', 'nextAiServerUrl'], async (result) => {
-        if (result.supabaseSession && result.supabaseSession.access_token) {
+    chrome.runtime.sendMessage({ action: 'GET_VALID_SESSION' }, (response) => {
+        const session = response && response.session;
+        if (session && session.access_token) {
             loginRequired.classList.add('hidden');
             popupContent.classList.remove('hidden');
-            popupEmail.textContent = result.supabaseSession.user.email;
+            popupEmail.textContent = session.user.email;
 
-            fetchLimits(result.supabaseSession.access_token, result.nextAiServerUrl || SERVER_URL);
+            fetchLimits(session.access_token);
         } else {
             loginRequired.classList.remove('hidden');
             popupContent.classList.add('hidden');
@@ -24,38 +26,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-async function fetchLimits(token, serverUrl) {
+async function fetchLimits(token) {
     try {
-        const baseUrl = serverUrl.endsWith('/') ? serverUrl.slice(0, -1) : serverUrl;
-        const response = await fetch(`${baseUrl}/api/extension/check-limit`, {
+        const response = await fetch(`${CONFIG.SERVER_URL}/api/extension/check-limit`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         const data = await response.json();
         if (response.ok) {
-            const autoUsed = data.autofill?.used ?? (data.used || 0);
-            const autoLimit = data.autofill?.limit ?? (data.limit || 1);
-            const autoPercentage = Math.min(100, (autoUsed / autoLimit) * 100);
-
+            if (data.email) popupEmail.textContent = data.email;
+            if (data.userName) popupName.textContent = data.userName;
+            if (data.shopName) popupShop.textContent = data.shopName;
+            
             const extUsed = data.extraction?.used ?? 0;
             const extLimit = data.extraction?.limit ?? 1;
+            const extRemaining = data.extraction?.remaining ?? (extLimit - extUsed);
             const extPercentage = Math.min(100, (extUsed / extLimit) * 100);
 
             const planName = data.plan ? data.plan.replace('_', ' ') : 'Free';
-
             popupPlan.textContent = planName;
+            
+            let upgradeMessage = '';
+            if (extRemaining <= 0) {
+                upgradeMessage = `
+                    <div style="font-size: 11px; margin-top: 8px; padding: 8px; background: #fff5f5; border: 1px solid #fed7d7; border-radius: 6px; color: #c53030;">
+                        <div style="font-weight: 600; margin-bottom: 2px;">Limit Reached!</div>
+                        <div>Extractions cost 1 Taka/each from your balance.</div>
+                        <a href="${CONFIG.SERVER_URL}/dashboard/billing" target="_blank" style="color: #3182ce; text-decoration: underline; font-weight: 500; display: inline-block; margin-top: 4px;">Upgrade Subscription</a>
+                    </div>
+                `;
+            }
+
             popupLimits.innerHTML = `
                 <div style="margin-top: 6px; display: flex; flex-direction: column; gap: 12px;">
-                    <!-- Autofill Limit -->
-                    <div>
-                        <div style="display: flex; justify-content: space-between; font-size: 11px; align-items: center; margin-bottom: 4px;">
-                            <span style="color: #64748b; font-weight: 500; letter-spacing: -0.025em;">Form Fills</span>
-                            <span style="color: #334155; font-weight: 700;">${autoUsed} / ${autoLimit}</span>
-                        </div>
-                        <div style="width: 100%; height: 6px; background-color: #f1f5f9; border-radius: 999px; overflow: hidden;">
-                            <div style="width: ${autoPercentage}%; height: 100%; background-color: #3b82f6; transition: width 0.5s;"></div>
-                        </div>
-                    </div>
-
                     <!-- Extraction Limit -->
                     <div>
                         <div style="display: flex; justify-content: space-between; font-size: 11px; align-items: center; margin-bottom: 4px;">
@@ -63,19 +65,23 @@ async function fetchLimits(token, serverUrl) {
                             <span style="color: #334155; font-weight: 700;">${extUsed} / ${extLimit}</span>
                         </div>
                         <div style="width: 100%; height: 6px; background-color: #f1f5f9; border-radius: 999px; overflow: hidden;">
-                            <div style="width: ${extPercentage}%; height: 100%; background-color: #10b981; transition: width 0.5s;"></div>
+                            <div style="width: ${extPercentage}%; height: 100%; background-color: ${extRemaining <= 0 ? '#ef4444' : '#10b981'}; transition: width 0.5s;"></div>
                         </div>
+                        ${upgradeMessage}
                     </div>
                 </div>
             `;
-            if ((data.autofill?.remaining ?? data.remaining) <= 0) {
+
+            if (!data.allowed) {
                 autofillBtn.disabled = true;
-                autofillBtn.textContent = 'Limit Reached';
+                autofillBtn.textContent = 'Account Locked / No Balance';
+            } else {
+                autofillBtn.disabled = false;
+                autofillBtn.textContent = extRemaining <= 0 ? 'Autofill (1T/ext)' : 'Autofill Form';
             }
         } else {
-            console.error('API Error:', data);
             popupLimits.innerHTML = `
-                <div class="text-xs text-red-500 mt-2 text-center bg-red-50 p-2 rounded-md">
+                <div style="font-size: 11px; color: #ef4444; margin-top: 8px; text-align: center; background: #fef2f2; padding: 8px; border-radius: 6px;">
                     ${data.error || 'Failed to sync with server. Please re-login in Settings.'}
                 </div>
             `;
@@ -85,7 +91,7 @@ async function fetchLimits(token, serverUrl) {
     } catch (e) {
         console.error('Failed to fetch limits:', e);
         popupLimits.innerHTML = `
-            <div class="text-xs text-red-500 mt-2 text-center bg-red-50 p-2 rounded-md">
+            <div style="font-size: 11px; color: #ef4444; margin-top: 8px; text-align: center; background: #fef2f2; padding: 8px; border-radius: 6px;">
                 Unable to reach the server.
             </div>
         `;
@@ -102,6 +108,18 @@ autofillBtn.addEventListener('click', () => {
 
 optionsBtn.addEventListener('click', () => {
     chrome.runtime.openOptionsPage();
+});
+
+sidebarBtn.addEventListener('click', () => {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (chrome.sidePanel && tabs[0]) {
+            chrome.sidePanel.open({ tabId: tabs[0].id });
+        } else {
+            // Fallback for older Chrome builds
+            chrome.runtime.openOptionsPage();
+        }
+    });
+    window.close();
 });
 
 loginSettingsBtn.addEventListener('click', () => {

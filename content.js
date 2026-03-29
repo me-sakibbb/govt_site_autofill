@@ -1,6 +1,7 @@
 // content.js - Form autofill content script
 
-// Indian Visa field definitions (inlined - content scripts cannot use ES modules)
+// Indian Visa field definitions (inlined — content scripts cannot use ES modules)
+// SOURCE OF TRUTH: modules/indian_visa_config.js — keep these in sync
 const INDIAN_VISA_PAGE1_FIELDS = [
     { id: 'countryname_id', name: 'appl.countryname', type: 'select', label: 'Country/Region applying from' },
     { id: 'missioncode_id', name: 'appl.missioncode', type: 'select', label: 'Indian Mission/Office' },
@@ -97,8 +98,6 @@ const SUPPORTED_SITES = [
     /bdris\.gov\.bd/,
     /teletalk\.com\.bd/,
     /indianvisa-bangladesh\.nic\.in/,
-    /localhost/,
-    /127\.0\.0\.1/,
 ];
 
 function isSupportedSite() {
@@ -349,7 +348,7 @@ async function startIndianVisaAutofill(profile) {
         for (var key in mapping) {
             if (pageFieldIds[key]) {
                 pageMapping[key] = mapping[key];
-                var fDef = pageFields.find(function(f) { return f.id === key; });
+                var fDef = pageFields.find(function (f) { return f.id === key; });
                 if (fDef && fDef.name && fDef.name !== key) {
                     pageMapping[fDef.name] = mapping[key];
                 }
@@ -380,7 +379,7 @@ async function startIndianVisaAutofill(profile) {
         }
 
         var pageLabel = isPage1 ? 'Page 1 (Registration)' : (isPage2 ? 'Page 2 (Applicant Details)' : 'Page 3 (Address & Family)');
-        
+
         if (!isPage1 && !isPage2 && !isPage3) {
             pageLabel = 'Page Detect Error';
         }
@@ -468,11 +467,11 @@ function localMapFields(formFields, userData, site) {
     if (!userData || Object.keys(userData).length === 0) return null;
     var mapping = {};
     var matchedCount = 0;
-    
-    formFields.forEach(function(f) {
+
+    formFields.forEach(function (f) {
         var val = null;
         var key = f.name || f.id;
-        
+
         if (key && userData.hasOwnProperty(key) && userData[key]) {
             val = userData[key];
         } else {
@@ -482,13 +481,13 @@ function localMapFields(formFields, userData, site) {
                 val = userData[matchedKey];
             }
         }
-        
+
         if (val) {
             mapping[f.id] = val;
             matchedCount++;
         }
     });
-    
+
     // Use local mapping exclusively if there's any match 
     if (matchedCount > 0) {
         return { success: true, mapping: mapping };
@@ -499,7 +498,6 @@ function localMapFields(formFields, userData, site) {
 function sendMappingRequest(formFields, userData, site) {
     return new Promise(function (resolve) {
         var localResult = localMapFields(formFields, userData, site);
-        console.log('Using local mapping for', site);
         return resolve(localResult);
     });
 }
@@ -686,15 +684,15 @@ function setSelectValue(el, value) {
     if (value == null) return false;
     var valStr = String(value).toLowerCase().trim();
     var i;
-    
+
     // 1. Exact value match
     for (i = 0; i < el.options.length; i++) {
-        if (el.options[i].value === String(value)) { 
-            setNativeValue(el, el.options[i].value); 
-            return true; 
+        if (el.options[i].value === String(value)) {
+            setNativeValue(el, el.options[i].value);
+            return true;
         }
     }
-    
+
     // 2. Exact text match
     for (i = 0; i < el.options.length; i++) {
         if (el.options[i].text.toLowerCase().trim() === valStr) {
@@ -729,7 +727,7 @@ function setSelectValue(el, value) {
             bestMatchIndex = i;
         }
     }
-    
+
     if (bestMatchIndex !== -1) {
         setNativeValue(el, el.options[bestMatchIndex].value);
         return true;

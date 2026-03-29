@@ -6,15 +6,17 @@
   "permissions": [
     "storage",
     "activeTab",
-    "scripting"
+    "scripting",
+    "sidePanel"
   ],
   "host_permissions": [
     "https://*.supabase.co/*",
-    "http://localhost/*",
-    "http://127.0.0.1/*",
     "https://nexitsolution.bd/*"
   ],
   "options_page": "options.html",
+  "side_panel": {
+    "default_path": "options.html"
+  },
   "background": {
     "service_worker": "background.js"
   },
@@ -23,9 +25,7 @@
       "matches": [
         "*://*.bdris.gov.bd/*",
         "*://*.teletalk.com.bd/*",
-        "*://*.indianvisa-bangladesh.nic.in/*",
-        "http://localhost/*",
-        "http://127.0.0.1/*"
+        "*://*.indianvisa-bangladesh.nic.in/*"
       ],
       "js": [
         "content.js"

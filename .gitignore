@@ -1,5 +1,4 @@
 .history
-
-config.js
-
 node_modules
+*.pyc
+temp_output.txt

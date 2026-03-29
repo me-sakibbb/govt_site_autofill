@@ -80,8 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const newProfileBtn = document.getElementById('newProfileBtn');
     const deleteProfileBtn = document.getElementById('deleteProfileBtn');
 
-    // Configuration
-    const SERVER_URL = 'https://nexitsolution.bd/'; // Change this to your production domain later
+    // Configuration (loaded from config.js)
 
     // Server & Login Elements
     const loginFormContainer = document.getElementById('loginFormContainer');
@@ -91,27 +90,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginStatus = document.getElementById('loginStatus');
     const loggedInContainer = document.getElementById('loggedInContainer');
     const loggedInEmail = document.getElementById('loggedInEmail');
+    const loggedInName = document.getElementById('loggedInName');
+    const loggedInShop = document.getElementById('loggedInShop');
     const logoutBtn = document.getElementById('logoutBtn');
     const userLimits = document.getElementById('userLimits');
     const mainContent = document.querySelector('main');
     const mainFooter = document.querySelector('footer');
 
     // Load session
-    chrome.storage.local.get(['supabaseSession'], (result) => {
-        if (result.supabaseSession) {
-            showLoggedIn(result.supabaseSession.user.email);
-            fetchLimits(result.supabaseSession.access_token, SERVER_URL);
+    chrome.runtime.sendMessage({ action: 'GET_VALID_SESSION' }, (response) => {
+        const session = response && response.session;
+        if (session) {
+            showLoggedIn(session.user.email);
+            fetchLimits(session.access_token);
         } else {
             showLoggedOut();
         }
     });
 
-    function showLoggedIn(email) {
+    function showLoggedIn(email, name = '', shop = '') {
         loginFormContainer.classList.add('hidden');
         loggedInContainer.style.display = 'block';
-        loggedInEmail.textContent = email;
+        
+        if (loggedInEmail) loggedInEmail.textContent = email || '';
+        if (loggedInName) loggedInName.textContent = name || '';
+        if (loggedInShop) loggedInShop.textContent = shop || 'Loading Shop...';
+
         const avatar = document.getElementById('userAvatar');
-        if (avatar) avatar.textContent = email.charAt(0).toUpperCase();
+        if (avatar && email) avatar.textContent = email.charAt(0).toUpperCase();
+
         mainContent.classList.remove('hidden');
         mainFooter.classList.remove('hidden');
     }
@@ -119,57 +126,61 @@ document.addEventListener('DOMContentLoaded', () => {
     function showLoggedOut() {
         loginFormContainer.classList.remove('hidden');
         loggedInContainer.style.display = 'none';
-        loggedInEmail.textContent = '';
+        
+        if (loggedInEmail) loggedInEmail.textContent = '';
+        if (loggedInName) loggedInName.textContent = '';
+        if (loggedInShop) loggedInShop.textContent = '';
+
         mainContent.classList.add('hidden');
         mainFooter.classList.add('hidden');
     }
 
-    async function fetchLimits(token, serverUrl) {
+    async function fetchLimits(token) {
         try {
-            const baseUrl = serverUrl.endsWith('/') ? serverUrl.slice(0, -1) : serverUrl;
-            const response = await fetch(`${baseUrl}/api/extension/check-limit`, {
+            const response = await fetch(`${CONFIG.SERVER_URL}/api/extension/check-limit`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const data = await response.json();
             if (response.ok) {
-                // Compatibility layer
-                const autoUsed = data.autofill?.used ?? (data.used || 0);
-                const autoLimit = data.autofill?.limit ?? (data.limit || 1);
-                const autoPercentage = Math.min(100, (autoUsed / autoLimit) * 100);
+                // Setup profile headers if they arrived
+                if (data.email) {
+                    showLoggedIn(data.email, data.userName, data.shopName);
+                }
 
+                // Extration limits
                 const extUsed = data.extraction?.used ?? 0;
                 const extLimit = data.extraction?.limit ?? 1;
+                const extRemaining = data.extraction?.remaining ?? 0;
                 const extPercentage = Math.min(100, (extUsed / extLimit) * 100);
 
                 const planName = data.plan ? data.plan.replace('_', ' ') : 'Free';
+                
+                let upgradeMessage = '';
+                if (extRemaining <= 0) {
+                    upgradeMessage = `
+                        <div style="font-size: 13px; margin-top: 12px; padding: 12px; background: #fff5f5; border: 1px solid #fed7d7; border-radius: 6px; color: #c53030;">
+                            <div style="font-weight: 600; margin-bottom: 2px;">Limit Reached!</div>
+                            <div style="margin-bottom: 6px;">Extractions now cost 1 Taka/each from your balance.</div>
+                            <a href="${CONFIG.SERVER_URL}/dashboard/billing" target="_blank" style="display: inline-block; padding: 6px 12px; background: #e53e3e; color: white; text-decoration: none; border-radius: 4px; font-weight: 500; font-size: 12px; transition: background 0.2s;">Upgrade Subscription</a>
+                        </div>
+                    `;
+                }
 
                 userLimits.innerHTML = `
                     <div style="display: flex; flex-direction: column; gap: 16px;">
-                        <!-- Autofill Limit -->
-                        <div>
-                            <div style="display: flex; align-items: center; justify-content: space-between; font-size: 11px; margin-bottom: 6px;">
-                                <div style="display: flex; align-items: center; gap: 8px;">
-                                    <span style="padding: 2px 8px; background-color: #eff6ff; color: #2563eb; border-radius: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.025em;">${planName}</span>
-                                    <span style="color: #64748b; font-weight: 500;">Form Fills: ${autoUsed}/${autoLimit}</span>
-                                </div>
-                                <span style="font-weight: 700; color: #2563eb;">${data.autofill?.remaining ?? (data.remaining || 0)} left</span>
-                            </div>
-                            <div style="width: 100%; height: 6px; background-color: #e2e8f0; border-radius: 999px; overflow: hidden;">
-                                <div style="width: ${autoPercentage}%; height: 100%; background-color: #3b82f6; border-radius: 999px; transition: width 0.5s;"></div>
-                            </div>
-                        </div>
-
                         <!-- Extraction Limit -->
                         <div>
                             <div style="display: flex; align-items: center; justify-content: space-between; font-size: 11px; margin-bottom: 6px;">
                                 <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span style="padding: 2px 8px; background-color: #eff6ff; color: #2563eb; border-radius: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: -0.025em;">${planName}</span>
                                     <span style="color: #64748b; font-weight: 500;">Document Extractions: ${extUsed}/${extLimit}</span>
                                 </div>
-                                <span style="font-weight: 700; color: #10b981;">${data.extraction?.remaining ?? 0} left</span>
+                                <span style="font-weight: 700; color: ${extRemaining <= 0 ? '#ef4444' : '#10b981'};">${extRemaining} left</span>
                             </div>
                             <div style="width: 100%; height: 6px; background-color: #e2e8f0; border-radius: 999px; overflow: hidden;">
-                                <div style="width: ${extPercentage}%; height: 100%; background-color: #10b981; border-radius: 999px; transition: width 0.5s;"></div>
+                                <div style="width: ${extPercentage}%; height: 100%; background-color: ${extRemaining <= 0 ? '#ef4444' : '#10b981'}; border-radius: 999px; transition: width 0.5s;"></div>
                             </div>
+                            ${upgradeMessage}
                         </div>
                     </div>
                 `;
@@ -200,7 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
     loginBtn.addEventListener('click', async () => {
         const email = loginEmailInput.value.trim();
         const password = loginPasswordInput.value.trim();
-        const serverUrl = SERVER_URL;
 
         if (!email || !password) {
             alert('Please enter both email and password.');
@@ -212,21 +222,12 @@ document.addEventListener('DOMContentLoaded', () => {
         loginBtn.disabled = true;
 
         try {
-            // We use the Supabase Auth directly if possible, or a proxy on the server.
-            // Since we want to use the same logic as the web app, let's look at how the web app authenticates.
-            // For the extension, it's easier to hit the Supabase API directly if we have the URL and Anon Key.
-            // However, the user asked to "use the same supabase login".
-            // Let's assume the server has an endpoint for login or we use Supabase directly.
-            // Given the context of "Next AI Solution", the Supabase URL is in .env.local.
 
-            const supabaseUrl = "https://yowcwwmswbxutklckwgt.supabase.co"; // Hardcoded for simplicity in extension or fetched from server
-            const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlvd2N3d21zd2J4dXRrbGNrd2d0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAwMjMwMDEsImV4cCI6MjA4NTU5OTAwMX0.NLRig5wdJb-NnUEZuHwqsaSEwo7tJt5hKsNsny33S8Y";
-
-            const response = await fetch(`${supabaseUrl}/auth/v1/token?grant_type=password`, {
+            const response = await fetch(`${CONFIG.SUPABASE_URL}/auth/v1/token?grant_type=password`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'apikey': supabaseAnonKey,
+                    'apikey': CONFIG.SUPABASE_ANON_KEY,
                 },
                 body: JSON.stringify({ email, password })
             });
@@ -241,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 loginStatus.textContent = 'Login successful!';
                 loginStatus.style.color = '#10b981';
                 showLoggedIn(data.user.email);
-                fetchLimits(data.access_token, serverUrl);
+                fetchLimits(data.access_token);
                 setTimeout(() => loginStatus.textContent = '', 3000);
             });
         } catch (error) {
@@ -504,7 +505,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // If it's empty, fallback to the key itself    
         return label;
-    }    function addFieldRow(key = '', value = '', site = '') {
+    } function addFieldRow(key = '', value = '', site = '') {
         const template = document.getElementById('fieldTemplate');
         const row = template.content.cloneNode(true).querySelector('.field-row');
 
@@ -617,13 +618,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function compressImageToBase64(file, maxSizeMB = 1.5) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
-            reader.onload = function(event) {
+            reader.onload = function (event) {
                 const img = new Image();
-                img.onload = function() {
+                img.onload = function () {
                     const canvas = document.createElement('canvas');
                     let width = img.width;
                     let height = img.height;
-                    
+
                     // Cap dimensions to save memory and size
                     const MAX_DIMENSION = 1600;
                     if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
@@ -645,13 +646,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     const targetBytes = maxSizeMB * 1024 * 1024;
                     let quality = 0.9;
                     let base64 = canvas.toDataURL('image/jpeg', quality);
-                    
+
                     // base64 size roughly = length * 0.75
                     while (base64.length * 0.75 > targetBytes && quality > 0.1) {
                         quality -= 0.1;
                         base64 = canvas.toDataURL('image/jpeg', quality);
                     }
-                    
+
                     resolve(base64);
                 };
                 img.onerror = reject;
@@ -856,11 +857,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         setStatus('⚠ Extracted data but no fields matched. Try a clearer document.', '#f59e0b');
                     }
 
-                    // Clear the file input after success
-                    clearFile();
+                      // Clear the file input after success
+                      clearFile();
 
-                } else {
-                    setStatus('✗ ' + (response?.error || 'Extraction failed'), '#ef4444');
+                      // Refresh limits to show updated extraction usage or balance deduction
+                      chrome.runtime.sendMessage({ action: 'GET_VALID_SESSION' }, (sessionResp) => {
+                          if (sessionResp && sessionResp.session && sessionResp.session.access_token) {
+                              fetchLimits(sessionResp.session.access_token);
+                          }
+                      });
+
+                  } else {
+                      setStatus('✗ ' + (response?.error || 'Extraction failed'), '#ef4444');
                 }
             });
 
