@@ -9,6 +9,9 @@ const popupName = document.getElementById('popup-name');
 const popupShop = document.getElementById('popup-shop');
 const popupPlan = document.getElementById('popup-plan');
 const popupLimits = document.getElementById('popup-limits');
+const popupBalance = document.getElementById('popup-balance');
+const addBalanceBtn = document.getElementById('add-balance-btn');
+const newProfileBtn = document.getElementById('new-profile-btn');
 
 document.addEventListener('DOMContentLoaded', () => {
     chrome.runtime.sendMessage({ action: 'GET_VALID_SESSION' }, (response) => {
@@ -36,6 +39,11 @@ async function fetchLimits(token) {
             if (data.email) popupEmail.textContent = data.email;
             if (data.userName) popupName.textContent = data.userName;
             if (data.shopName) popupShop.textContent = data.shopName;
+            if (data.balance !== undefined) popupBalance.textContent = `${data.balance} ৳`;
+            
+            if (addBalanceBtn) {
+                addBalanceBtn.href = `${CONFIG.SERVER_URL}/dashboard/billing`;
+            }
             
             const extUsed = data.extraction?.used ?? 0;
             const extLimit = data.extraction?.limit ?? 1;
@@ -125,3 +133,14 @@ sidebarBtn.addEventListener('click', () => {
 loginSettingsBtn.addEventListener('click', () => {
     chrome.runtime.openOptionsPage();
 });
+
+if (newProfileBtn) {
+    newProfileBtn.addEventListener('click', () => {
+        chrome.runtime.openOptionsPage(() => {
+            // Give the options page a moment to load, then send a message to open the modal
+            setTimeout(() => {
+                chrome.runtime.sendMessage({ action: 'OPEN_NEW_PROFILE_MODAL' });
+            }, 500);
+        });
+    });
+}

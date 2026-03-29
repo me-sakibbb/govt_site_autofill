@@ -88,11 +88,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginPasswordInput = document.getElementById('loginPasswordInput');
     const loginBtn = document.getElementById('loginBtn');
     const loginStatus = document.getElementById('loginStatus');
-    const loggedInContainer = document.getElementById('loggedInContainer');
-    const loggedInEmail = document.getElementById('loggedInEmail');
-    const loggedInName = document.getElementById('loggedInName');
-    const loggedInShop = document.getElementById('loggedInShop');
-    const logoutBtn = document.getElementById('logoutBtn');
+      const loggedInContainer = document.getElementById('loggedInContainer');
+      const loggedInEmail = document.getElementById('loggedInEmail');
+      const loggedInName = document.getElementById('loggedInName');
+      const loggedInShop = document.getElementById('loggedInShop');
+      const loggedInBalance = document.getElementById('loggedInBalance');
+      const optionsAddBalanceBtn = document.getElementById('optionsAddBalanceBtn');
+      const logoutBtn = document.getElementById('logoutBtn');
     const userLimits = document.getElementById('userLimits');
     const mainContent = document.querySelector('main');
     const mainFooter = document.querySelector('footer');
@@ -108,13 +110,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function showLoggedIn(email, name = '', shop = '') {
+    function showLoggedIn(email, name = '', shop = '', balance = undefined) {
         loginFormContainer.classList.add('hidden');
         loggedInContainer.style.display = 'block';
-        
+
         if (loggedInEmail) loggedInEmail.textContent = email || '';
         if (loggedInName) loggedInName.textContent = name || '';
         if (loggedInShop) loggedInShop.textContent = shop || 'Loading Shop...';
+        if (loggedInBalance && balance !== undefined) loggedInBalance.textContent = balance + ' ৳';
+        if (optionsAddBalanceBtn) optionsAddBalanceBtn.href = `${CONFIG.SERVER_URL}/dashboard/billing`;
 
         const avatar = document.getElementById('userAvatar');
         if (avatar && email) avatar.textContent = email.charAt(0).toUpperCase();
@@ -126,10 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function showLoggedOut() {
         loginFormContainer.classList.remove('hidden');
         loggedInContainer.style.display = 'none';
-        
+
         if (loggedInEmail) loggedInEmail.textContent = '';
         if (loggedInName) loggedInName.textContent = '';
         if (loggedInShop) loggedInShop.textContent = '';
+        if (loggedInBalance) loggedInBalance.textContent = '0 ৳';
 
         mainContent.classList.add('hidden');
         mainFooter.classList.add('hidden');
@@ -144,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 // Setup profile headers if they arrived
                 if (data.email) {
-                    showLoggedIn(data.email, data.userName, data.shopName);
+                    showLoggedIn(data.email, data.userName, data.shopName, data.balance);
                 }
 
                 // Extration limits
@@ -887,7 +892,13 @@ document.addEventListener('DOMContentLoaded', () => {
     newProfileBtn.addEventListener('click', createNewProfile);
     deleteProfileBtn.addEventListener('click', deleteCurrentProfile);
 
-    // ====================
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+          if (request.action === 'OPEN_NEW_PROFILE_MODAL') {
+              createNewProfile();
+          }
+      });
+
+      // ======================================
     // Initialize
     // ====================
 

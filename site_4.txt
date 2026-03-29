@@ -1,0 +1,558 @@
+https://pcc.police.gov.bd/
+
+<div class="t-Region-body">
+     <input type="hidden" name="P12_PID" id="P12_PID" value="11028173"><input type="hidden" data-for="P12_PID" value="pE5j4v39druAKUeeDaeWFvFqeNzMgoQgGILHaWhZIhDR_OtTfHozKlQPe7thnyKzgVH4eUyjkrdFpJAjv2mDww"><input type="hidden" name="P12_YEAR" id="P12_YEAR" value="260330"><input type="hidden" data-for="P12_YEAR" value="Lz_kX2cLZ2R983hZ3nmUaNQVh3zEwxf8-YtIdsHwPEng3wuTx46_UFbwZMQ_z4Or49TqJE4Bb6GeFai94Dhmig"><input type="hidden" name="P12_SERIAL" id="P12_SERIAL" value="25"><input type="hidden" data-for="P12_SERIAL" value="PjNdc3mKEYoE5vo6P0lR4vcacGQ6ZG1h9-3z3pkz9Mh1MJA8_tRs1Iplnefke6qvplDFfsRr_DT1drsH1m_8Jg"><input type="hidden" name="P12_TOKEN_ID" id="P12_TOKEN_ID" value="2603300025"><input type="hidden" data-for="P12_TOKEN_ID" value="7Ei3kIiViCxLaRLuA3XFuLb3WnDL8lpsBUnnoRkbZE-ANOjdiiUKhITWMt4CYs-h-SLbLivRAXZ3l4NwnVyYTA"><input type="hidden" name="P12_PID_APPLY_BY" id="P12_PID_APPLY_BY" value="892229"><input type="hidden" data-for="P12_PID_APPLY_BY" value="Fv47se3oaw4XlaOubtIt0RYrl0V9wKIaLp0JZ1K5fJtHszeVngwg4H5Hk7NQkMB-OwSAk_qi14NKfWPXbzOimg"><div class="container">
+<div class="row">
+<div class="col col-12 apex-col-auto" style="text-transform:uppercase">
+<div class="t-Form-fieldContainer rel-col  apex-item-wrapper apex-item-wrapper--has-placeholder apex-item-wrapper--has-initial-value apex-item-wrapper--text-field" id="P12_PASSPORT_NO_CONTAINER"><div class="t-Form-labelContainer col col-3">
+  <label for="P12_PASSPORT_NO" id="P12_PASSPORT_NO_LABEL" class="t-Form-label">Passport No <span class="u-VisuallyHidden">(Value Required)</span></label><span class="t-Form-required"><span class="a-Icon icon-asterisk"></span></span>
+</div><div class="t-Form-inputContainer col col-9"><input type="text" id="P12_PASSPORT_NO" name="P12_PASSPORT_NO" required="" placeholder="Passport No" class="text_field apex-item-text" value="A02345678" size="32" maxlength="10" data-trim-spaces="TRAILING" data-text-case="UPPER" data-enter-submit="false" data-is-page-item-type="true"><span id="P12_PASSPORT_NO_error_placeholder" class="a-Form-error" data-template-id="1604108574889110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col  apex-item-wrapper apex-item-wrapper--has-initial-value plugin-be.ctb.select2 has-helpbutton" id="P12_NATIONALITY_CONTAINER"><div class="t-Form-labelContainer col col-3">
+  <label for="P12_NATIONALITY" id="P12_NATIONALITY_LABEL" class="t-Form-label">Issuing Country <span class="u-VisuallyHidden">(Value Required)</span></label><span class="t-Form-required"><span class="a-Icon icon-asterisk"></span></span>
+</div><div class="t-Form-inputContainer col col-9">
+    <select id="P12_NATIONALITY" name="P12_NATIONALITY" class="selectlist select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+<option value=""></option>
+</select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 263px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-P12_NATIONALITY-container"><span class="select2-selection__rendered" id="select2-P12_NATIONALITY-container" title="Bangladesh"><span class="select2-selection__clear">×</span>Bangladesh</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+<button class="t-Button t-Button--noUI t-Button--helpButton js-itemHelp" data-itemhelp="79418011062108110" title="View help text for Issuing Country." aria-label="View help text for Issuing Country." tabindex="-1" type="button"><span class="a-Icon icon-help" aria-hidden="true"></span></button><span id="P12_NATIONALITY_error_placeholder" class="a-Form-error" data-template-id="1604108574889110568_ET"></span></div></div><input type="hidden" name="P12_DATE" id="P12_DATE" value="30-MAR-26"><input type="hidden" data-for="P12_DATE" value="dTmWcbN1SadbWtCxK5fssY-VocR7w17eIDT5TlsQ3ZY9vFbXGqlwamb3xYXyUEpQ5Y_KMC2ZWM7p4m786T4PnQ">
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col  apex-item-wrapper apex-item-wrapper--has-placeholder apex-item-wrapper--date-picker" id="P12_FROM_DATE_CONTAINER" style="display: none;"><div class="t-Form-labelContainer col col-3">
+<label for="P12_FROM_DATE" id="P12_FROM_DATE_LABEL" class="t-Form-label">From Date</label>
+</div>
+<div class="t-Form-inputContainer col col-9"><input type="text" placeholder="Start date of staying in Bangladesh" aria-describedby="P12_FROM_DATE_format_help" class="datepicker apex-item-text apex-item-datepicker hasDatepicker" id="P12_FROM_DATE" name="P12_FROM_DATE" maxlength="" size="30" value="" autocomplete="off"><button type="button" class="ui-datepicker-trigger a-Button a-Button--calendar"><span class="a-Icon icon-calendar"></span><span class="u-VisuallyHidden">Popup Calendar: From Date<span></span></span></button><span class="u-VisuallyHidden" id="P12_FROM_DATE_format_help">Expected format: DD-MON-RR</span><span id="P12_FROM_DATE_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col  apex-item-wrapper apex-item-wrapper--has-placeholder apex-item-wrapper--date-picker" id="P12_TO_DATE_CONTAINER" style="display: none;"><div class="t-Form-labelContainer col col-3">
+<label for="P12_TO_DATE" id="P12_TO_DATE_LABEL" class="t-Form-label">To Date</label>
+</div>
+<div class="t-Form-inputContainer col col-9"><input type="text" placeholder="Last date of staying in Bangladesh" aria-describedby="P12_TO_DATE_format_help" class="datepicker apex-item-text apex-item-datepicker hasDatepicker" id="P12_TO_DATE" name="P12_TO_DATE" maxlength="" size="30" value="" autocomplete="off"><button type="button" class="ui-datepicker-trigger a-Button a-Button--calendar"><span class="a-Icon icon-calendar"></span><span class="u-VisuallyHidden">Popup Calendar: To Date<span></span></span></button><span class="u-VisuallyHidden" id="P12_TO_DATE_format_help">Expected format: DD-MON-RR</span><span id="P12_TO_DATE_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col  apex-item-wrapper apex-item-wrapper--has-placeholder apex-item-wrapper--has-initial-value apex-item-wrapper--date-picker has-helpbutton" id="P12_ISSUE_DATE_CONTAINER"><div class="t-Form-labelContainer col col-3">
+  <label for="P12_ISSUE_DATE" id="P12_ISSUE_DATE_LABEL" class="t-Form-label">Issue Date <span class="u-VisuallyHidden">(Value Required)</span></label><span class="t-Form-required"><span class="a-Icon icon-asterisk"></span></span>
+</div><div class="t-Form-inputContainer col col-9"><input type="text" placeholder="Select Passport Issue Date(10-Jun-2024)" required="" aria-describedby="P12_ISSUE_DATE_format_help" class="datepicker apex-item-text apex-item-datepicker hasDatepicker" readonly="" id="P12_ISSUE_DATE" name="P12_ISSUE_DATE" maxlength="255" size="32" value="18-MAR-2026" autocomplete="off"><span class="u-VisuallyHidden" id="P12_ISSUE_DATE_format_help">Expected format: DD-MON-YYYY</span><button class="t-Button t-Button--noUI t-Button--helpButton js-itemHelp" data-itemhelp="1095349817119283311" title="View help text for Issue Date." aria-label="View help text for Issue Date." tabindex="-1" type="button"><span class="a-Icon icon-help" aria-hidden="true"></span></button><span id="P12_ISSUE_DATE_error_placeholder" class="a-Form-error" data-template-id="1604108574889110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col  apex-item-wrapper apex-item-wrapper--has-placeholder apex-item-wrapper--has-initial-value apex-item-wrapper--text-field has-helpbutton" id="P12_ISSUE_PLACE_CONTAINER"><div class="t-Form-labelContainer col col-3">
+  <label for="P12_ISSUE_PLACE" id="P12_ISSUE_PLACE_LABEL" class="t-Form-label">Issue Place <span class="u-VisuallyHidden">(Value Required)</span></label><span class="t-Form-required"><span class="a-Icon icon-asterisk"></span></span>
+</div><div class="t-Form-inputContainer col col-9"><input type="text" id="P12_ISSUE_PLACE" name="P12_ISSUE_PLACE" required="" placeholder=" Passport Issue Place" class="text_field apex-item-text" value="Dhaka" size="32" maxlength="100" data-trim-spaces="NONE" data-enter-submit="false" data-is-page-item-type="true"><button class="t-Button t-Button--noUI t-Button--helpButton js-itemHelp" data-itemhelp="1095350237858283312" title="View help text for Issue Place." aria-label="View help text for Issue Place." tabindex="-1" type="button"><span class="a-Icon icon-help" aria-hidden="true"></span></button><span id="P12_ISSUE_PLACE_error_placeholder" class="a-Form-error" data-template-id="1604108574889110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col  apex-item-wrapper apex-item-wrapper--has-placeholder apex-item-wrapper--has-initial-value apex-item-wrapper--date-picker has-helpbutton" id="P12_EXPIRE_DATE_CONTAINER"><div class="t-Form-labelContainer col col-3">
+  <label for="P12_EXPIRE_DATE" id="P12_EXPIRE_DATE_LABEL" class="t-Form-label">Expiry Date <span class="u-VisuallyHidden">(Value Required)</span></label><span class="t-Form-required"><span class="a-Icon icon-asterisk"></span></span>
+</div><div class="t-Form-inputContainer col col-9"><input type="text" placeholder="Select Passport Expiry Date" required="" aria-describedby="P12_EXPIRE_DATE_format_help" class="datepicker apex-item-text apex-item-datepicker hasDatepicker" readonly="" id="P12_EXPIRE_DATE" name="P12_EXPIRE_DATE" maxlength="255" size="32" value="28-JUN-2026" autocomplete="off"><button type="button" class="ui-datepicker-trigger a-Button a-Button--calendar"><span class="a-Icon icon-calendar"></span><span class="u-VisuallyHidden">Popup Calendar: Expiry Date<span></span></span></button><span class="u-VisuallyHidden" id="P12_EXPIRE_DATE_format_help">Expected format: DD-MON-YYYY</span><button class="t-Button t-Button--noUI t-Button--helpButton js-itemHelp" data-itemhelp="1095350651184283312" title="View help text for Expiry Date." aria-label="View help text for Expiry Date." tabindex="-1" type="button"><span class="a-Icon icon-help" aria-hidden="true"></span></button><span id="P12_EXPIRE_DATE_error_placeholder" class="a-Form-error" data-template-id="1604108574889110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto" onkeypress="return (event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57) ">
+<div class="t-Form-fieldContainer rel-col  apex-item-wrapper apex-item-wrapper--has-placeholder apex-item-wrapper--has-initial-value apex-item-wrapper--text-field" id="P12_MOBILE_NO_CONTAINER"><div class="t-Form-labelContainer col col-3">
+  <label for="P12_MOBILE_NO" id="P12_MOBILE_NO_LABEL" class="t-Form-label">Mobile No <span class="u-VisuallyHidden">(Value Required)</span></label><span class="t-Form-required"><span class="a-Icon icon-asterisk"></span></span>
+</div><div class="t-Form-inputContainer col col-9"><input type="text" id="P12_MOBILE_NO" name="P12_MOBILE_NO" required="" placeholder="Applicant Mobile No" class="text_field apex-item-text" value="01684307307" size="32" data-enter-submit="false" data-is-page-item-type="true"><span id="P12_MOBILE_NO_error_placeholder" class="a-Form-error" data-template-id="1604108574889110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col  apex-item-wrapper apex-item-wrapper--has-placeholder apex-item-wrapper--has-initial-value apex-item-wrapper--text-field has-helpbutton" id="P12_EMAIL_CONTAINER"><div class="t-Form-labelContainer col col-3">
+<label for="P12_EMAIL" id="P12_EMAIL_LABEL" class="t-Form-label">Email</label>
+</div>
+<div class="t-Form-inputContainer col col-9"><input type="text" id="P12_EMAIL" name="P12_EMAIL" placeholder="Applicant Email ID" class="text_field apex-item-text" value="nexai6720@gmail.com" size="32" data-enter-submit="false" data-is-page-item-type="true"><button class="t-Button t-Button--noUI t-Button--helpButton js-itemHelp" data-itemhelp="9167414011370320" title="View help text for Email." aria-label="View help text for Email." tabindex="-1" type="button"><span class="a-Icon icon-help" aria-hidden="true"></span></button><span id="P12_EMAIL_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto" onkeypress="return (event.charCode &gt;= 48 &amp;&amp; event.charCode &lt;= 57) ">
+<div class="t-Form-fieldContainer rel-col  apex-item-wrapper apex-item-wrapper--has-placeholder apex-item-wrapper--has-initial-value apex-item-wrapper--text-field has-helpbutton" id="P12_NID_CONTAINER"><div class="t-Form-labelContainer col col-3">
+<label for="P12_NID" id="P12_NID_LABEL" class="t-Form-label">NID</label>
+</div>
+<div class="t-Form-inputContainer col col-9"><input type="text" id="P12_NID" name="P12_NID" placeholder="Numbers only" class="text_field apex-item-text" value="199826137000001" size="32" maxlength="17" data-trim-spaces="NONE" data-enter-submit="false" data-is-page-item-type="true"><button class="t-Button t-Button--noUI t-Button--helpButton js-itemHelp" data-itemhelp="1095353061081283318" title="View help text for NID." aria-label="View help text for NID." tabindex="-1" type="button"><span class="a-Icon icon-help" aria-hidden="true"></span></button><span id="P12_NID_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col  apex-item-wrapper apex-item-wrapper--has-initial-value apex-item-wrapper--radiogroup has-inlinehelp" id="P12_GENDER_CONTAINER"><div class="t-Form-labelContainer col col-3">
+  <label for="P12_GENDER" id="P12_GENDER_LABEL" class="t-Form-label">Salutation <span class="u-VisuallyHidden">(Value Required)</span></label><span class="t-Form-required"><span class="a-Icon icon-asterisk"></span></span>
+</div><div class="t-Form-inputContainer col col-9"><div tabindex="-1" id="P12_GENDER" aria-labelledby="P12_GENDER_LABEL" class="radio_group apex-item-group apex-item-group--rc apex-item-radio" role="radiogroup">
+<div role="none" class="apex-item-grid radio_group">
+<div role="none" class="apex-item-grid-row">
+<div class="apex-item-option"><input type="radio" id="P12_GENDER_0" name="P12_GENDER" data-display="Mr." value="75" checked="checked" required="" aria-label="Mr."><label class="u-radio" for="P12_GENDER_0" aria-hidden="true">Mr.</label></div>
+<div class="apex-item-option"><input type="radio" id="P12_GENDER_1" name="P12_GENDER" data-display="Ms." value="76" required="" aria-label="Ms."><label class="u-radio" for="P12_GENDER_1" aria-hidden="true">Ms.</label></div>
+<div class="apex-item-option"><input type="radio" id="P12_GENDER_2" name="P12_GENDER" data-display="None" value="77" required="" aria-label="None"><label class="u-radio" for="P12_GENDER_2" aria-hidden="true">None</label></div>
+</div></div></div>
+<span id="P12_GENDER_error_placeholder" class="a-Form-error" data-template-id="1604108574889110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col  apex-item-wrapper apex-item-wrapper--has-placeholder apex-item-wrapper--has-initial-value apex-item-wrapper--text-field" id="P12_PERSON_NAME_CONTAINER"><div class="t-Form-labelContainer col col-3">
+  <label for="P12_PERSON_NAME" id="P12_PERSON_NAME_LABEL" class="t-Form-label">Full Name <span class="u-VisuallyHidden">(Value Required)</span></label><span class="t-Form-required"><span class="a-Icon icon-asterisk"></span></span>
+</div><div class="t-Form-inputContainer col col-9"><input type="text" id="P12_PERSON_NAME" name="P12_PERSON_NAME" required="" placeholder="As it appears in your passport" class="text_field apex-item-text" value="MD MOJAHIDUL ISLAM MOMEN" size="32" maxlength="200" data-trim-spaces="NONE" data-enter-submit="false" data-is-page-item-type="true"><span id="P12_PERSON_NAME_error_placeholder" class="a-Form-error" data-template-id="1604108574889110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col  apex-item-wrapper apex-item-wrapper--has-placeholder apex-item-wrapper--has-initial-value apex-item-wrapper--text-field" id="P12_FATHER_NAME_CONTAINER"><div class="t-Form-labelContainer col col-3">
+  <label for="P12_FATHER_NAME" id="P12_FATHER_NAME_LABEL" class="t-Form-label">Father's / Husband Name <span class="u-VisuallyHidden">(Value Required)</span></label><span class="t-Form-required"><span class="a-Icon icon-asterisk"></span></span>
+</div><div class="t-Form-inputContainer col col-9"><input type="text" id="P12_FATHER_NAME" name="P12_FATHER_NAME" required="" placeholder="Father's/ Husband Name" class="text_field apex-item-text" value="MD MOJAHIDUL ISLAM MOMEN" size="32" maxlength="200" data-trim-spaces="NONE" data-enter-submit="false" data-is-page-item-type="true"><span id="P12_FATHER_NAME_error_placeholder" class="a-Form-error" data-template-id="1604108574889110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col  apex-item-wrapper apex-item-wrapper--has-initial-value apex-item-wrapper--radiogroup" id="P12_RELATION_CONTAINER"><div class="t-Form-labelContainer col col-3">
+  <label for="P12_RELATION" id="P12_RELATION_LABEL" class="t-Form-label">Relation <span class="u-VisuallyHidden">(Value Required)</span></label><span class="t-Form-required"><span class="a-Icon icon-asterisk"></span></span>
+</div><div class="t-Form-inputContainer col col-9"><div tabindex="-1" id="P12_RELATION" aria-labelledby="P12_RELATION_LABEL" class="radio_group apex-item-group apex-item-group--rc apex-item-radio" role="radiogroup">
+<div role="none" class="apex-item-grid radio_group">
+<div role="none" class="apex-item-grid-row">
+<div class="apex-item-option"><input type="radio" id="P12_RELATION_0" name="P12_RELATION" data-display="Father" value="94" checked="checked" required="" aria-label="Father"><label class="u-radio" for="P12_RELATION_0" aria-hidden="true">Father</label></div>
+<div class="apex-item-option"><input type="radio" id="P12_RELATION_1" name="P12_RELATION" data-display="Spouse" value="95" required="" aria-label="Spouse"><label class="u-radio" for="P12_RELATION_1" aria-hidden="true">Spouse</label></div>
+</div></div></div>
+<span id="P12_RELATION_error_placeholder" class="a-Form-error" data-template-id="1604108574889110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col  apex-item-wrapper apex-item-wrapper--has-placeholder apex-item-wrapper--has-initial-value apex-item-wrapper--text-field" id="P12_MOTHER_NAME_CONTAINER"><div class="t-Form-labelContainer col col-3">
+<label for="P12_MOTHER_NAME" id="P12_MOTHER_NAME_LABEL" class="t-Form-label">Mother's Name</label>
+</div>
+<div class="t-Form-inputContainer col col-9"><input type="text" id="P12_MOTHER_NAME" name="P12_MOTHER_NAME" placeholder="Mother's Name" class="text_field apex-item-text" value="MD MOJAHIDUL ISLAM MOMEN" size="32" maxlength="200" data-trim-spaces="NONE" data-enter-submit="false" data-is-page-item-type="true"><span id="P12_MOTHER_NAME_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col  apex-item-wrapper apex-item-wrapper--has-placeholder apex-item-wrapper--has-initial-value apex-item-wrapper--date-picker has-helpbutton" id="P12_DOB_CONTAINER"><div class="t-Form-labelContainer col col-3">
+  <label for="P12_DOB" id="P12_DOB_LABEL" class="t-Form-label">Date of Birth <span class="u-VisuallyHidden">(Value Required)</span></label><span class="t-Form-required"><span class="a-Icon icon-asterisk"></span></span>
+</div><div class="t-Form-inputContainer col col-9"><input type="text" placeholder="Select Date of Birth" required="" aria-describedby="P12_DOB_format_help" class="datepicker apex-item-text apex-item-datepicker hasDatepicker" readonly="" id="P12_DOB" name="P12_DOB" maxlength="255" size="32" value="30-MAR-2026" autocomplete="off"><button type="button" class="ui-datepicker-trigger a-Button a-Button--calendar"><span class="a-Icon icon-calendar"></span><span class="u-VisuallyHidden">Popup Calendar: Date of Birth<span></span></span></button><span class="u-VisuallyHidden" id="P12_DOB_format_help">Expected format: DD-MON-YYYY</span><button class="t-Button t-Button--noUI t-Button--helpButton js-itemHelp" data-itemhelp="1095352221383283317" title="View help text for Date of Birth." aria-label="View help text for Date of Birth." tabindex="-1" type="button"><span class="a-Icon icon-help" aria-hidden="true"></span></button><span id="P12_DOB_error_placeholder" class="a-Form-error" data-template-id="1604108574889110568_ET"></span></div></div><input type="hidden" name="P12_APPLY_DATE" id="P12_APPLY_DATE" value="30-MAR-26"><input type="hidden" data-for="P12_APPLY_DATE" value="--fWzCCCGR15cqWiQ8oJw8i8S0qv6qfA_fMmf6omOwpnlMnaOAZ2eJ-kLfs8DNC0swcd-7rbAdomL4H9MzZtjw"><input type="hidden" name="P12_APPLY_STATUS" id="P12_APPLY_STATUS" value="65"><input type="hidden" data-for="P12_APPLY_STATUS" value="WDEStr3xx6AFsbx5oQ7W3KyKLuE3RJ4COFGDGPBaVVNE36prZ8FiJdgtNFLw1oq_O4-rJ_KiLf_nprtTBZCFlg"><input type="hidden" name="P12_TOKEN_LAST_STATUS" id="P12_TOKEN_LAST_STATUS" value="52"><input type="hidden" data-for="P12_TOKEN_LAST_STATUS" value="28adcbUWoJZ7lZ7NCBfiCau89zi00omOhi41aMFow94oX4umytVSJQVWVkEvd6Lnc8Xubaj-UWAjnLfWn1mOAA"><input type="hidden" name="P12_BASE_URL" id="P12_BASE_URL" value="https://pcc.police.gov.bd/ords/">
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col  apex-item-wrapper apex-item-wrapper--file has-helpbutton" id="P12_STORED_ID_CONTAINER"><div class="t-Form-labelContainer col col-3">
+<label for="P12_STORED_ID" id="P12_STORED_ID_LABEL" class="t-Form-label">Photo (Maximum 150KB)</label>
+</div>
+<div class="t-Form-inputContainer col col-9"><a-file-upload id="P12_STORED_ID" upload-type="FILE" display-style="NATIVE" accept=".png, .jpeg, .jpg, .gif" size="30" max-file-size="150" download-link="true"><input type="file" class="apex-item-file" id="P12_STORED_ID_input" aria-labelledby="P12_STORED_ID_LABEL" name="P12_STORED_ID" accept=".png, .jpeg, .jpg, .gif"></a-file-upload><a id="dl-id" href="https://pcc.police.gov.bd/ords/pcc2/doc/file/" download="" style="display: none;">Download</a><button class="t-Button t-Button--noUI t-Button--helpButton js-itemHelp" data-itemhelp="1044367026401646908" title="View help text for Photo (Maximum 150KB)." aria-label="View help text for Photo (Maximum 150KB)." tabindex="-1" type="button"><span class="a-Icon icon-help" aria-hidden="true"></span></button><span id="P12_STORED_ID_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div>
+</div><a href="/ords/r/pcc/pcc/19?p19_pid=11028173&amp;clear=19&amp;session=16827278269340&amp;cs=3Ck7nP34KEBqNhVV0rdc8les8Skh2P8Db1gJaI-ojk2hJsCQaxb_bBk6foFNAkH6yfGruDRM6A10zZlXVKI7iAA">.</a>
+     
+   </div>
+
+
+<div class="container">
+<div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Region t-Region--hideHeader t-Region--scrollBody" id="R2521601520200169763" role="group" aria-labelledby="R2521601520200169763_heading">
+ <div class="t-Region-header">
+  <div class="t-Region-headerItems t-Region-headerItems--title">
+    <h2 class="t-Region-title" id="R2521601520200169763_heading">Apply Details</h2>
+  </div>
+  <div class="t-Region-headerItems t-Region-headerItems--buttons"><span class="js-maximizeButtonContainer"></span></div>
+ </div>
+ <div class="t-Region-bodyWrap">
+   <div class="t-Region-buttons t-Region-buttons--top">
+    <div class="t-Region-buttons-left"></div>
+    <div class="t-Region-buttons-right"></div>
+   </div>
+   <div class="t-Region-body">
+     
+      
+         <div style="margin:0 auto;text-align: center;">
+            <p>
+              <b>Ref No :</b> 1BENB4V,
+               <b>Passport No :</b> A02345678,
+               <b>Name :</b> MD MOJAHIDUL ISLAM MOMEN,
+               <b>Mobile No:</b> 01684307307.
+            </p>
+      
+         </div>
+      
+        
+      
+      
+
+     
+   </div>
+   <div class="t-Region-buttons t-Region-buttons--bottom">
+    <div class="t-Region-buttons-left"></div>
+    <div class="t-Region-buttons-right"></div>
+   </div>
+ </div>
+</div>
+<div class="t-Region t-Region--scrollBody t-Form--slimPadding t-Form--stretchInputs" id="R1683114697492880004" role="group" aria-labelledby="R1683114697492880004_heading">
+ <div class="t-Region-header">
+  <div class="t-Region-headerItems t-Region-headerItems--title">
+    <h2 class="t-Region-title" id="R1683114697492880004_heading">Emergency Contact Address (For Bangladesh Passport: As Per Passport) (For foreign passport: The residence address&nbsp;in&nbsp;Bangladesh)</h2>
+  </div>
+  <div class="t-Region-headerItems t-Region-headerItems--buttons"><span class="js-maximizeButtonContainer"></span></div>
+ </div>
+ <div class="t-Region-bodyWrap">
+   <div class="t-Region-buttons t-Region-buttons--top">
+    <div class="t-Region-buttons-left"></div>
+    <div class="t-Region-buttons-right"></div>
+   </div>
+   <div class="t-Region-body">
+     
+     <div class="container">
+<div class="row">
+<div class="col col-6 apex-col-auto">
+<div id="R1128498527224960617" class="t-Form--leftLabels"> 
+<div class="container">
+<div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--popup-lov" id="P60_EMER_PUBLIC_DIVISION_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_EMER_PUBLIC_DIVISION" id="P60_EMER_PUBLIC_DIVISION_LABEL" class="t-Form-label"><span>Division<span style="color: red;">:- *</span></span></label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="hidden" name="P60_EMER_PUBLIC_DIVISION" id="P60_EMER_PUBLIC_DIVISION_HIDDENVALUE" value=""><div class="apex-item-group apex-item-group--popup-lov"><input type="text" id="P60_EMER_PUBLIC_DIVISION" required="" class="popup_lov apex-item-text apex-item-popup-lov" size="30" maxlength="" value="" readonly="" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-haspopup="dialog"><button aria-hidden="true" type="button" class="a-Button a-Button--popupLOV" id="P60_EMER_PUBLIC_DIVISION_lov_btn" tabindex="-1"><span class="a-Icon icon-popup-lov-under"></span></button></div><span id="P60_EMER_PUBLIC_DIVISION_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--popup-lov" id="P60_EMER_DISTRICT_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_EMER_DISTRICT" id="P60_EMER_DISTRICT_LABEL" class="t-Form-label"><span>District<span style="color: red;">:- *</span></span></label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="hidden" name="P60_EMER_DISTRICT" id="P60_EMER_DISTRICT_HIDDENVALUE" value=""><div class="apex-item-group apex-item-group--popup-lov"><input type="text" id="P60_EMER_DISTRICT" required="" class="popup_lov apex-item-text apex-item-popup-lov" size="30" maxlength="" value="" readonly="" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-haspopup="dialog"><button aria-hidden="true" type="button" class="a-Button a-Button--popupLOV" id="P60_EMER_DISTRICT_lov_btn" tabindex="-1"><span class="a-Icon icon-popup-lov-under"></span></button></div><span id="P60_EMER_DISTRICT_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--popup-lov" id="P60_EMER_THANA_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_EMER_THANA" id="P60_EMER_THANA_LABEL" class="t-Form-label"><span>Thana<span style="color: red;">:- *</span></span></label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="hidden" name="P60_EMER_THANA" id="P60_EMER_THANA_HIDDENVALUE" value=""><div class="apex-item-group apex-item-group--popup-lov"><input type="text" id="P60_EMER_THANA" required="" class="popup_lov apex-item-text apex-item-popup-lov" size="30" maxlength="" value="" readonly="" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-haspopup="dialog"><button aria-hidden="true" type="button" class="a-Button a-Button--popupLOV" id="P60_EMER_THANA_lov_btn" tabindex="-1"><span class="a-Icon icon-popup-lov-under"></span></button></div><span id="P60_EMER_THANA_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--text-field" id="P60_EMER_POST_CODE_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_EMER_POST_CODE" id="P60_EMER_POST_CODE_LABEL" class="t-Form-label">Post Code:-</label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="text" id="P60_EMER_POST_CODE" name="P60_EMER_POST_CODE" class="text_field apex-item-text" value="" size="30" maxlength="200" data-enter-submit="false" data-is-page-item-type="true"><span id="P60_EMER_POST_CODE_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="col col-6 apex-col-auto">
+<div id="R1128498654676960618" class="t-Form--leftLabels"> 
+<div class="container">
+<div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--text-field" id="P60_EMER_POST_OFFICE_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_EMER_POST_OFFICE" id="P60_EMER_POST_OFFICE_LABEL" class="t-Form-label"><span>Post Office<span style="color: red;">:- *</span></span></label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="text" id="P60_EMER_POST_OFFICE" name="P60_EMER_POST_OFFICE" required="" class="text_field apex-item-text" value="" size="30" data-enter-submit="false" data-is-page-item-type="true"><span id="P60_EMER_POST_OFFICE_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--text-field" id="P60_EMER_VILL_AREA_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_EMER_VILL_AREA" id="P60_EMER_VILL_AREA_LABEL" class="t-Form-label"><span>Village/ Area/ Sector<span style="color: red;">:- *</span></span></label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="text" id="P60_EMER_VILL_AREA" name="P60_EMER_VILL_AREA" required="" class="text_field apex-item-text" value="" size="30" maxlength="200" data-enter-submit="false" data-is-page-item-type="true"><span id="P60_EMER_VILL_AREA_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--text-field" id="P60_EMER_HOUSE_ROAD_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_EMER_HOUSE_ROAD" id="P60_EMER_HOUSE_ROAD_LABEL" class="t-Form-label"> Road :-</label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="text" id="P60_EMER_HOUSE_ROAD" name="P60_EMER_HOUSE_ROAD" class="text_field apex-item-text" value="" size="30" maxlength="200" data-enter-submit="false" data-is-page-item-type="true"><span id="P60_EMER_HOUSE_ROAD_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--text-field" id="P60_EMER_HOUSE_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_EMER_HOUSE" id="P60_EMER_HOUSE_LABEL" class="t-Form-label">House :-</label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="text" id="P60_EMER_HOUSE" name="P60_EMER_HOUSE" class="text_field apex-item-text" value="" size="30" data-enter-submit="false" data-is-page-item-type="true"><span id="P60_EMER_HOUSE_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+   </div>
+   <div class="t-Region-buttons t-Region-buttons--bottom">
+    <div class="t-Region-buttons-left"></div>
+    <div class="t-Region-buttons-right"></div>
+   </div>
+ </div>
+</div>
+
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div id="R1128499688912960628" class=""> 
+<div class="container">
+<div class="row">
+<div class="col col-4 ">
+<span class="apex-grid-nbsp">&nbsp;</span>
+</div><div class="col col-7 ">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--has-initial-value apex-item-wrapper--radiogroup" id="P60_SET_PERM_ADDRESS_CONTAINER"><div class="t-Form-labelContainer col col-0">
+<label for="P60_SET_PERM_ADDRESS" id="P60_SET_PERM_ADDRESS_LABEL" class="t-Form-label"></label>
+</div>
+<div class="t-Form-inputContainer col col-7"><div tabindex="-1" id="P60_SET_PERM_ADDRESS" aria-labelledby="P60_SET_PERM_ADDRESS_LABEL" class="radio_group apex-item-group apex-item-group--rc apex-item-radio" role="radiogroup">
+<div role="none" class="apex-item-grid radio_group">
+<div role="none" class="apex-item-grid-row">
+<div class="apex-item-option"><input type="radio" id="P60_SET_PERM_ADDRESS_0" name="P60_SET_PERM_ADDRESS" data-display="Same As Emergency Address" value="emer" aria-label="Same As Emergency Address"><label class="u-radio" for="P60_SET_PERM_ADDRESS_0" aria-hidden="true">Same As Emergency Address</label></div>
+<div class="apex-item-option"><input type="radio" id="P60_SET_PERM_ADDRESS_1" name="P60_SET_PERM_ADDRESS" data-display="Enter Manually" value="man" checked="checked" aria-label="Enter Manually"><label class="u-radio" for="P60_SET_PERM_ADDRESS_1" aria-hidden="true">Enter Manually</label></div>
+</div></div></div>
+<span id="P60_SET_PERM_ADDRESS_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Region t-Region--scrollBody" id="R2774856889207045856" role="group" aria-labelledby="R2774856889207045856_heading">
+ <div class="t-Region-header">
+  <div class="t-Region-headerItems t-Region-headerItems--title">
+    <h2 class="t-Region-title" id="R2774856889207045856_heading">Permanent Contact Address (For Bangladesh Passport: As Per Passport) (For foreign passport:&nbsp;Not&nbsp;Applicable)</h2>
+  </div>
+  <div class="t-Region-headerItems t-Region-headerItems--buttons"><span class="js-maximizeButtonContainer"></span></div>
+ </div>
+ <div class="t-Region-bodyWrap">
+   <div class="t-Region-buttons t-Region-buttons--top">
+    <div class="t-Region-buttons-left"></div>
+    <div class="t-Region-buttons-right"></div>
+   </div>
+   <div class="t-Region-body">
+     
+     <div class="container">
+<div class="row">
+<div class="col col-6 apex-col-auto">
+<div id="R1128498773739960619" class="t-Form--slimPadding t-Form--leftLabels"> 
+<div class="container">
+<div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--popup-lov" id="P60_PERM_PUBLIC_DIVISION_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_PERM_PUBLIC_DIVISION" id="P60_PERM_PUBLIC_DIVISION_LABEL" class="t-Form-label">Division :-</label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="hidden" name="P60_PERM_PUBLIC_DIVISION" id="P60_PERM_PUBLIC_DIVISION_HIDDENVALUE" value=""><div class="apex-item-group apex-item-group--popup-lov"><input type="text" id="P60_PERM_PUBLIC_DIVISION" class="popup_lov apex-item-text apex-item-popup-lov" size="30" maxlength="" value="" readonly="" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-haspopup="dialog"><button aria-hidden="true" type="button" class="a-Button a-Button--popupLOV" id="P60_PERM_PUBLIC_DIVISION_lov_btn" tabindex="-1"><span class="a-Icon icon-popup-lov-under"></span></button></div><span id="P60_PERM_PUBLIC_DIVISION_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--popup-lov" id="P60_PERM_DISTRICT_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_PERM_DISTRICT" id="P60_PERM_DISTRICT_LABEL" class="t-Form-label">District :-</label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="hidden" name="P60_PERM_DISTRICT" id="P60_PERM_DISTRICT_HIDDENVALUE" value=""><div class="apex-item-group apex-item-group--popup-lov"><input type="text" id="P60_PERM_DISTRICT" class="popup_lov apex-item-text apex-item-popup-lov" size="30" maxlength="" value="" readonly="" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-haspopup="dialog"><button aria-hidden="true" type="button" class="a-Button a-Button--popupLOV" id="P60_PERM_DISTRICT_lov_btn" tabindex="-1"><span class="a-Icon icon-popup-lov-under"></span></button></div><span id="P60_PERM_DISTRICT_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--popup-lov" id="P60_PERM_THANA_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_PERM_THANA" id="P60_PERM_THANA_LABEL" class="t-Form-label">Thana :-</label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="hidden" name="P60_PERM_THANA" id="P60_PERM_THANA_HIDDENVALUE" value=""><div class="apex-item-group apex-item-group--popup-lov"><input type="text" id="P60_PERM_THANA" class="popup_lov apex-item-text apex-item-popup-lov" size="30" maxlength="" value="" readonly="" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-haspopup="dialog"><button aria-hidden="true" type="button" class="a-Button a-Button--popupLOV" id="P60_PERM_THANA_lov_btn" tabindex="-1"><span class="a-Icon icon-popup-lov-under"></span></button></div><span id="P60_PERM_THANA_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--text-field" id="P60_PERM_POST_CODE_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_PERM_POST_CODE" id="P60_PERM_POST_CODE_LABEL" class="t-Form-label">Post Code :-</label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="text" id="P60_PERM_POST_CODE" name="P60_PERM_POST_CODE" class="text_field apex-item-text" value="" size="32" maxlength="20" data-trim-spaces="NONE" data-enter-submit="false" data-is-page-item-type="true"><span id="P60_PERM_POST_CODE_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="col col-6 apex-col-auto">
+<div id="R1128498883166960620" class="t-Form--slimPadding t-Form--leftLabels"> 
+<div class="container">
+<div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--text-field" id="P60_PERM_POST_OFFICE_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_PERM_POST_OFFICE" id="P60_PERM_POST_OFFICE_LABEL" class="t-Form-label">Post office :-</label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="text" id="P60_PERM_POST_OFFICE" name="P60_PERM_POST_OFFICE" class="text_field apex-item-text" value="" size="32" data-enter-submit="false" data-is-page-item-type="true"><span id="P60_PERM_POST_OFFICE_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--text-field" id="P60_PERM_VILL_AREA_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_PERM_VILL_AREA" id="P60_PERM_VILL_AREA_LABEL" class="t-Form-label">Village/ Area/ Sector :-</label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="text" id="P60_PERM_VILL_AREA" name="P60_PERM_VILL_AREA" class="text_field apex-item-text" value="" size="32" maxlength="200" data-trim-spaces="NONE" data-enter-submit="false" data-is-page-item-type="true"><span id="P60_PERM_VILL_AREA_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--text-field" id="P60_PERM_HOUSE_ROAD_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_PERM_HOUSE_ROAD" id="P60_PERM_HOUSE_ROAD_LABEL" class="t-Form-label">Road :-</label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="text" id="P60_PERM_HOUSE_ROAD" name="P60_PERM_HOUSE_ROAD" class="text_field apex-item-text" value="" size="32" maxlength="200" data-trim-spaces="NONE" data-enter-submit="false" data-is-page-item-type="true"><span id="P60_PERM_HOUSE_ROAD_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--text-field" id="P60_PERM_HOUSE_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_PERM_HOUSE" id="P60_PERM_HOUSE_LABEL" class="t-Form-label">House :-</label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="text" id="P60_PERM_HOUSE" name="P60_PERM_HOUSE" class="text_field apex-item-text" value="" size="32" data-enter-submit="false" data-is-page-item-type="true"><span id="P60_PERM_HOUSE_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+   </div>
+   <div class="t-Region-buttons t-Region-buttons--bottom">
+    <div class="t-Region-buttons-left"></div>
+    <div class="t-Region-buttons-right"></div>
+   </div>
+ </div>
+</div>
+
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div id="R1128499811557960629" class=""> 
+<div class="container">
+<div class="row">
+<div class="col col-3 ">
+<span class="apex-grid-nbsp">&nbsp;</span>
+</div><div class="col col-7 ">
+<div class="t-Form-fieldContainer rel-col  apex-item-wrapper apex-item-wrapper--has-initial-value apex-item-wrapper--radiogroup" id="P60_SET_PRES_ADDRESS_CONTAINER"><div class="t-Form-labelContainer col col-0">
+<label for="P60_SET_PRES_ADDRESS" id="P60_SET_PRES_ADDRESS_LABEL" class="t-Form-label"></label>
+</div>
+<div class="t-Form-inputContainer col col-7"><div tabindex="-1" id="P60_SET_PRES_ADDRESS" aria-labelledby="P60_SET_PRES_ADDRESS_LABEL" class="radio_group apex-item-group apex-item-group--rc apex-item-radio" role="radiogroup">
+<div role="none" class="apex-item-grid radio_group">
+<div role="none" class="apex-item-grid-row">
+<div class="apex-item-option"><input type="radio" id="P60_SET_PRES_ADDRESS_0" name="P60_SET_PRES_ADDRESS" data-display="Same As Emergency Address" value="emer" aria-label="Same As Emergency Address"><label class="u-radio" for="P60_SET_PRES_ADDRESS_0" aria-hidden="true">Same As Emergency Address</label></div>
+<div class="apex-item-option"><input type="radio" id="P60_SET_PRES_ADDRESS_1" name="P60_SET_PRES_ADDRESS" data-display="Same As Permanent Address" value="perm" aria-label="Same As Permanent Address"><label class="u-radio" for="P60_SET_PRES_ADDRESS_1" aria-hidden="true">Same As Permanent Address</label></div>
+<div class="apex-item-option"><input type="radio" id="P60_SET_PRES_ADDRESS_2" name="P60_SET_PRES_ADDRESS" data-display="Enter Manually" value="man" checked="checked" aria-label="Enter Manually"><label class="u-radio" for="P60_SET_PRES_ADDRESS_2" aria-hidden="true">Enter Manually</label></div>
+</div></div></div>
+<span id="P60_SET_PRES_ADDRESS_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Region t-Region--scrollBody t-Form--slimPadding" id="R2774856783854045855" role="group" aria-labelledby="R2774856783854045855_heading">
+ <div class="t-Region-header">
+  <div class="t-Region-headerItems t-Region-headerItems--title">
+    <h2 class="t-Region-title" id="R2774856783854045855_heading">Present Address </h2>
+  </div>
+  <div class="t-Region-headerItems t-Region-headerItems--buttons"><span class="js-maximizeButtonContainer"></span></div>
+ </div>
+ <div class="t-Region-bodyWrap">
+   <div class="t-Region-buttons t-Region-buttons--top">
+    <div class="t-Region-buttons-left"></div>
+    <div class="t-Region-buttons-right"></div>
+   </div>
+   <div class="t-Region-body">
+     
+     <div class="container">
+<div class="row">
+<div class="col col-6 apex-col-auto">
+<div id="R1690600783495292110" class="t-Form--leftLabels"> 
+<div class="container">
+<div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--popup-lov" id="P60_PRES_PUBLIC_DIVISION_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_PRES_PUBLIC_DIVISION" id="P60_PRES_PUBLIC_DIVISION_LABEL" class="t-Form-label"><span>Division<span style="color: red;">:- *</span></span></label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="hidden" name="P60_PRES_PUBLIC_DIVISION" id="P60_PRES_PUBLIC_DIVISION_HIDDENVALUE" value=""><div class="apex-item-group apex-item-group--popup-lov"><input type="text" id="P60_PRES_PUBLIC_DIVISION" required="" class="popup_lov apex-item-text apex-item-popup-lov" size="30" maxlength="" value="" readonly="" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-haspopup="dialog"><button aria-hidden="true" type="button" class="a-Button a-Button--popupLOV" id="P60_PRES_PUBLIC_DIVISION_lov_btn" tabindex="-1"><span class="a-Icon icon-popup-lov-under"></span></button></div><span id="P60_PRES_PUBLIC_DIVISION_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--popup-lov" id="P60_PRES_DISTRICT_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_PRES_DISTRICT" id="P60_PRES_DISTRICT_LABEL" class="t-Form-label"><span>District<span style="color: red;">:- *</span></span></label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="hidden" name="P60_PRES_DISTRICT" id="P60_PRES_DISTRICT_HIDDENVALUE" value=""><div class="apex-item-group apex-item-group--popup-lov"><input type="text" id="P60_PRES_DISTRICT" required="" class="popup_lov apex-item-text apex-item-popup-lov" size="30" maxlength="" value="" readonly="" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-haspopup="dialog"><button aria-hidden="true" type="button" class="a-Button a-Button--popupLOV" id="P60_PRES_DISTRICT_lov_btn" tabindex="-1"><span class="a-Icon icon-popup-lov-under"></span></button></div><span id="P60_PRES_DISTRICT_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--popup-lov" id="P60_PRES_THANA_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_PRES_THANA" id="P60_PRES_THANA_LABEL" class="t-Form-label"><span>Thana<span style="color: red;">:- *</span></span></label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="hidden" name="P60_PRES_THANA" id="P60_PRES_THANA_HIDDENVALUE" value=""><div class="apex-item-group apex-item-group--popup-lov"><input type="text" id="P60_PRES_THANA" required="" class="popup_lov apex-item-text apex-item-popup-lov" size="30" maxlength="" value="" readonly="" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-haspopup="dialog"><button aria-hidden="true" type="button" class="a-Button a-Button--popupLOV" id="P60_PRES_THANA_lov_btn" tabindex="-1"><span class="a-Icon icon-popup-lov-under"></span></button></div><span id="P60_PRES_THANA_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--text-field" id="P60_PRES_POST_CODE_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_PRES_POST_CODE" id="P60_PRES_POST_CODE_LABEL" class="t-Form-label">Post Code:-</label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="text" id="P60_PRES_POST_CODE" name="P60_PRES_POST_CODE" class="text_field apex-item-text" value="" size="32" maxlength="20" data-trim-spaces="NONE" data-enter-submit="false" data-is-page-item-type="true"><span id="P60_PRES_POST_CODE_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div><input type="hidden" name="P60_THANA_AS_LIKE_PASSPORT" id="P60_THANA_AS_LIKE_PASSPORT" value=""><input type="hidden" data-for="P60_THANA_AS_LIKE_PASSPORT" value="vKvIIR75_mwI2YF3MJoR_nGkqkJVQSUFdNNKSKJHHZ9lqR0BrgW-pxmACEEC6RNgeiqc0CE6mXGqL-CwVDo8HQ">
+</div>
+</div>
+</div>
+</div>
+</div><div class="col col-6 apex-col-auto">
+<div id="R1690600841024292111" class="t-Form--leftLabels"> 
+<div class="container">
+<div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--text-field" id="P60_PRES_POST_OFFICE_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_PRES_POST_OFFICE" id="P60_PRES_POST_OFFICE_LABEL" class="t-Form-label"><span>Post Office<span style="color: red;">:- *</span></span></label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="text" id="P60_PRES_POST_OFFICE" name="P60_PRES_POST_OFFICE" class="text_field apex-item-text" value="" size="32" data-enter-submit="false" data-is-page-item-type="true"><span id="P60_PRES_POST_OFFICE_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--text-field" id="P60_PRES_VILL_AREA_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_PRES_VILL_AREA" id="P60_PRES_VILL_AREA_LABEL" class="t-Form-label"><span>Village/ Area/ Sector<span style="color: red;">:- *</span></span></label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="text" id="P60_PRES_VILL_AREA" name="P60_PRES_VILL_AREA" required="" class="text_field apex-item-text" value="" size="32" maxlength="200" data-trim-spaces="NONE" data-enter-submit="false" data-is-page-item-type="true"><span id="P60_PRES_VILL_AREA_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--text-field" id="P60_PRES_HOUSE_ROAD_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_PRES_HOUSE_ROAD" id="P60_PRES_HOUSE_ROAD_LABEL" class="t-Form-label">Road</label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="text" id="P60_PRES_HOUSE_ROAD" name="P60_PRES_HOUSE_ROAD" class="text_field apex-item-text" value="" size="32" maxlength="200" data-trim-spaces="NONE" data-enter-submit="false" data-is-page-item-type="true"><span id="P60_PRES_HOUSE_ROAD_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--text-field" id="P60_PRES_HOUSE_CONTAINER"><div class="t-Form-labelContainer col col-4">
+<label for="P60_PRES_HOUSE" id="P60_PRES_HOUSE_LABEL" class="t-Form-label">House</label>
+</div>
+<div class="t-Form-inputContainer col col-8"><input type="text" id="P60_PRES_HOUSE" name="P60_PRES_HOUSE" class="text_field apex-item-text" value="" size="32" data-enter-submit="false" data-is-page-item-type="true"><span id="P60_PRES_HOUSE_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+   </div>
+   <div class="t-Region-buttons t-Region-buttons--bottom">
+    <div class="t-Region-buttons-left"></div>
+    <div class="t-Region-buttons-right"></div>
+   </div>
+ </div>
+</div>
+
+</div>
+</div><div class="row">
+<div class="col col-12 apex-col-auto">
+<div class="t-Region t-Region--removeHeader t-Region--scrollBody t-Form--leftLabels" id="R2774856975462045857" role="group" aria-labelledby="R2774856975462045857_heading">
+ <div class="t-Region-header">
+  <div class="t-Region-headerItems t-Region-headerItems--title">
+    <h2 class="t-Region-title" id="R2774856975462045857_heading">Delivery</h2>
+  </div>
+  <div class="t-Region-headerItems t-Region-headerItems--buttons"><span class="js-maximizeButtonContainer"></span></div>
+ </div>
+ <div class="t-Region-bodyWrap">
+   <div class="t-Region-buttons t-Region-buttons--top">
+    <div class="t-Region-buttons-left"></div>
+    <div class="t-Region-buttons-right"></div>
+   </div>
+   <div class="t-Region-body">
+     <div class="container">
+<div class="row">
+<div class="col col-6 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--select-list" id="P60_DELIVERY_TYPE_CONTAINER"><div class="t-Form-labelContainer col col-2">
+<label for="P60_DELIVERY_TYPE" id="P60_DELIVERY_TYPE_LABEL" class="t-Form-label">Delivery type :-</label>
+</div>
+<div class="t-Form-inputContainer col col-4"><select id="P60_DELIVERY_TYPE" name="P60_DELIVERY_TYPE" class="selectlist apex-item-select" data-native-menu="false" size="1">
+</select><span id="P60_DELIVERY_TYPE_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div><div class="col col-6 apex-col-auto">
+<div class="t-Form-fieldContainer rel-col t-Form-fieldContainer--stretchInputs apex-item-wrapper apex-item-wrapper--select-list" id="P60_DELIVERY_FROM_CONTAINER"><div class="t-Form-labelContainer col col-2">
+<label for="P60_DELIVERY_FROM" id="P60_DELIVERY_FROM_LABEL" class="t-Form-label">Delivery From :-</label>
+</div>
+<div class="t-Form-inputContainer col col-4"><select id="P60_DELIVERY_FROM" name="P60_DELIVERY_FROM" class="selectlist apex-item-select" data-native-menu="false" size="1">
+</select><span id="P60_DELIVERY_FROM_error_placeholder" class="a-Form-error" data-template-id="1604108338960110568_ET"></span></div></div>
+</div>
+</div>
+</div>
+     
+   </div>
+   <div class="t-Region-buttons t-Region-buttons--bottom">
+    <div class="t-Region-buttons-left"></div>
+    <div class="t-Region-buttons-right"></div>
+   </div>
+ </div>
+</div>
+
+</div>
+</div>
+</div>
