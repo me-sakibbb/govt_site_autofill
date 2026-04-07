@@ -4,8 +4,6 @@ const sidebarBtn = document.getElementById('sidebar-btn');
 const loginRequired = document.getElementById('login-required');
 const popupContent = document.getElementById('popup-content');
 const loginSettingsBtn = document.getElementById('login-settings-btn');
-const popupEmail = document.getElementById('popup-email');
-const popupName = document.getElementById('popup-name');
 const popupShop = document.getElementById('popup-shop');
 const popupPlan = document.getElementById('popup-plan');
 const popupLimits = document.getElementById('popup-limits');
@@ -19,8 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (session && session.access_token) {
             loginRequired.classList.add('hidden');
             popupContent.classList.remove('hidden');
-            popupEmail.textContent = session.user.email;
-
             fetchLimits(session.access_token);
         } else {
             loginRequired.classList.remove('hidden');
@@ -36,8 +32,6 @@ async function fetchLimits(token) {
         });
         const data = await response.json();
         if (response.ok) {
-            if (data.email) popupEmail.textContent = data.email;
-            if (data.userName) popupName.textContent = data.userName;
             if (data.shopName) popupShop.textContent = data.shopName;
             if (data.balance !== undefined) popupBalance.textContent = `${data.balance} ৳`;
             

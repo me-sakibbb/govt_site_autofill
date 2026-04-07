@@ -1,6 +1,28 @@
 // background.js - Gemini AI service worker
 importScripts('config.js');
 
+// ──────────────────────────────────────────────
+// Keep-alive: prevent Chrome MV3 from killing the
+// service worker during long Gemini API calls.
+// Strategy: open a self-connect port and ping it
+// every 20 s; stop as soon as the task completes.
+// ──────────────────────────────────────────────
+function keepAlive() {
+    const port = chrome.runtime.connect({ name: 'keepalive' });
+    const interval = setInterval(() => {
+        try { port.postMessage('ping'); } catch (_) {}
+    }, 20_000);
+    const stop = () => { clearInterval(interval); try { port.disconnect(); } catch (_) {} };
+    return stop;
+}
+
+// Handle the self-connect so it doesn't throw errors
+chrome.runtime.onConnect.addListener((port) => {
+    if (port.name !== 'keepalive') return;
+    port.onMessage.addListener(() => { /* ignore pings */ });
+    port.onDisconnect.addListener(() => { /* ignore */ });
+});
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     const handlers = {
         EXTRACT_DATA: () => handleExtraction(request.payload, sendResponse),
@@ -91,6 +113,7 @@ async function callGemini(parts) {
 
 // Extraction (document to structured profile data)
 async function handleExtraction(payload, sendResponse) {
+    const stopKeepAlive = keepAlive(); // prevent SW termination during long fetch
     try {
         const { image, textContent, targetFields } = payload;
 
@@ -149,5 +172,7 @@ async function handleExtraction(payload, sendResponse) {
         sendResponse({ success: true, data: parsed, usageMetadata: usage });
     } catch (error) {
         sendResponse({ success: false, error: error.message });
+    } finally {
+        stopKeepAlive(); // always stop pinging when done
     }
 }

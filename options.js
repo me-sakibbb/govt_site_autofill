@@ -90,8 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginBtn = document.getElementById('loginBtn');
     const loginStatus = document.getElementById('loginStatus');
       const loggedInContainer = document.getElementById('loggedInContainer');
-      const loggedInEmail = document.getElementById('loggedInEmail');
-      const loggedInName = document.getElementById('loggedInName');
       const loggedInShop = document.getElementById('loggedInShop');
       const loggedInBalance = document.getElementById('loggedInBalance');
       const optionsAddBalanceBtn = document.getElementById('optionsAddBalanceBtn');
@@ -115,14 +113,15 @@ document.addEventListener('DOMContentLoaded', () => {
         loginFormContainer.classList.add('hidden');
         loggedInContainer.style.display = 'block';
 
-        if (loggedInEmail) loggedInEmail.textContent = email || '';
-        if (loggedInName) loggedInName.textContent = name || '';
         if (loggedInShop) loggedInShop.textContent = shop || 'Loading Shop...';
         if (loggedInBalance && balance !== undefined) loggedInBalance.textContent = balance + ' ৳';
         if (optionsAddBalanceBtn) optionsAddBalanceBtn.href = `${CONFIG.SERVER_URL}/dashboard/billing`;
 
         const avatar = document.getElementById('userAvatar');
-        if (avatar && email) avatar.textContent = email.charAt(0).toUpperCase();
+        if (avatar) {
+            const initial = (shop && shop !== 'Loading Shop...') ? shop.charAt(0) : (email ? email.charAt(0) : '?');
+            avatar.textContent = initial.toUpperCase();
+        }
 
         mainContent.classList.remove('hidden');
         mainFooter.classList.remove('hidden');
@@ -132,8 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
         loginFormContainer.classList.remove('hidden');
         loggedInContainer.style.display = 'none';
 
-        if (loggedInEmail) loggedInEmail.textContent = '';
-        if (loggedInName) loggedInName.textContent = '';
         if (loggedInShop) loggedInShop.textContent = '';
         if (loggedInBalance) loggedInBalance.textContent = '0 ৳';
 
@@ -635,7 +632,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     let height = img.height;
 
                     // Cap dimensions to save memory and size
-                    const MAX_DIMENSION = 1600;
+                    const MAX_DIMENSION = 1000;
                     if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
                         if (width > height) {
                             height = Math.round((height * MAX_DIMENSION) / width);
@@ -651,8 +648,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, width, height);
 
-                    // Try compressing with quality until it fits under maxSizeMB
-                    const targetBytes = maxSizeMB * 1024 * 1024;
+                    // Try compressing with quality until it fits under 0.8MB
+                    const targetBytes = 0.8 * 1024 * 1024;
                     let quality = 0.9;
                     let base64 = canvas.toDataURL('image/jpeg', quality);
 
@@ -758,6 +755,27 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error('Could not find document text in DOCX. The file may be corrupted or encrypted.');
     }
 
+    // Helper: extract plain text from a PDF file client-side using PDF.js
+    // This is much faster than sending the binary to Gemini (~5s vs ~70s)
+    async function extractPdfText(file) {
+        // Dynamically import the local pdf.js bundle (extension-local file)
+        const pdfjsLib = await import(chrome.runtime.getURL('pdf.min.mjs'));
+        pdfjsLib.GlobalWorkerOptions.workerSrc = chrome.runtime.getURL('pdf.worker.min.mjs');
+
+        const arrayBuffer = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+        let fullText = '';
+        for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const content = await page.getTextContent();
+            const pageText = content.items.map(item => item.str).join(' ');
+            fullText += pageText + '\n';
+        }
+
+        return fullText.trim();
+    }
+
     extractBtn.addEventListener('click', async () => {
         const file = docInput.files[0];
         if (!file) {
@@ -785,10 +803,8 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (profile.site === 'pcc') activeSiteFields = PCC_FIELDS;
 
         const targetFields = {};
-        for (const [sectionKey, sectionData] of Object.entries(activeSiteFields)) {
-            for (const fieldKey of Object.keys(sectionData)) {
-                targetFields[fieldKey] = sectionData[fieldKey].label || fieldKey;
-            }
+        for (const [fieldKey, fieldDef] of Object.entries(activeSiteFields)) {
+            targetFields[fieldKey] = fieldDef.label || fieldKey;
         }
 
         const setStatus = (msg, color = '#3b82f6') => {
@@ -806,9 +822,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const base64 = await compressImageToBase64(file, 1.5);
                 payload = { image: base64, targetFields };
             } else if (isPdf) {
-                if (file.size > 3.5 * 1024 * 1024) throw new Error('PDF file is too large (over 3.5MB). Please compress it first to avoid server limits.');
+                if (file.size > 3.5 * 1024 * 1024) throw new Error('PDF file is too large (over 3.5MB). Please compress it first.');
                 const base64 = await readFileAsBase64(file);
                 payload = { image: base64, targetFields };
+
             } else if (isText) {
                 // Plain text: send content directly
                 const text = await readFileAsText(file);
