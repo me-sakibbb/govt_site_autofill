@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "AI Form Autofill",
+  "name": "Autofill Genius AI",
   "version": "1.0",
-  "description": "Autofill government forms using Gemini AI extraction.",
+  "description": "Supercharge your form filling with advanced AI data extraction. Effortlessly handle complex government applications and data entry with one-click accuracy.",
   "permissions": [
     "storage",
     "activeTab",
@@ -13,7 +13,15 @@
     "https://*.supabase.co/*",
     "https://nexitsolution.bd/*",
     "http://localhost:3000/*",
-    "http://127.0.0.1:3000/*"
+    "http://127.0.0.1:3000/*",
+    "*://bdris.gov.bd/*",
+    "*://*.bdris.gov.bd/*",
+    "*://teletalk.com.bd/*",
+    "*://*.teletalk.com.bd/*",
+    "*://indianvisa-bangladesh.nic.in/*",
+    "*://*.indianvisa-bangladesh.nic.in/*",
+    "*://pcc.police.gov.bd/*",
+    "*://*.pcc.police.gov.bd/*"
   ],
   "options_page": "options.html",
   "side_panel": {
@@ -25,14 +33,19 @@
   "content_scripts": [
     {
       "matches": [
+        "*://bdris.gov.bd/*",
         "*://*.bdris.gov.bd/*",
+        "*://teletalk.com.bd/*",
         "*://*.teletalk.com.bd/*",
+        "*://indianvisa-bangladesh.nic.in/*",
         "*://*.indianvisa-bangladesh.nic.in/*",
-        "*://pcc.police.gov.bd/*"
+        "*://pcc.police.gov.bd/*",
+        "*://*.pcc.police.gov.bd/*"
       ],
       "js": [
         "content.js"
-      ]
+      ],
+      "all_frames": true
     }
   ],
   "action": {

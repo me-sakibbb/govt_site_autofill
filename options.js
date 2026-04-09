@@ -98,6 +98,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.querySelector('main');
     const mainFooter = document.querySelector('footer');
 
+    // Show cached data immediately
+    chrome.storage.local.get(['cached_shopName', 'cached_balance'], (result) => {
+        if (result.cached_shopName) {
+            if (loggedInShop) loggedInShop.textContent = result.cached_shopName;
+            const avatar = document.getElementById('userAvatar');
+            if (avatar) avatar.textContent = result.cached_shopName.charAt(0).toUpperCase();
+        }
+        if (result.cached_balance !== undefined && loggedInBalance) {
+            loggedInBalance.textContent = result.cached_balance + ' ৳';
+        }
+    });
+
     // Load session
     chrome.runtime.sendMessage({ action: 'GET_VALID_SESSION' }, (response) => {
         const session = response && response.session;
@@ -148,6 +160,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Setup profile headers if they arrived
                 if (data.email) {
                     showLoggedIn(data.email, data.userName, data.shopName, data.balance);
+                    // Cache the results
+                    chrome.storage.local.set({ 
+                        'cached_shopName': data.shopName,
+                        'cached_balance': data.balance 
+                    });
                 }
 
                 // Extration limits
@@ -274,13 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
             chrome.storage.local.get(['profiles', 'lastActiveProfileId'], (result) => {
                 profiles = result.profiles || [];
 
-                // Add default dummy profiles if it's the user's first time
-                if (profiles.length === 0) {
-                    profiles.push(BDRIS_DUMMY_PROFILE);
-                    profiles.push(TELETALK_DUMMY_PROFILE);
-                    profiles.push(INDIAN_VISA_DUMMY_PROFILE);
-                    profiles.push(PCC_DUMMY_PROFILE);
-                }
+                // Default profiles removed - user will create their first profile manually
 
                 // Restore last active profile if it exists
                 if (result.lastActiveProfileId) {
@@ -314,20 +325,44 @@ document.addEventListener('DOMContentLoaded', () => {
             profileSelector.value = currentProfileId;
             // Save the default if we fell back to it
             chrome.storage.local.set({ lastActiveProfileId: currentProfileId });
+        } else {
+            currentProfileId = null;
         }
+        
+        updateButtonStates();
+        displayProfile(getCurrentProfile());
+    }
+
+    function updateButtonStates() {
+        const hasProfile = profiles.length > 0 && currentProfileId !== null;
+        saveBtn.disabled = !hasProfile;
+        extractBtn.disabled = !hasProfile;
+        addFieldBtn.style.opacity = hasProfile ? '1' : '0.5';
+        addFieldBtn.style.pointerEvents = hasProfile ? 'auto' : 'none';
+        addFieldBtn.style.display = hasProfile ? 'inline-block' : 'none';
+        deleteProfileBtn.disabled = !hasProfile;
+        
+        // Toggle footer as well
+        if (mainFooter) {
+            mainFooter.style.display = hasProfile ? 'block' : 'none';
+        }
+        
+        // Visual feedback
+        saveBtn.style.opacity = hasProfile ? '1' : '0.5';
+        extractBtn.style.opacity = hasProfile ? '1' : '0.5';
+        deleteProfileBtn.style.opacity = hasProfile ? '1' : '0.5';
     }
 
     function getCurrentProfile() {
-        return profiles.find(p => p.id === currentProfileId);
+        return profiles.find(p => p.id === currentProfileId) || null;
     }
 
     async function switchProfile(profileId) {
         currentProfileId = profileId;
         chrome.storage.local.set({ lastActiveProfileId: currentProfileId }); // Persist selection
         const profile = getCurrentProfile();
-        if (profile) {
-            displayProfile(profile);
-        }
+        displayProfile(profile);
+        updateButtonStates();
     }
 
     // ====================
@@ -338,7 +373,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModalBtn = document.getElementById('closeModalBtn');
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
-    const step3 = document.getElementById('step3');
 
     // Wizard State
     let wizardState = {
@@ -369,11 +403,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function showStep(stepNum) {
         step1.style.display = 'none';
         step2.style.display = 'none';
-        step3.style.display = 'none';
 
         if (stepNum === 1) step1.style.display = 'block';
         if (stepNum === 2) step2.style.display = 'block';
-        if (stepNum === 3) step3.style.display = 'block';
     }
 
     // Step 1: Name
@@ -395,33 +427,16 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         wizardState.site = selectedSite.value;
-        showStep(3);
+        finishWizard();
     });
 
     document.getElementById('step2Back').addEventListener('click', () => showStep(1));
 
-    // Step 3: Method
-    document.getElementById('methodManual').addEventListener('click', () => finishWizard('manual'));
-    document.getElementById('methodScan').addEventListener('click', () => finishWizard('scan'));
-    document.getElementById('step3Back').addEventListener('click', () => showStep(2));
-
     closeModalBtn.addEventListener('click', closeModal);
 
-    async function finishWizard(method) {
-        wizardState.method = method;
+    async function finishWizard() {
         await createProfileFromWizard();
         closeModal();
-
-        if (method === 'scan') {
-            // Highlight extraction area
-            const extractionSection = document.getElementById('doc-upload-section');
-            if (extractionSection) {
-                extractionSection.scrollIntoView({ behavior: 'smooth' });
-                extractionSection.style.border = '2px solid #2563eb';
-                setTimeout(() => extractionSection.style.border = '1px solid #e2e8f0', 2000);
-            }
-            alert('Profile created! Now upload a document to extract data.');
-        }
     }
 
     async function createProfileFromWizard() {
@@ -461,16 +476,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // ... (rest of the file)
 
     async function deleteCurrentProfile() {
-        if (profiles.length <= 1) {
-            alert('Cannot delete the last profile!');
-            return;
-        }
+        if (profiles.length === 0) return;
 
         if (!confirm('Are you sure you want to delete this profile?')) return;
 
         profiles = profiles.filter(p => p.id !== currentProfileId);
         await saveProfiles();
-        currentProfileId = profiles[0].id;
+        
+        currentProfileId = profiles.length > 0 ? profiles[0].id : null;
+        chrome.storage.local.set({ lastActiveProfileId: currentProfileId });
+        
         updateProfileSelector();
         displayProfile(getCurrentProfile());
     }
@@ -478,6 +493,32 @@ document.addEventListener('DOMContentLoaded', () => {
     function displayProfile(profile) {
         // Display fields
         fieldsContainer.innerHTML = '';
+        
+        if (!profile) {
+            const placeholder = document.createElement('div');
+            placeholder.className = 'text-center py-10 px-6 bg-slate-50/50 rounded-xl border-2 border-dashed border-slate-200 mt-2';
+            placeholder.style.paddingTop = '40px';
+            placeholder.style.paddingBottom = '40px';
+
+            placeholder.innerHTML = `
+                <div class="mb-4 text-slate-300">
+                    <svg style="width: 48px; height: 48px; margin: 0 auto; display: block;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                </div>
+                <h3 class="text-slate-900 font-bold text-base mb-1">No Profile Selected</h3>
+                <p class="text-slate-500 text-sm max-w-xs mx-auto mb-6">Create your first profile to start using intelligent form filling and AI extraction.</p>
+                <button id="createFirstBtn" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-all shadow-sm">
+                    Create Your First Profile
+                </button>
+            `;
+            fieldsContainer.appendChild(placeholder);
+            
+            const btn = document.getElementById('createFirstBtn');
+            if (btn) btn.addEventListener('click', createNewProfile);
+            return;
+        }
+
         Object.entries(profile.data).forEach(([key, value]) => {
             addFieldRow(key, value, profile.site);
         });
@@ -929,9 +970,6 @@ document.addEventListener('DOMContentLoaded', () => {
     (async () => {
         await loadProfiles();
         updateProfileSelector();
-        const profile = getCurrentProfile();
-        if (profile) {
-            displayProfile(profile);
-        }
+        displayProfile(getCurrentProfile());
     })();
 });

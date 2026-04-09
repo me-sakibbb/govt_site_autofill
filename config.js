@@ -1,4 +1,4 @@
-// config.js — Centralized configuration for AI Form Autofill Extension
+// config.js — Centralized configuration for Autofill Genius AI Extension
 // This file is the single source of truth for all shared constants.
 
 const CONFIG = Object.freeze({

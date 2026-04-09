@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Form Autofill - Settings</title>
+    <title>Autofill Genius AI - Settings</title>
     <link rel="stylesheet" href="options.css">
 </head>
 
 <body class="bg-slate-50 text-slate-800 font-sans antialiased">
     <div class="max-w-3xl mx-auto p-6">
         <header class="mb-6 text-center">
-            <h1 class="text-3xl font-bold text-slate-900 mb-2">AI Form Autofill</h1>
+            <h1 class="text-3xl font-bold text-slate-900 mb-2">Autofill Genius AI</h1>
             <p class="text-slate-500">Intelligent data extraction and form filling powered by Next AI Solution.</p>
         </header>
 
@@ -214,7 +214,7 @@
             <section class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
                 <div class="flex items-center justify-between mb-4">
                     <div>
-                        <h2 class="text-lg font-semibold text-slate-900">3. Personal Data</h2>
+                        <h2 class="text-lg font-semibold text-slate-900">2. Personal Data</h2>
                         <p class="text-sm text-slate-500">Review and edit your extracted data.</p>
                     </div>
                     <button id="addFieldBtn" class="text-sm text-blue-600 hover:text-blue-800 font-medium">+ Add
@@ -369,57 +369,14 @@
                             <button id="step2Back"
                                 class="inline-flex justify-center rounded-lg bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50">Back</button>
                             <button id="step2Next"
-                                class="inline-flex justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500">Next</button>
+                                class="inline-flex justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500">Create Profile</button>
                         </div>
                     </div>
 
-                    <!-- Step 3: Method Selection -->
-                    <div id="step3" class="step-content space-y-4" style="display:none">
-                        <label class="block text-sm font-medium text-slate-700">How do you want to start?</label>
-                        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                            <button id="methodScan"
-                                class="relative flex items-center space-x-3 rounded-lg border border-slate-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 hover:border-slate-400 hover:bg-slate-50 transition-all text-left">
-                                <div class="flex-shrink-0">
-                                    <span
-                                        class="inline-flex items-center justify-center h-10 w-10 rounded-lg bg-blue-100 text-blue-600">
-                                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                    </span>
-                                </div>
-                                <div class="min-w-0 flex-1">
-                                    <span class="absolute inset-0" aria-hidden="true"></span>
-                                    <p class="text-sm font-medium text-slate-900">Scan Document</p>
-                                    <p class="truncate text-sm text-slate-500">Extract data from ID/Passport</p>
-                                </div>
-                            </button>
-
-                            <button id="methodManual"
-                                class="relative flex items-center space-x-3 rounded-lg border border-slate-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 hover:border-slate-400 hover:bg-slate-50 transition-all text-left">
-                                <div class="flex-shrink-0">
-                                    <span
-                                        class="inline-flex items-center justify-center h-10 w-10 rounded-lg bg-purple-100 text-purple-600">
-                                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                        </svg>
-                                    </span>
-                                </div>
-                                <div class="min-w-0 flex-1">
-                                    <span class="absolute inset-0" aria-hidden="true"></span>
-                                    <p class="text-sm font-medium text-slate-900">Manual Entry</p>
-                                    <p class="truncate text-sm text-slate-500">Fill details yourself</p>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="flex justify-start pt-2">
-                            <button id="step3Back"
-                                class="inline-flex justify-center rounded-lg bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50">Back</button>
-                        </div>
-                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
                 </div>
             </div>

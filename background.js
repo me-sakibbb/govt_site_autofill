@@ -1,9 +1,9 @@
-// background.js - Gemini AI service worker
+// background.js - service worker for Autofill Genius AI
 importScripts('config.js');
 
 // ──────────────────────────────────────────────
 // Keep-alive: prevent Chrome MV3 from killing the
-// service worker during long Gemini API calls.
+// service worker during long AI API calls.
 // Strategy: open a self-connect port and ping it
 // every 20 s; stop as soon as the task completes.
 // ──────────────────────────────────────────────
@@ -74,7 +74,7 @@ async function getValidSession() {
     return supabaseSession;
 }
 
-// Shared Gemini caller (via server proxy)
+// Shared AI caller (via server proxy)
 async function callGemini(parts) {
     const supabaseSession = await getValidSession();
 
@@ -105,7 +105,7 @@ async function callGemini(parts) {
     }
 
     if (!res.ok) {
-        throw new Error(data.error || 'Server error calling Gemini');
+        throw new Error(data.error || 'Server error during extraction');
     }
 
     return { parsed: data.parsed, usage: data.usage };

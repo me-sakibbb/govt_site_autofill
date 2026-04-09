@@ -12,6 +12,13 @@ const addBalanceBtn = document.getElementById('add-balance-btn');
 const newProfileBtn = document.getElementById('new-profile-btn');
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Show cached data immediately for faster perceived performance
+    chrome.storage.local.get(['cached_shopName', 'cached_balance', 'cached_plan'], (result) => {
+        if (result.cached_shopName) popupShop.textContent = result.cached_shopName;
+        if (result.cached_balance !== undefined) popupBalance.textContent = `${result.cached_balance} ৳`;
+        if (result.cached_plan) popupPlan.textContent = result.cached_plan.replace('_', ' ');
+    });
+
     chrome.runtime.sendMessage({ action: 'GET_VALID_SESSION' }, (response) => {
         const session = response && response.session;
         if (session && session.access_token) {
@@ -32,20 +39,27 @@ async function fetchLimits(token) {
         });
         const data = await response.json();
         if (response.ok) {
-            if (data.shopName) popupShop.textContent = data.shopName;
-            if (data.balance !== undefined) popupBalance.textContent = `${data.balance} ৳`;
+            if (data.shopName) {
+                popupShop.textContent = data.shopName;
+                chrome.storage.local.set({ 'cached_shopName': data.shopName });
+            }
+            if (data.balance !== undefined) {
+                popupBalance.textContent = `${data.balance} ৳`;
+                chrome.storage.local.set({ 'cached_balance': data.balance });
+            }
             
             if (addBalanceBtn) {
                 addBalanceBtn.href = `${CONFIG.SERVER_URL}/dashboard/billing`;
             }
-            
+
             const extUsed = data.extraction?.used ?? 0;
             const extLimit = data.extraction?.limit ?? 1;
             const extRemaining = data.extraction?.remaining ?? (extLimit - extUsed);
             const extPercentage = Math.min(100, (extUsed / extLimit) * 100);
-
+            
             const planName = data.plan ? data.plan.replace('_', ' ') : 'Free';
             popupPlan.textContent = planName;
+            chrome.storage.local.set({ 'cached_plan': data.plan });
             
             let upgradeMessage = '';
             if (extRemaining <= 0) {
