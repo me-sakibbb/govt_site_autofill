@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Autofill Genius AI",
   "version": "1.0",
-  "description": "Supercharge your form filling with advanced AI data extraction. Effortlessly handle complex government applications and data entry with one-click accuracy.",
+  "description": "AI-powered form filling and data extraction. Effortlessly handle complex government applications and data entry with accuracy.",
   "permissions": [
     "storage",
     "activeTab",
