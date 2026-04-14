@@ -861,17 +861,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const isText = file.type === 'text/plain' || file.name.endsWith('.txt');
         const isDocx = file.name.endsWith('.docx') || file.type.includes('wordprocessingml');
 
-        // Profile field labels as targets for AI
+        // Build label→id reverse map (used after extraction to merge into profile)
         let activeSiteFields = {};
         if (profile.site === 'bdris') activeSiteFields = BDRIS_FIELDS;
         else if (profile.site === 'indian_visa') activeSiteFields = INDIAN_VISA_FIELDS;
         else if (profile.site === 'teletalk') activeSiteFields = TELETALK_FIELDS;
         else if (profile.site === 'pcc') activeSiteFields = PCC_FIELDS;
 
-        const targetFields = {};
+        // labelToId: { "First Name (Bengali)": "personFirstNameBn", ... }
+        const labelToId = {};
         for (const [fieldKey, fieldDef] of Object.entries(activeSiteFields)) {
-            targetFields[fieldKey] = fieldDef.label || fieldKey;
+            const label = fieldDef.label || fieldKey;
+            labelToId[label] = fieldKey;
         }
+        // Send only the labels to the AI — it matches doc content against these
+        const targetLabels = Object.keys(labelToId);
 
         const setStatus = (msg, color = '#3b82f6') => {
             extractionStatus.textContent = msg;
@@ -886,16 +890,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isImage) {
                 setStatus('🖼️ Compressing image...');
                 const base64 = await compressImageToBase64(file, 1.5);
-                payload = { image: base64, targetFields };
+                payload = { image: base64, targetLabels };
             } else if (isPdf) {
                 if (file.size > 3.5 * 1024 * 1024) throw new Error('PDF file is too large (over 3.5MB). Please compress it first.');
                 const base64 = await readFileAsBase64(file);
-                payload = { image: base64, targetFields };
+                payload = { image: base64, targetLabels };
 
             } else if (isText) {
                 // Plain text: send content directly
                 const text = await readFileAsText(file);
-                payload = { textContent: text, targetFields };
+                payload = { textContent: text, targetLabels };
             } else if (isDocx) {
                 // DOCX: extract text client-side from ZIP/XML, then send as text
                 // (Gemini does not support the DOCX MIME type directly)
@@ -903,11 +907,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const text = await extractDocxText(file);
                 if (!text || text.length < 10) throw new Error('No readable text found in the DOCX file.');
                 console.log('[DOCX] Extracted text preview:', text.substring(0, 300));
-                payload = { textContent: text, targetFields };
+                payload = { textContent: text, targetLabels };
             } else {
                 // Fallback: treat as image
                 const base64 = await readFileAsBase64(file);
-                payload = { image: base64, targetFields };
+                payload = { image: base64, targetLabels };
             }
 
             setStatus('🤖 Extracting with AI...');
@@ -926,15 +930,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     let updateCount = 0;
                     const skipped = [];
 
-                    Object.keys(extracted).forEach(key => {
-                        const value = extracted[key];
+                    Object.keys(extracted).forEach(label => {
+                        const value = extracted[label];
                         if (!value || value === '') return; // skip empty values
 
-                        if (profile.data.hasOwnProperty(key)) {
-                            profile.data[key] = value;
+                        // Reverse-map the label the AI returned → profile field ID
+                        const fieldId = labelToId[label];
+                        if (fieldId && profile.data.hasOwnProperty(fieldId)) {
+                            profile.data[fieldId] = value;
                             updateCount++;
                         } else {
-                            skipped.push(key);
+                            skipped.push(label); // label not mapped or not in profile
                         }
                     });
 

@@ -115,38 +115,36 @@ async function callGemini(parts) {
 async function handleExtraction(payload, sendResponse) {
     const stopKeepAlive = keepAlive(); // prevent SW termination during long fetch
     try {
-        const { image, textContent, targetFields } = payload;
+        const { image, textContent, targetLabels } = payload;
 
         // Build the core instruction
         let prompt = `You are an expert data extraction assistant. Your job is to extract personal information from a document and fill a profile form.\n\n`;
 
-        if (targetFields && Object.keys(targetFields).length > 0) {
+        if (targetLabels && targetLabels.length > 0) {
             prompt += `TARGET PROFILE FIELDS:\n`;
-            prompt += `You must extract the information and return a JSON object where the keys are EXACTLY the following IDs. I have provided the human-readable label for each ID to help you map the data:\n`;
-            prompt += JSON.stringify(targetFields, null, 2) + '\n\n';
+            prompt += `You must extract information from the document and return a JSON object where the keys are EXACTLY the following human-readable field labels (copy them verbatim as JSON keys):\n`;
+            prompt += JSON.stringify(targetLabels, null, 2) + '\n\n';
 
             prompt += `EXTRACTION RULES:\n`;
-            prompt += `1. Return ONLY a valid JSON object using the EXACT IDs (keys) listed above. Never use the labels as keys in the JSON.\n`;
-            prompt += `2. Perform DEEP SEMANTIC MATCHING - use the provided labels to understand what each ID means. Match document text to the labels, but output the ID.\n`;
+            prompt += `1. Use these EXACT label strings as JSON keys — do NOT modify, abbreviate, or translate them.\n`;
+            prompt += `2. Perform DEEP SEMANTIC MATCHING — read the document and map its content to each label by meaning, not by exact wording.\n`;
             prompt += `   Examples of semantic matching:\n`;
-            prompt += `   - "নাম" or "Name" or "Full Name" → match to keys like "Child Name (English)" or "Father's Name (Bangla)" based on context\n`;
-            prompt += `   - "জন্ম তারিখ" or "DOB" or "Date of Birth" → "Date of Birth" or "Father's Date of Birth" etc.\n`;
-            prompt += `   - "জাতীয় পরিচয়পত্র নং" or "NID" or "National ID" → "Father's National ID" or "Mother's National ID"\n`;
-            prompt += `   - "পিতার নাম" or "Father" → "Father's Name (Bangla)" and/or "Father's Name (English)"\n`;
-            prompt += `   - "মাতার নাম" or "Mother" → "Mother's Name (Bangla)" and/or "Mother's Name (English)"\n`;
-            prompt += `3. If a field has both Bangla and English variants (e.g. "Father's Name (Bangla)" and "Father's Name (English)"):\n`;
-            prompt += `   - If the document has the name in Bangla script, fill the Bangla field and transliterate to fill the English one.\n`;
-            prompt += `   - If the document has it in English, fill the English field and transliterate for the Bangla one.\n`;
-            prompt += `4. DERIVE fields when possible:\n`;
-            prompt += `   - If you see a full name "Mohammad Ahmed Hossain", you can split/use it for both Bangla and English name fields.\n`;
-            prompt += `   - If you see a date "15-07-1990", convert to "15/07/1990" format for date fields.\n`;
-            prompt += `   - If you see age field, and you have the date of birth, calculate the age.\n`;
-            prompt += `   - If the country is not present in the document, set it to Bangladesh anyway.\n`;
-            prompt += `   - If gender is not specified in the doc, guess the gender from the name.\n`;
-            prompt += `5. For fields NOT found in the document, use empty string "" - do NOT guess or hallucinate values. However, if it is possible to derive any value, do it.\n`;
-            prompt += `6. Ignore fields that are completely irrelevant to the document (e.g. address fields when document only has personal info).\n`;
-            prompt += `7. Be aggressive about filling fields - it's better to fill a field with a reasonable match than leave it empty. However do NOT fill in wrong information.\n`;
-            prompt += `8. Be intelligent about filling the fields. Check if any field can be filled from the given information.\n`;
+            prompt += `   - Document says "নাম", "Name", "Full Name" → match to labels like "First Name (Bengali)", "Last Name (English)" split by context.\n`;
+            prompt += `   - Document says "জন্ম তারিখ", "DOB", "Date of Birth" → match to "Date of Birth" or "Father's Date of Birth" labels.\n`;
+            prompt += `   - Document says "জাতীয় পরিচয়পত্র নং", "NID", "National ID" → match to labels containing "National ID".\n`;
+            prompt += `   - Document says "পিতার নাম", "Father's Name" → match to labels like "Father's Name (Bengali)" and "Father's Name (English)".\n`;
+            prompt += `   - Document says "মাতার নাম", "Mother's Name" → match to labels like "Mother's Name (Bengali)" and "Mother's Name (English)".\n`;
+            prompt += `3. For labels that have both Bengali and English variants:\n`;
+            prompt += `   - If the document value is in Bengali script → fill the Bengali label and transliterate to fill the English label.\n`;
+            prompt += `   - If the document value is in English → fill the English label and transliterate to fill the Bengali label.\n`;
+            prompt += `4. DERIVE fields intelligently when possible:\n`;
+            prompt += `   - Split a full name ("Mohammad Ahmed") across "First Name" and "Last Name" labels.\n`;
+            prompt += `   - Normalize dates to YYYY-MM-DD format unless the label specifies otherwise.\n`;
+            prompt += `   - If gender is not in the document, infer from the name.\n`;
+            prompt += `   - If country is absent, default to Bangladesh.\n`;
+            prompt += `5. For labels whose value is NOT found in the document, use empty string "" — do NOT hallucinate values.\n`;
+            prompt += `6. Be aggressive about filling — a reasonable semantic match is better than leaving a field empty. But do NOT fill in incorrect information.\n`;
+            prompt += `7. Include ALL labels in your response, even if the value is empty string.\n`;
         } else {
             prompt += `Extract ALL personal data from the document as a flat JSON object with descriptive English snake_case keys.\n`;
             prompt += `Include: name, father_name, mother_name, date_of_birth, national_id, address, phone, email, occupation, etc.\n`;

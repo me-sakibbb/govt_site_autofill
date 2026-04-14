@@ -822,14 +822,13 @@ function createBtn(text, isPrimary) {
 }
 
 async function startIndianVisaAutofill(profile) {
-    let fieldsToFill;
-    let url = window.location.href;
-    if (url.includes('Reg_Page1')) fieldsToFill = INDIAN_VISA_PAGE1_FIELDS;
-    else if (url.includes('Reg_Page2')) fieldsToFill = INDIAN_VISA_PAGE2_FIELDS;
-    else if (url.includes('Reg_Page3')) fieldsToFill = INDIAN_VISA_PAGE3_FIELDS;
-    else { alert("This page doesn't seem to be a recognized Indian Visa form page."); setLoading(false); return; }
-    await executeAIAutofill(profile, fieldsToFill);
+    // Combine all page fields into one list.
+    // applyMapping() will silently skip any field not present in the current page's DOM,
+    // so this works correctly on Page 1, 2, 3 regardless of URL structure.
+    var allFields = INDIAN_VISA_PAGE1_FIELDS.concat(INDIAN_VISA_PAGE2_FIELDS, INDIAN_VISA_PAGE3_FIELDS);
+    await executeAIAutofill(profile, allFields);
 }
+
 
 async function startPCCAutofill(profile) { await executeAIAutofill(profile, PCC_FIELDS); }
 
@@ -874,7 +873,16 @@ function getProfilesData() {
 
 function sendMappingRequest(formFields, userData) {
     var mapping = {};
-    formFields.forEach(function (f) { if (userData[f.id] || userData[f.name]) mapping[f.id] = userData[f.id] || userData[f.name]; });
+    formFields.forEach(function (f) {
+        // Try in priority order:
+        // 1. by the field's own id (e.g. "countryname_id")
+        // 2. by the field's name attribute (e.g. "appl.countryname")
+        // 3. by the name converted to underscore format (e.g. "appl_countryname")
+        //    — this matches profile keys created from INDIAN_VISA_FIELDS config
+        var nameKey = f.name ? f.name.replace(/\./g, '_') : '';
+        var value = userData[f.id] || userData[f.name] || (nameKey && userData[nameKey]);
+        if (value) mapping[f.id] = value;
+    });
     return Promise.resolve({ success: true, mapping: mapping });
 }
 
