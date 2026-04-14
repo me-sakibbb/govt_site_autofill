@@ -916,6 +916,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             setStatus('🤖 Extracting with AI...');
 
+            // Add user's model selection to the payload
+            const modelSelector = document.getElementById('aiModelSelector');
+            payload.aiModel = modelSelector ? modelSelector.value : 'fast';
+
             chrome.runtime.sendMessage({
                 action: 'EXTRACT_DATA',
                 payload

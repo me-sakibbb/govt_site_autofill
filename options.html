@@ -198,8 +198,8 @@
                         style="flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: #fee2e2; border: none; color: #dc2626; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; line-height: 1;">×</button>
                 </div>
 
-                <!-- Extract Button + Status -->
-                <div style="margin-top: 16px; display: flex; align-items: center; gap: 12px;">
+                <!-- Extract Button + Model Selector + Status -->
+                <div style="margin-top: 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
                     <button id="extractBtn"
                         style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: #3b82f6; color: white; border: none; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 1px 4px rgba(59,130,246,0.3);"
                         onmouseover="this.style.background='#2563eb'; this.style.boxShadow='0 4px 12px rgba(59,130,246,0.4)';"
@@ -211,6 +211,14 @@
                         </svg>
                         Extract with AI
                     </button>
+                    <select id="aiModelSelector"
+                        style="padding: 9px 12px; border: 1px solid #e2e8f0; border-radius: 10px; background: #f8fafc; color: #334155; font-size: 12px; font-weight: 600; cursor: pointer; outline: none; transition: border-color 0.2s;"
+                        onfocus="this.style.borderColor='#3b82f6';"
+                        onblur="this.style.borderColor='#e2e8f0';">
+                        <option value="fastest">⚡ AI 1 (Fastest)</option>
+                        <option value="fast">🏃 AI 2 (Fast)</option>
+                        <option value="quality">🧠 AI 3 (Quality)</option>
+                    </select>
                     <div id="extractionStatus" style="font-size: 13px; font-weight: 500;"></div>
                 </div>
             </section>
