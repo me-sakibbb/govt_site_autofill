@@ -148,9 +148,15 @@
 
         <div id="login-required" class="text-center py-4">
             <p class="text-sm text-slate-500 mb-4" style="margin-bottom: 20px;">Login required to use Autofill Genius AI.</p>
-            <button id="login-settings-btn" class="btn-primary">
-                Login
-            </button>
+            <div class="flex flex-col gap-3 items-center">
+                <button id="login-settings-btn" class="btn-primary" style="width: 120px;">
+                    Login
+                </button>
+                <div class="flex items-center gap-2 text-xs text-slate-400">
+                    <span>Don't have an account?</span>
+                    <a id="register-link" href="#" target="_blank" class="text-blue-600 font-semibold hover:underline">Create Account</a>
+                </div>
+            </div>
         </div>
 
         <div id="popup-content" class="hidden">

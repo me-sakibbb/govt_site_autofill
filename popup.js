@@ -28,6 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             loginRequired.classList.remove('hidden');
             popupContent.classList.add('hidden');
+            
+            // Set register link href
+            const registerLink = document.getElementById('register-link');
+            if (registerLink) {
+                registerLink.href = `${CONFIG.SERVER_URL}/auth/sign-up`;
+            }
         }
     });
 });

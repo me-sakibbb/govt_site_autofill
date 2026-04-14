@@ -95,6 +95,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const optionsAddBalanceBtn = document.getElementById('optionsAddBalanceBtn');
       const logoutBtn = document.getElementById('logoutBtn');
     const userLimits = document.getElementById('userLimits');
+    const optionsRegisterLink = document.getElementById('optionsRegisterLink');
+    if (optionsRegisterLink) {
+        optionsRegisterLink.href = `${CONFIG.SERVER_URL}/auth/sign-up`;
+    }
     const mainContent = document.querySelector('main');
     const mainFooter = document.querySelector('footer');
 
@@ -341,6 +345,24 @@ document.addEventListener('DOMContentLoaded', () => {
         addFieldBtn.style.pointerEvents = hasProfile ? 'auto' : 'none';
         addFieldBtn.style.display = hasProfile ? 'inline-block' : 'none';
         deleteProfileBtn.disabled = !hasProfile;
+
+        // Dynamic extraction description
+        const extractionDesc = document.getElementById('extractionDesc');
+        const docDropZone = document.getElementById('docDropZone');
+        const docInput = document.getElementById('docInput');
+
+        if (extractionDesc) {
+            if (!hasProfile) {
+                extractionDesc.innerHTML = '<span style="color: #ef4444; font-weight: 700;">⚠️ Please create a new profile first to enable AI document extraction.</span>';
+                if (docDropZone) docDropZone.style.display = 'none';
+            } else {
+                extractionDesc.textContent = 'Upload a document to automatically extract your personal details using AI.';
+                // Only show if no file is selected
+                if (docDropZone && (!docInput.files || !docInput.files.length)) {
+                    docDropZone.style.display = 'flex';
+                }
+            }
+        }
         
         // Toggle footer as well
         if (mainFooter) {
@@ -506,11 +528,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                 </div>
-                <h3 class="text-slate-900 font-bold text-base mb-1">No Profile Selected</h3>
-                <p class="text-slate-500 text-sm max-w-xs mx-auto mb-6">Create your first profile to start using intelligent form filling and AI extraction.</p>
-                <button id="createFirstBtn" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-all shadow-sm">
-                    Create Your First Profile
-                </button>
+                <h3 class="text-slate-900 font-bold text-base mb-1">Get Started Today</h3>
+                <p class="text-slate-500 text-sm max-w-xs mx-auto mb-6">Create a profile to enable intelligent form filling. You can also <b>create an account</b> to unlock AI document extraction and sync your data.</p>
+                <div class="flex flex-col gap-3 items-center">
+                    <button id="createFirstBtn" class="inline-flex items-center px-6 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 transition-all shadow-sm">
+                        Create Your First Profile
+                    </button>
+                    <a href="${CONFIG.SERVER_URL}/auth/sign-up" target="_blank" class="text-xs text-blue-600 font-bold hover:underline">Register an Account Now</a>
+                </div>
             `;
             fieldsContainer.appendChild(placeholder);
             

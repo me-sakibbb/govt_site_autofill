@@ -429,6 +429,111 @@ chrome.runtime.onMessage.addListener(function (request) {
     if (request.action === 'triggerAutofill') handleAutofillClick();
 });
 
+
+function showLoginPromptModal() {
+    var existing = document.getElementById('ai-login-prompt-modal');
+    if (existing) existing.remove();
+
+    if (!document.getElementById('ai-modal-styles')) {
+        var st = document.createElement('style');
+        st.id = 'ai-modal-styles';
+        st.textContent = [
+            '@keyframes ai-fade-in { from { opacity: 0; } to { opacity: 1; } }',
+            '@keyframes ai-slide-up { from { opacity: 0; transform: translateY(24px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }'
+        ].join(' ');
+        document.head.appendChild(st);
+    }
+
+    var backdrop = document.createElement('div');
+    backdrop.id = 'ai-login-prompt-modal';
+    var backdropProps = {
+        'position': 'fixed', 'inset': '0', 'width': '100%', 'height': '100%',
+        'background': 'rgba(0,0,0,0.6)', 'backdrop-filter': 'blur(4px)',
+        '-webkit-backdrop-filter': 'blur(4px)',
+        'z-index': '2147483647',
+        'display': 'flex', 'justify-content': 'center', 'align-items': 'center',
+        'font-family': 'system-ui, -apple-system, BlinkMacSystemFont, sans-serif',
+        'animation': 'ai-fade-in 0.3s ease-out forwards',
+        'opacity': '1'
+    };
+    for (var p in backdropProps) backdrop.style.setProperty(p, backdropProps[p], 'important');
+    backdrop.onclick = function (e) { if (e.target === backdrop) { backdrop.remove(); if (floatBtn) setLoading(false); } };
+
+    var card = document.createElement('div');
+    var cardProps = {
+        'background': '#ffffff',
+        'border': '1px solid #e2e8f0',
+        'border-radius': '24px',
+        'padding': '32px',
+        'width': '380px',
+        'max-width': 'calc(100vw - 48px)',
+        'box-shadow': '0 20px 50px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.02)',
+        'display': 'flex', 'flex-direction': 'column', 'align-items': 'center', 'text-align': 'center', 'gap': '16px',
+        'animation': 'ai-slide-up 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
+        'position': 'relative'
+    };
+    for (var cp in cardProps) card.style.setProperty(cp, cardProps[cp], 'important');
+
+    var iconBox = document.createElement('div');
+    var ibProps = {
+        'width': '56px', 'height': '56px', 'border-radius': '16px',
+        'background': 'rgba(37,99,235,0.1)',
+        'display': 'flex', 'align-items': 'center', 'justify-content': 'center',
+        'margin-bottom': '4px'
+    };
+    for (var ip in ibProps) iconBox.style.setProperty(ip, ibProps[ip], 'important');
+    iconBox.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>`;
+    card.appendChild(iconBox);
+
+    var title = document.createElement('h2');
+    title.innerText = 'Login Required';
+    var titleProps = { 'margin': '0', 'color': '#0f172a', 'font-size': '20px', 'font-weight': '800' };
+    for (var tp in titleProps) title.style.setProperty(tp, titleProps[tp], 'important');
+    card.appendChild(title);
+
+    var msg = document.createElement('p');
+    msg.innerText = 'Please login to your account to use Autofill Genius AI features.';
+    var msgProps = { 'margin': '0', 'color': '#475569', 'font-size': '15px', 'line-height': '1.5', 'font-weight': '500' };
+    for (var mp in msgProps) msg.style.setProperty(mp, msgProps[mp], 'important');
+    card.appendChild(msg);
+
+    var btnContainer = document.createElement('div');
+    btnContainer.style.setProperty('display', 'flex', 'important');
+    btnContainer.style.setProperty('flex-direction', 'column', 'important');
+    btnContainer.style.setProperty('gap', '10px', 'important');
+    btnContainer.style.setProperty('width', '100%', 'important');
+    btnContainer.style.setProperty('margin-top', '8px', 'important');
+
+    var loginBtn = createBtn('Login Now', true);
+    loginBtn.onclick = function() {
+        chrome.runtime.sendMessage({ action: 'OPEN_OPTIONS' });
+        backdrop.remove();
+        if (floatBtn) setLoading(false);
+    };
+    
+    var createAccountBtn = createBtn('Create New Account', false);
+    createAccountBtn.style.setProperty('border', '1px solid #2563eb', 'important');
+    createAccountBtn.style.setProperty('color', '#2563eb', 'important');
+    createAccountBtn.onclick = function() {
+        window.open(CONFIG.SERVER_URL + 'auth/sign-up', '_blank');
+        backdrop.remove();
+        if (floatBtn) setLoading(false);
+    };
+
+    var cancelLink = document.createElement('button');
+    cancelLink.innerText = 'Maybe later';
+    var clProps = { 'background': 'none', 'border': 'none', 'color': '#94a3b8', 'font-size': '13px', 'cursor': 'pointer', 'margin-top': '4px', 'font-weight': '500' };
+    for (var clp in clProps) cancelLink.style.setProperty(clp, clProps[clp], 'important');
+    cancelLink.onclick = function() { backdrop.remove(); if (floatBtn) setLoading(false); };
+
+    btnContainer.appendChild(loginBtn);
+    btnContainer.appendChild(createAccountBtn);
+    card.appendChild(btnContainer);
+    card.appendChild(cancelLink);
+    backdrop.appendChild(card);
+    document.body.appendChild(backdrop);
+}
+
 async function handleAutofillClick() {
     try {
         var result = await getProfilesData();
@@ -437,12 +542,7 @@ async function handleAutofillClick() {
         var session = result.supabaseSession;
 
         if (!session || !session.access_token) {
-            showToast('Please login via extension settings to use Autofill Genius AI.', 'warning', 6000);
-            setTimeout(function () {
-                if (confirm('Open extension settings to login?')) {
-                    chrome.runtime.sendMessage({ action: 'OPEN_OPTIONS' });
-                }
-            }, 300);
+            showLoginPromptModal();
             return;
         }
 
