@@ -1,97 +1,5 @@
 // content.js - Form autofill content script
 
-// Indian Visa field definitions (inlined — content scripts cannot use ES modules)
-// SOURCE OF TRUTH: modules/indian_visa_config.js — keep these in sync
-const INDIAN_VISA_PAGE1_FIELDS = [
-    { id: 'countryname_id', name: 'appl.countryname', type: 'select', label: 'Country/Region applying from' },
-    { id: 'missioncode_id', name: 'appl.missioncode', type: 'select', label: 'Indian Mission/Office' },
-    { id: 'nationality_id', name: 'appl.nationality', type: 'select', label: 'Nationality/Region' },
-    { id: 'dob_id', name: 'appl.birthdate', type: 'text', label: 'Date of Birth (DD/MM/YYYY)' },
-    { id: 'email_id', name: 'appl.email', type: 'text', label: 'Email ID' },
-    { id: 'email_re_id', name: 'appl.email_re', type: 'text', label: 'Re-enter Email ID' },
-    { id: 'jouryney_id', name: 'appl.journeydate', type: 'text', label: 'Expected Date of Arrival (DD/MM/YYYY)' },
-    { id: 'visaService', name: 'appl.visa_service_id', type: 'select', label: 'Visa Type' },
-    { id: 'purpose', name: 'appl.purpose', type: 'select', label: 'Purpose of Visit' },
-];
-
-const INDIAN_VISA_PAGE2_FIELDS = [
-    { id: 'surname', name: 'appl.surname', type: 'text', label: 'Surname (as in Passport)' },
-    { id: 'givenName', name: 'appl.applname', type: 'text', label: 'Given Name/s (as in Passport)' },
-    { id: 'changedSurnameCheck', name: 'appl.changedSurnameCheck', type: 'checkbox', label: 'Have you ever changed your name?' },
-    { id: 'prev_surname', name: 'appl.prev_surname', type: 'text', label: 'Previous Surname' },
-    { id: 'prev_given_name', name: 'appl.prev_given_name', type: 'text', label: 'Previous Given Name' },
-    { id: 'gender', name: 'appl.applsex', type: 'select', label: 'Gender (M/F/X)' },
-    { id: 'birth_place', name: 'appl.placbrth', type: 'text', label: 'Town/City of Birth' },
-    { id: 'country_birth', name: 'appl.country_of_birth', type: 'select', label: 'Country/Region of Birth' },
-    { id: 'nic_number', name: 'appl.nic_no', type: 'text', label: 'Citizenship/National Id No.' },
-    { id: 'religion', name: 'appl.religion', type: 'select', label: 'Religion' },
-    { id: 'religion_other', name: 'appl.religionOther', type: 'text', label: 'Religion (if Others)' },
-    { id: 'identity_marks', name: 'appl.visual_mark', type: 'text', label: 'Visible identification marks' },
-    { id: 'education', name: 'appl.edu_id', type: 'select', label: 'Educational Qualification' },
-    { id: 'nationality_by', name: 'appl.nationality_by', type: 'select', label: 'Nationality acquired by birth or naturalization?' },
-    { id: 'prev_nationality', name: 'appl.prev_nationality', type: 'select', label: 'Previous Nationality/Region' },
-    { id: 'passport_no', name: 'appl.passport_number', type: 'text', label: 'Passport Number' },
-    { id: 'passport_issue_place', name: 'appl.passport_issue_place', type: 'text', label: 'Passport Place of Issue' },
-    { id: 'passport_issue_date', name: 'appl.passport_issue_date', type: 'text', label: 'Passport Date of Issue (DD/MM/YYYY)' },
-    { id: 'passport_expiry_date', name: 'appl.passport_expiry_date', type: 'text', label: 'Passport Date of Expiry (DD/MM/YYYY)' },
-    { id: 'other_ppt_1', name: 'appl.oth_ppt', type: 'radio', label: 'Any other valid Passport - YES' },
-    { id: 'other_ppt_2', name: 'appl.oth_ppt', type: 'radio', label: 'Any other valid Passport - NO' },
-    { id: 'other_ppt_country_issue', name: 'appl.prev_passport_country_issue', type: 'select', label: 'Other Passport Country of Issue' },
-    { id: 'other_ppt_no', name: 'appl.oth_pptno', type: 'text', label: 'Other Passport No.' },
-    { id: 'other_ppt_issue_date', name: 'appl.previous_passport_issue_date', type: 'text', label: 'Other Passport Date of Issue (DD/MM/YYYY)' },
-    { id: 'other_ppt_issue_place', name: 'appl.other_ppt_issue_place', type: 'text', label: 'Other Passport Place of Issue' },
-    { id: 'other_ppt_nat', name: 'appl.other_ppt_nationality', type: 'select', label: 'Other Passport Nationality mentioned therein' },
-];
-
-const INDIAN_VISA_PAGE3_FIELDS = [
-    { id: 'pres_add1', name: 'appl.pres_add1', type: 'text', label: 'Present Address: House No./Street' },
-    { id: 'pres_add2', name: 'appl.pres_add2', type: 'text', label: 'Present Address: Village/Town/City' },
-    { id: 'pres_country', name: 'appl.pres_country', type: 'select', label: 'Present Address: Country' },
-    { id: 'state_name', name: 'appl.state_name', type: 'select', label: 'Present Address: State/Province/District' },
-    { id: 'province_name', name: 'appl.province_name', type: 'text', label: 'Present Address: State/Province/District (China/Other)' },
-    { id: 'pincode', name: 'appl.pincode', type: 'text', label: 'Present Address: Postal/Zip Code' },
-    { id: 'pres_phone', name: 'appl.pres_phone', type: 'text', label: 'Present Address: Phone No.' },
-    { id: 'isd_code', name: 'appl.isd_code', type: 'text', label: 'Mobile No. ISD Code' },
-    { id: 'mobile', name: 'appl.mobile', type: 'text', label: 'Mobile No.' },
-    { id: 'sameAddress', name: 'sameAddress', type: 'checkbox', label: 'Click Here for Same Address' },
-    { id: 'perm_add1', name: 'appl.perm_add1', type: 'text', label: 'Permanent Address: House No./Street' },
-    { id: 'perm_add2', name: 'appl.perm_add2', type: 'text', label: 'Permanent Address: Village/Town/City' },
-    { id: 'perm_add3', name: 'appl.perm_add3', type: 'select', label: 'Permanent Address: State/Province/District' },
-    { id: 'fthrname', name: 'appl.fthrname', type: 'text', label: 'Father\'s Name' },
-    { id: 'father_nationality', name: 'appl.father_nationality', type: 'select', label: 'Father\'s Nationality/Region' },
-    { id: 'father_previous_nationality', name: 'appl.father_previous_nationality', type: 'select', label: 'Father\'s Previous Nationality/Region' },
-    { id: 'father_place_of_birth', name: 'appl.father_place_of_birth', type: 'text', label: 'Father\'s Place of birth' },
-    { id: 'father_country_of_birth', name: 'appl.father_country_of_birth', type: 'select', label: 'Father\'s Country/Region of birth' },
-    { id: 'mother_name', name: 'appl.mother_name', type: 'text', label: 'Mother\'s Name' },
-    { id: 'mother_nationality', name: 'appl.mother_nationality', type: 'select', label: 'Mother\'s Nationality/Region' },
-    { id: 'mother_previous_nationality', name: 'appl.mother_previous_nationality', type: 'select', label: 'Mother\'s Previous Nationality/Region' },
-    { id: 'mother_place_of_birth', name: 'appl.mother_place_of_birth', type: 'text', label: 'Mother\'s Place of birth' },
-    { id: 'mother_country_of_birth', name: 'appl.mother_country_of_birth', type: 'select', label: 'Mother\'s Country/Region of birth' },
-    { id: 'marital_status', name: 'appl.marital_status', type: 'select', label: 'Applicant\'s Marital Status' },
-    { id: 'spouse_name', name: 'appl.spouse_name', type: 'text', label: 'Spouse\'s Name' },
-    { id: 'spouse_nationality', name: 'appl.spouse_nationality', type: 'select', label: 'Spouse\'s Nationality/Region' },
-    { id: 'spouse_previous_nationality', name: 'appl.spouse_previous_nationality', type: 'select', label: 'Spouse\'s Previous Nationality/Region' },
-    { id: 'spouse_place_of_birth', name: 'appl.spouse_place_of_birth', type: 'text', label: 'Spouse\'s Place of birth' },
-    { id: 'spouse_country_of_birth', name: 'appl.spouse_country_of_birth', type: 'select', label: 'Spouse\'s Country/Region of birth' },
-    { id: 'grandparent_flag_yes', name: 'appl.grandparent_flag', type: 'radio', label: 'Grandfather/Grandmother Pakistan Nationals? (YES)' },
-    { id: 'grandparent_flag_no', name: 'appl.grandparent_flag', type: 'radio', label: 'Grandfather/Grandmother Pakistan Nationals? (NO)' },
-    { id: 'grandparent_details', name: 'appl.grandparent_details', type: 'text', label: 'If Yes, give details' },
-    { id: 'occupation', name: 'appl.occupation', type: 'select', label: 'Present Occupation' },
-    { id: 'occupationOther', name: 'appl.occupationOther', type: 'text', label: 'Occupation (If Others)' },
-    { id: 'occ_flag', name: 'appl.occ_flag', type: 'text', label: 'Specify occupation details of: Father/Mother/Spouse' },
-    { id: 'empname', name: 'appl.empname', type: 'text', label: 'Employer Name/business' },
-    { id: 'empdesignation', name: 'appl.empdesignation', type: 'text', label: 'Designation' },
-    { id: 'empaddress', name: 'appl.empaddress', type: 'text', label: 'Address' },
-    { id: 'empphone', name: 'appl.empphone', type: 'text', label: 'Phone' },
-    { id: 'previous_occupation', name: 'appl.previous_occupation', type: 'select', label: 'Past Occupation, if any' },
-    { id: 'previous_occupation_details', name: 'appl.previous_occupation_details', type: 'text', label: 'Past Occupation details' },
-    { id: 'prev_org_yes', name: 'appl.prev_org', type: 'radio', label: 'Military/Police/Security Organization? (YES)' },
-    { id: 'prev_org_no', name: 'appl.prev_org', type: 'radio', label: 'Military/Police/Security Organization? (NO)' },
-    { id: 'previous_organization', name: 'appl.previous_organization', type: 'text', label: 'Previous Organization' },
-    { id: 'previous_designation', name: 'appl.previous_designation', type: 'text', label: 'Previous Designation' },
-    { id: 'previous_rank', name: 'appl.previous_rank', type: 'text', label: 'Previous Rank' },
-    { id: 'previous_posting', name: 'appl.previous_posting', type: 'text', label: 'Previous Place of Posting' },
-];
 
 const PCC_FIELDS = [
     { id: 'P12_PASSPORT_NO', label: 'Passport No', type: 'text' },
@@ -179,7 +87,6 @@ const BDRIS_FIELDS = [
 const SUPPORTED_SITES = [
     'bdris.gov.bd',
     'teletalk.com.bd',
-    'indianvisa-bangladesh.nic.in',
     'pcc.police.gov.bd'
 ];
 
@@ -656,10 +563,8 @@ function showProfileSelector(profiles, lastActiveProfileId) {
 
     var sites = [
         { value: 'bdris', text: 'BDRIS — Birth & Death Registration' },
-        { value: 'indian_visa', text: 'Indian Visa Application' },
         { value: 'pcc', text: 'PCC — Police Clearance Certificate' },
         { value: 'teletalk', text: 'Teletalk — Government Job Forms' },
-        { value: 'custom', text: 'Custom / Generic Form' },
     ];
     var siteGroup = createLabeledSelect('Form Template', sites);
     card.appendChild(siteGroup.group);
@@ -672,8 +577,7 @@ function showProfileSelector(profiles, lastActiveProfileId) {
     profileGroup.select.dispatchEvent(new Event('change'));
 
     var url = window.location.href;
-    if (url.includes('indianvisa-bangladesh.nic.in')) siteGroup.select.value = 'indian_visa';
-    else if (url.includes('bdris.gov.bd')) siteGroup.select.value = 'bdris';
+    if (url.includes('bdris.gov.bd')) siteGroup.select.value = 'bdris';
     else if (url.includes('teletalk.com.bd')) siteGroup.select.value = 'teletalk';
     else if (url.includes('pcc.police.gov.bd')) siteGroup.select.value = 'pcc';
 
@@ -692,9 +596,8 @@ function showProfileSelector(profiles, lastActiveProfileId) {
         if (!selectedProfile) { showToast('Please select a profile first.', 'warning'); return; }
         selectedProfile.site = selectedSite;
         backdrop.remove();
-        if (selectedSite === 'indian_visa') startIndianVisaAutofill(selectedProfile);
+        if (selectedSite === 'bdris') startBDRISAutofill(selectedProfile);
         else if (selectedSite === 'pcc') startPCCAutofill(selectedProfile);
-        else if (selectedSite === 'bdris') startBDRISAutofill(selectedProfile);
         else startAutofill(selectedProfile);
     };
 
@@ -821,13 +724,6 @@ function createBtn(text, isPrimary) {
     return btn;
 }
 
-async function startIndianVisaAutofill(profile) {
-    // Combine all page fields into one list.
-    // applyMapping() will silently skip any field not present in the current page's DOM,
-    // so this works correctly on Page 1, 2, 3 regardless of URL structure.
-    var allFields = INDIAN_VISA_PAGE1_FIELDS.concat(INDIAN_VISA_PAGE2_FIELDS, INDIAN_VISA_PAGE3_FIELDS);
-    await executeAIAutofill(profile, allFields);
-}
 
 
 async function startPCCAutofill(profile) { await executeAIAutofill(profile, PCC_FIELDS); }
@@ -878,10 +774,22 @@ function sendMappingRequest(formFields, userData) {
         // 1. by the field's own id (e.g. "countryname_id")
         // 2. by the field's name attribute (e.g. "appl.countryname")
         // 3. by the name converted to underscore format (e.g. "appl_countryname")
-        //    — this matches profile keys created from INDIAN_VISA_FIELDS config
         var nameKey = f.name ? f.name.replace(/\./g, '_') : '';
-        var value = userData[f.id] || userData[f.name] || (nameKey && userData[nameKey]);
-        if (value) mapping[f.id] = value;
+        
+        var toCamel = function(str) {
+            return str ? str.replace(/_([a-z0-9])/g, function(g) { return g[1].toUpperCase(); }) : '';
+        };
+        
+        var arrayNameMatched = '';
+        if (f.name) {
+            var temp = f.name.replace(/\[/g, '').replace(/\]/g, '_').replace(/_+$/, '');
+            arrayNameMatched = toCamel(temp);
+        }
+
+        var value = userData[f.id] || userData[f.name] || (nameKey && userData[nameKey]) || 
+                    userData[toCamel(f.id)] || userData[toCamel(f.name)] || userData[arrayNameMatched];
+                    
+        if (value) mapping[f.id || f.name] = value;
     });
     return Promise.resolve({ success: true, mapping: mapping });
 }
@@ -918,6 +826,17 @@ async function applyMapping(mapping, profilePic) {
         // Skip genuinely hidden elements (like type="hidden")
         if (el.type === 'hidden') continue;
         
+        // Handle conditionally disabled fields (e.g. Teletalk 'If Applicable' checkboxes)
+        if (el.disabled) {
+            var conditionalContainer = el.closest('.section, fieldset');
+            var conditionalCheckbox = conditionalContainer ? conditionalContainer.querySelector('input[type="checkbox"].if_applicable, input[type="checkbox"].if_applicable_exp') : null;
+            if (conditionalCheckbox && !conditionalCheckbox.checked) {
+                conditionalCheckbox.click();
+            } else {
+                el.disabled = false;
+            }
+        }
+
         // Skip visually hidden elements (e.g., inside display:none containers or tabs)
         // This ensures the count accurately reflects what the user sees on their screen.
         if (el.offsetWidth === 0 && el.offsetHeight === 0) continue;

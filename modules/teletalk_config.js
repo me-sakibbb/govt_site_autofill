@@ -25,7 +25,7 @@ export const TELETALK_FIELDS = {
     },
     "dob": {
         "name": "dob",
-        "label": "Date of Birth"
+        "label": "Date of Birth (DD/MM/YYYY)"
     },
     "nationality": {
         "name": "nationality",

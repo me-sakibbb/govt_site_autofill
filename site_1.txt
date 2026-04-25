@@ -72,479 +72,7 @@ https://bdris.gov.bd/br/application
                     <label class="col-form-label required-field col-md-5" for="officeAddrCountry">দেশ</label>
                     <div class="col-md-7">
                         <select class="form-control geoSelect country" name="officeAddrCountry" id="officeAddrCountry" data-geo-group="officeAddr" data-geo-order="0">
-                            <option value="-1">দেশ নির্বাচন করুন</option>
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            
-
-                            <option value="7380" data-id="7380" data-name-bn="আলজেরিয়া" data-name-en="আলজেরিয়া" data-geo-level-id="10" data-parent-geo-id="5556">আলজেরিয়া</option>
-
-                            <option value="5726" data-id="5726" data-name-bn="অস্ট্রেলিয়া" data-name-en="অস্ট্রেলিয়া" data-geo-level-id="10" data-parent-geo-id="5556">অস্ট্রেলিয়া</option>
-
-                            <option value="5928" data-id="5928" data-name-bn="অস্ট্রিয়া " data-name-en="অস্ট্রিয়া " data-geo-level-id="10" data-parent-geo-id="5556">অস্ট্রিয়া </option>
-
-                            <option value="5708" data-id="5708" data-name-bn="বাহরাইন" data-name-en="বাহরাইন" data-geo-level-id="10" data-parent-geo-id="5556">বাহরাইন</option>
-
-                            <option value="5789" data-id="5789" data-name-bn="বেলজিয়াম" data-name-en="বেলজিয়াম" data-geo-level-id="10" data-parent-geo-id="5556">বেলজিয়াম</option>
-
-                            <option value="7042" data-id="7042" data-name-bn="ভুটান" data-name-en="ভুটান" data-geo-level-id="10" data-parent-geo-id="5556">ভুটান</option>
-
-                            <option value="7045" data-id="7045" data-name-bn="ব্রাজিল" data-name-en="ব্রাজিল" data-geo-level-id="10" data-parent-geo-id="5556">ব্রাজিল</option>
-
-                            <option value="5784" data-id="5784" data-name-bn="ব্রুনাই" data-name-en="ব্রুনাই" data-geo-level-id="10" data-parent-geo-id="5556">ব্রুনাই</option>
-
-                            <option value="5643" data-id="5643" data-name-bn="কানাডা" data-name-en="কানাডা" data-geo-level-id="10" data-parent-geo-id="5556">কানাডা</option>
-
-                            <option value="5659" data-id="5659" data-name-bn="চীন" data-name-en="চীন" data-geo-level-id="10" data-parent-geo-id="5556">চীন</option>
-
-                            <option value="5936" data-id="5936" data-name-bn="ডেনমার্ক " data-name-en="ডেনমার্ক " data-geo-level-id="10" data-parent-geo-id="5556">ডেনমার্ক </option>
-
-                            <option value="5787" data-id="5787" data-name-bn="মিশর" data-name-en="মিশর" data-geo-level-id="10" data-parent-geo-id="5556">মিশর</option>
-
-                            <option value="5739" data-id="5739" data-name-bn="ফ্রান্স" data-name-en="ফ্রান্স" data-geo-level-id="10" data-parent-geo-id="5556">ফ্রান্স</option>
-
-                            <option value="5916" data-id="5916" data-name-bn="জার্মানী" data-name-en="জার্মানী" data-geo-level-id="10" data-parent-geo-id="5556">জার্মানী</option>
-
-                            <option value="5684" data-id="5684" data-name-bn="গ্রীস" data-name-en="গ্রীস" data-geo-level-id="10" data-parent-geo-id="5556">গ্রীস</option>
-
-                            <option value="5662" data-id="5662" data-name-bn="ভারত" data-name-en="ভারত" data-geo-level-id="10" data-parent-geo-id="5556">ভারত</option>
-
-                            <option value="5911" data-id="5911" data-name-bn="ইন্দোনেশিয়া" data-name-en="ইন্দোনেশিয়া" data-geo-level-id="10" data-parent-geo-id="5556">ইন্দোনেশিয়া</option>
-
-                            <option value="6730" data-id="6730" data-name-bn="ইরান" data-name-en="ইরান" data-geo-level-id="10" data-parent-geo-id="5556">ইরান</option>
-
-                            <option value="6782" data-id="6782" data-name-bn="ইরাক" data-name-en="ইরাক" data-geo-level-id="10" data-parent-geo-id="5556">ইরাক</option>
-
-                            <option value="5876" data-id="5876" data-name-bn="ইটালি" data-name-en="ইটালি" data-geo-level-id="10" data-parent-geo-id="5556">ইটালি</option>
-
-                            <option value="5881" data-id="5881" data-name-bn="জাপান" data-name-en="জাপান" data-geo-level-id="10" data-parent-geo-id="5556">জাপান</option>
-
-                            <option value="5676" data-id="5676" data-name-bn="জর্ডান" data-name-en="জর্ডান" data-geo-level-id="10" data-parent-geo-id="5556">জর্ডান</option>
-
-                            <option value="5733" data-id="5733" data-name-bn="কেনিয়া" data-name-en="কেনিয়া" data-geo-level-id="10" data-parent-geo-id="5556">কেনিয়া</option>
-
-                            <option value="5634" data-id="5634" data-name-bn="কুয়েত" data-name-en="কুয়েত" data-geo-level-id="10" data-parent-geo-id="5556">কুয়েত</option>
-
-                            <option value="5906" data-id="5906" data-name-bn="লেবানন" data-name-en="লেবানন" data-geo-level-id="10" data-parent-geo-id="5556">লেবানন</option>
-
-                            <option value="5920" data-id="5920" data-name-bn="লিবিয়া " data-name-en="লিবিয়া " data-geo-level-id="10" data-parent-geo-id="5556">লিবিয়া </option>
-
-                            <option value="5632" data-id="5632" data-name-bn="মালয়েশিয়া" data-name-en="মালয়েশিয়া" data-geo-level-id="10" data-parent-geo-id="5556">মালয়েশিয়া</option>
-
-                            <option value="7138" data-id="7138" data-name-bn="মালদ্বীপ" data-name-en="মালদ্বীপ" data-geo-level-id="10" data-parent-geo-id="5556">মালদ্বীপ</option>
-
-                            <option value="5890" data-id="5890" data-name-bn="মরিশাস" data-name-en="মরিশাস" data-geo-level-id="10" data-parent-geo-id="5556">মরিশাস</option>
-
-                            <option value="7180" data-id="7180" data-name-bn="মেক্সিকো" data-name-en="মেক্সিকো" data-geo-level-id="10" data-parent-geo-id="5556">মেক্সিকো</option>
-
-                            <option value="5868" data-id="5868" data-name-bn="মরক্কো" data-name-en="মরক্কো" data-geo-level-id="10" data-parent-geo-id="5556">মরক্কো</option>
-
-                            <option value="5730" data-id="5730" data-name-bn="মায়ানমার" data-name-en="মায়ানমার" data-geo-level-id="10" data-parent-geo-id="5556">মায়ানমার</option>
-
-                            <option value="7182" data-id="7182" data-name-bn="নেপাল" data-name-en="নেপাল" data-geo-level-id="10" data-parent-geo-id="5556">নেপাল</option>
-
-                            <option value="5728" data-id="5728" data-name-bn="নেদারল্যান্ডস" data-name-en="নেদারল্যান্ডস" data-geo-level-id="10" data-parent-geo-id="5556">নেদারল্যান্ডস</option>
-
-                            <option value="7184" data-id="7184" data-name-bn="নাইজেরিয়া " data-name-en="নাইজেরিয়া " data-geo-level-id="10" data-parent-geo-id="5556">নাইজেরিয়া </option>
-
-                            <option value="5636" data-id="5636" data-name-bn="ওমান" data-name-en="ওমান" data-geo-level-id="10" data-parent-geo-id="5556">ওমান</option>
-
-                            <option value="5923" data-id="5923" data-name-bn="পাকিস্তান " data-name-en="পাকিস্তান " data-geo-level-id="10" data-parent-geo-id="5556">পাকিস্তান </option>
-
-                            <option value="5919" data-id="5919" data-name-bn="ফিলিপাইন" data-name-en="ফিলিপাইন" data-geo-level-id="10" data-parent-geo-id="5556">ফিলিপাইন</option>
-
-                            <option value="5737" data-id="5737" data-name-bn="পোল্যান্ড " data-name-en="পোল্যান্ড " data-geo-level-id="10" data-parent-geo-id="5556">পোল্যান্ড </option>
-
-                            <option value="5853" data-id="5853" data-name-bn="পর্তুগাল" data-name-en="পর্তুগাল" data-geo-level-id="10" data-parent-geo-id="5556">পর্তুগাল</option>
-
-                            <option value="5686" data-id="5686" data-name-bn="কাতার" data-name-en="কাতার" data-geo-level-id="10" data-parent-geo-id="5556">কাতার</option>
-
-                            <option value="7830" data-id="7830" data-name-bn="রোমানিয়া" data-name-en="রোমানিয়া" data-geo-level-id="10" data-parent-geo-id="5556">রোমানিয়া</option>
-
-                            <option value="6477" data-id="6477" data-name-bn="রাশিয়ান ফেডারেশন " data-name-en="রাশিয়ান ফেডারেশন " data-geo-level-id="10" data-parent-geo-id="5556">রাশিয়ান ফেডারেশন </option>
-
-                            <option value="5651" data-id="5651" data-name-bn="সৌদি আরব" data-name-en="সৌদি আরব" data-geo-level-id="10" data-parent-geo-id="5556">সৌদি আরব</option>
-
-                            <option value="5657" data-id="5657" data-name-bn="সিঙ্গাপুর" data-name-en="সিঙ্গাপুর" data-geo-level-id="10" data-parent-geo-id="5556">সিঙ্গাপুর</option>
-
-                            <option value="5645" data-id="5645" data-name-bn="দক্ষিণ আফ্রিকা" data-name-en="দক্ষিণ আফ্রিকা" data-geo-level-id="10" data-parent-geo-id="5556">দক্ষিণ আফ্রিকা</option>
-
-                            <option value="5865" data-id="5865" data-name-bn="দক্ষিণ কোরিয়া" data-name-en="দক্ষিণ কোরিয়া" data-geo-level-id="10" data-parent-geo-id="5556">দক্ষিণ কোরিয়া</option>
-
-                            <option value="5903" data-id="5903" data-name-bn="স্পেন" data-name-en="স্পেন" data-geo-level-id="10" data-parent-geo-id="5556">স্পেন</option>
-
-                            <option value="5870" data-id="5870" data-name-bn="শ্রীলঙ্কা" data-name-en="শ্রীলঙ্কা" data-geo-level-id="10" data-parent-geo-id="5556">শ্রীলঙ্কা</option>
-
-                            <option value="5678" data-id="5678" data-name-bn="সুইডেন" data-name-en="সুইডেন" data-geo-level-id="10" data-parent-geo-id="5556">সুইডেন</option>
-
-                            <option value="5926" data-id="5926" data-name-bn="সুইজারল্যান্ড " data-name-en="সুইজারল্যান্ড " data-geo-level-id="10" data-parent-geo-id="5556">সুইজারল্যান্ড </option>
-
-                            <option value="5735" data-id="5735" data-name-bn="থাইল্যান্ড" data-name-en="থাইল্যান্ড" data-geo-level-id="10" data-parent-geo-id="5556">থাইল্যান্ড</option>
-
-                            <option value="5682" data-id="5682" data-name-bn="তুরস্ক" data-name-en="তুরস্ক" data-geo-level-id="10" data-parent-geo-id="5556">তুরস্ক</option>
-
-                            <option value="5654" data-id="5654" data-name-bn="সংযুক্ত আরব আমিরাত" data-name-en="সংযুক্ত আরব আমিরাত" data-geo-level-id="10" data-parent-geo-id="5556">সংযুক্ত আরব আমিরাত</option>
-
-                            <option value="5647" data-id="5647" data-name-bn="যুক্তরাজ্য" data-name-en="যুক্তরাজ্য" data-geo-level-id="10" data-parent-geo-id="5556">যুক্তরাজ্য</option>
-
-                            <option value="5638" data-id="5638" data-name-bn="যুক্তরাষ্ট্র" data-name-en="যুক্তরাষ্ট্র" data-geo-level-id="10" data-parent-geo-id="5556">যুক্তরাষ্ট্র</option>
-
-                            <option value="7836" data-id="7836" data-name-bn="উজবেকিস্তান" data-name-en="উজবেকিস্তান" data-geo-level-id="10" data-parent-geo-id="5556">উজবেকিস্তান</option>
-
-                            <option value="13179" data-id="13179" data-name-bn="ভিয়েতনাম " data-name-en="ভিয়েতনাম " data-geo-level-id="10" data-parent-geo-id="5556">ভিয়েতনাম </option>
-
-                            
+                            <option value="-1">দেশ নির্বাচন করুন</option>                            
                         </select>
                     </div>
                 </div>
@@ -795,362 +323,7 @@ https://bdris.gov.bd/br/application
                     <div class="col-md-7">
                         <select class="form-control geoSelect country is-valid" name="birthPlaceCountry" id="birthPlaceCountry" data-geo-order="0" data-geo-group="birthPlace" aria-invalid="false">
 
-                            <option value="-1" style="">দেশ নির্বাচন করুন</option>
-
-                            <option value="1" data-id="1" data-name-bn="বাংলাদেশ" data-name-en="BANGLADESH" data-geo-level-id="0" data-parent-geo-id="5556" selected="selected" style="">বাংলাদেশ</option>
-
-                            <option value="7430" data-id="7430" data-name-bn="এঙ্গোলা" data-name-en=" ANGOLA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">এঙ্গোলা</option>
-
-                            <option value="9080" data-id="9080" data-name-bn="নাইজার" data-name-en=" NIGER" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">নাইজার</option>
-
-                            <option value="7032" data-id="7032" data-name-bn="আফগানিস্তান" data-name-en="AFGHANISTAN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">আফগানিস্তান</option>
-
-                            <option value="7033" data-id="7033" data-name-bn="আলবেনিয়া" data-name-en="ALBANIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">আলবেনিয়া</option>
-
-                            <option value="7380" data-id="7380" data-name-bn="আলজেরিয়া" data-name-en="ALGERIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">আলজেরিয়া</option>
-
-                            <option value="7035" data-id="7035" data-name-bn="আমেরিকান সামোয়া" data-name-en="AMERICAN SAMOA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">আমেরিকান সামোয়া</option>
-
-                            <option value="8331" data-id="8331" data-name-bn="এন্ডোরা" data-name-en="ANDORRA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">এন্ডোরা</option>
-
-                            <option value="7036" data-id="7036" data-name-bn="আর্জেন্টিনা" data-name-en="ARGENTINA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">আর্জেন্টিনা</option>
-
-                            <option value="7037" data-id="7037" data-name-bn="আর্মেনিয়া" data-name-en="ARMENIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">আর্মেনিয়া</option>
-
-                            <option value="5726" data-id="5726" data-name-bn="অস্ট্রেলিয়া" data-name-en="AUSTRALIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">অস্ট্রেলিয়া</option>
-
-                            <option value="5928" data-id="5928" data-name-bn="অস্ট্রিয়া " data-name-en="AUSTRIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">অস্ট্রিয়া </option>
-
-                            <option value="7038" data-id="7038" data-name-bn="আজারবাইজান " data-name-en="AZERBAIJAN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">আজারবাইজান </option>
-
-                            <option value="7039" data-id="7039" data-name-bn="বাহামাস " data-name-en="BAHAMAS" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">বাহামাস </option>
-
-                            <option value="5708" data-id="5708" data-name-bn="বাহরাইন" data-name-en="BAHRAIN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">বাহরাইন</option>
-
-                            <option value="9880" data-id="9880" data-name-bn="বার্বাডোজ" data-name-en="BARBADOS" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">বার্বাডোজ</option>
-
-                            <option value="9182" data-id="9182" data-name-bn="বেলারুশ" data-name-en="BELARUS" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">বেলারুশ</option>
-
-                            <option value="5789" data-id="5789" data-name-bn="বেলজিয়াম" data-name-en="BELGIUM" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">বেলজিয়াম</option>
-
-                            <option value="8985" data-id="8985" data-name-bn="বেলিজ" data-name-en="BELIZE" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">বেলিজ</option>
-
-                            <option value="9132" data-id="9132" data-name-bn="বেনিন" data-name-en="BENIN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">বেনিন</option>
-
-                            <option value="13779" data-id="13779" data-name-bn="বারমুডা" data-name-en="BERMUDA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">বারমুডা</option>
-
-                            <option value="7042" data-id="7042" data-name-bn="ভুটান" data-name-en="BHUTAN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ভুটান</option>
-
-                            <option value="8933" data-id="8933" data-name-bn="বলিভিয়া" data-name-en="BOLIVIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">বলিভিয়া</option>
-
-                            <option value="8886" data-id="8886" data-name-bn="বসনিয়া ও হার্জেগোভিনা" data-name-en="BOSNIA AND HERZEGOVINA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">বসনিয়া ও হার্জেগোভিনা</option>
-
-                            <option value="7044" data-id="7044" data-name-bn="বতসোয়ানা" data-name-en="BOTSWANA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">বতসোয়ানা</option>
-
-                            <option value="7045" data-id="7045" data-name-bn="ব্রাজিল" data-name-en="BRAZIL" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ব্রাজিল</option>
-
-                            <option value="5784" data-id="5784" data-name-bn="ব্রুনাই" data-name-en="BRUNEI" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ব্রুনাই</option>
-
-                            <option value="7046" data-id="7046" data-name-bn="বুলগেরিয়া" data-name-en="BULGARIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">বুলগেরিয়া</option>
-
-                            <option value="9081" data-id="9081" data-name-bn="বুর্কিনা ফাসো" data-name-en="BURKINA FASO" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">বুর্কিনা ফাসো</option>
-
-                            <option value="8881" data-id="8881" data-name-bn="বুরুন্ডি" data-name-en="BURUNDI" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">বুরুন্ডি</option>
-
-                            <option value="8835" data-id="8835" data-name-bn="কেপ ভার্দে " data-name-en="CABO VERDE" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">কেপ ভার্দে </option>
-
-                            <option value="7047" data-id="7047" data-name-bn="কম্বোডিয়া" data-name-en="CAMBODIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">কম্বোডিয়া</option>
-
-                            <option value="8480" data-id="8480" data-name-bn="ক্যামেরুন" data-name-en="CAMEROON" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ক্যামেরুন</option>
-
-                            <option value="5643" data-id="5643" data-name-bn="কানাডা" data-name-en="CANADA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">কানাডা</option>
-
-                            <option value="8932" data-id="8932" data-name-bn="চিলি" data-name-en="CHILE" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">চিলি</option>
-
-                            <option value="5659" data-id="5659" data-name-bn="চীন" data-name-en="CHINA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">চীন</option>
-
-                            <option value="7050" data-id="7050" data-name-bn="কলোম্বিয়া" data-name-en="COLOMBIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">কলোম্বিয়া</option>
-
-                            <option value="8882" data-id="8882" data-name-bn="কমোরস" data-name-en="COMOROS" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">কমোরস</option>
-
-                            <option value="9931" data-id="9931" data-name-bn="কঙ্গো" data-name-en="CONGO" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">কঙ্গো</option>
-
-                            <option value="7052" data-id="7052" data-name-bn="কোস্টারিকা" data-name-en="COSTA RICA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">কোস্টারিকা</option>
-
-                            <option value="7053" data-id="7053" data-name-bn="ক্রোয়েশিয়া" data-name-en="CROATIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ক্রোয়েশিয়া</option>
-
-                            <option value="8181" data-id="8181" data-name-bn="কিউবা " data-name-en="CUBA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">কিউবা </option>
-
-                            <option value="7055" data-id="7055" data-name-bn="সাইপ্রাস" data-name-en="CYPRUS" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">সাইপ্রাস</option>
-
-                            <option value="8887" data-id="8887" data-name-bn="চেক প্রজাতন্ত্র" data-name-en="CZECHIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">চেক প্রজাতন্ত্র</option>
-
-                            <option value="5936" data-id="5936" data-name-bn="ডেনমার্ক " data-name-en="DENMARK" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ডেনমার্ক </option>
-
-                            <option value="8883" data-id="8883" data-name-bn="জিবুতি" data-name-en="DJIBOUTI" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">জিবুতি</option>
-
-                            <option value="8934" data-id="8934" data-name-bn="ডোমিনিকান রিপাবলিক" data-name-en="DOMINICAN REPUBLIC" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ডোমিনিকান রিপাবলিক</option>
-
-                            <option value="8787" data-id="8787" data-name-bn="ইকুয়েডর" data-name-en="ECUADOR" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ইকুয়েডর</option>
-
-                            <option value="5787" data-id="5787" data-name-bn="মিশর" data-name-en="EGYPT" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">মিশর</option>
-
-                            <option value="9083" data-id="9083" data-name-bn="এল সালভাদর" data-name-en="EL SALVADOR" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">এল সালভাদর</option>
-
-                            <option value="8280" data-id="8280" data-name-bn="ইকুয়েটোরিয়াল গিনি " data-name-en="EQUATORIAL GUINEA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ইকুয়েটোরিয়াল গিনি </option>
-
-                            <option value="8830" data-id="8830" data-name-bn="ইরিত্রিয়া" data-name-en="ERITREA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ইরিত্রিয়া</option>
-
-                            <option value="7030" data-id="7030" data-name-bn="এস্তোনিয়া" data-name-en="ESTONIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">এস্তোনিয়া</option>
-
-                            <option value="7058" data-id="7058" data-name-bn="ইথিওপিয়া" data-name-en="ETHIOPIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ইথিওপিয়া</option>
-
-                            <option value="7080" data-id="7080" data-name-bn="ফিজি " data-name-en="FIJI" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ফিজি </option>
-
-                            <option value="6780" data-id="6780" data-name-bn="ফিনল্যান্ড" data-name-en="FINLAND" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ফিনল্যান্ড</option>
-
-                            <option value="5739" data-id="5739" data-name-bn="ফ্রান্স" data-name-en="FRANCE" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ফ্রান্স</option>
-
-                            <option value="8530" data-id="8530" data-name-bn="গ্যাবন" data-name-en="GABON" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">গ্যাবন</option>
-
-                            <option value="13079" data-id="13079" data-name-bn="গাম্বিয়া" data-name-en="GAMBIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">গাম্বিয়া</option>
-
-                            <option value="7081" data-id="7081" data-name-bn="জর্জিয়া" data-name-en="GEORGIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">জর্জিয়া</option>
-
-                            <option value="5916" data-id="5916" data-name-bn="জার্মানী" data-name-en="GERMANY" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">জার্মানী</option>
-
-                            <option value="7082" data-id="7082" data-name-bn="ঘানা" data-name-en="GHANA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ঘানা</option>
-
-                            <option value="5684" data-id="5684" data-name-bn="গ্রীস" data-name-en="GREECE" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">গ্রীস</option>
-
-                            <option value="8939" data-id="8939" data-name-bn="গুয়াতেমালা" data-name-en="GUATEMALA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">গুয়াতেমালা</option>
-
-                            <option value="8831" data-id="8831" data-name-bn="গিনি" data-name-en="GUINEA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">গিনি</option>
-
-                            <option value="9137" data-id="9137" data-name-bn="গিনি বিসাউ" data-name-en="GUINEA-BISSAU" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">গিনি বিসাউ</option>
-
-                            <option value="9082" data-id="9082" data-name-bn="গায়ানা" data-name-en="GUYANA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">গায়ানা</option>
-
-                            <option value="7131" data-id="7131" data-name-bn="হাইতি" data-name-en="HAITI" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">হাইতি</option>
-
-                            <option value="8889" data-id="8889" data-name-bn="হন্ডুরাস " data-name-en="HONDURAS" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">হন্ডুরাস </option>
-
-                            <option value="13629" data-id="13629" data-name-bn="হংকং " data-name-en="HONG KONG" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">হংকং </option>
-
-                            <option value="9136" data-id="9136" data-name-bn="হাঙ্গেরি" data-name-en="HUNGARY" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">হাঙ্গেরি</option>
-
-                            <option value="7031" data-id="7031" data-name-bn="আইসল্যান্ড" data-name-en="ICELAND" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">আইসল্যান্ড</option>
-
-                            <option value="5662" data-id="5662" data-name-bn="ভারত" data-name-en="INDIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ভারত</option>
-
-                            <option value="5911" data-id="5911" data-name-bn="ইন্দোনেশিয়া" data-name-en="INDONESIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ইন্দোনেশিয়া</option>
-
-                            <option value="6730" data-id="6730" data-name-bn="ইরান" data-name-en="IRAN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ইরান</option>
-
-                            <option value="6782" data-id="6782" data-name-bn="ইরাক" data-name-en="IRAQ" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ইরাক</option>
-
-                            <option value="8680" data-id="8680" data-name-bn="আয়ারল্যান্ড " data-name-en="IRELAND" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">আয়ারল্যান্ড </option>
-
-                            <option value="5876" data-id="5876" data-name-bn="ইটালি" data-name-en="ITALY" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ইটালি</option>
-
-                            <option value="12979" data-id="12979" data-name-bn="আইভরি কোস্ট" data-name-en="IVORY COAST" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">আইভরি কোস্ট</option>
-
-                            <option value="8783" data-id="8783" data-name-bn="জামাইকা" data-name-en="JAMAICA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">জামাইকা</option>
-
-                            <option value="5881" data-id="5881" data-name-bn="জাপান" data-name-en="JAPAN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">জাপান</option>
-
-                            <option value="5676" data-id="5676" data-name-bn="জর্ডান" data-name-en="JORDAN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">জর্ডান</option>
-
-                            <option value="8080" data-id="8080" data-name-bn="কাজাখস্তান " data-name-en="KAZAKHSTAN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">কাজাখস্তান </option>
-
-                            <option value="5733" data-id="5733" data-name-bn="কেনিয়া" data-name-en="KENYA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">কেনিয়া</option>
-
-                            <option value="8832" data-id="8832" data-name-bn="কিরিবাতি" data-name-en="KIRIBATI" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">কিরিবাতি</option>
-
-                            <option value="5634" data-id="5634" data-name-bn="কুয়েত" data-name-en="KUWAIT" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">কুয়েত</option>
-
-                            <option value="8931" data-id="8931" data-name-bn="কিরঘিজস্তান" data-name-en="KYRGYZSTAN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">কিরঘিজস্তান</option>
-
-                            <option value="9033" data-id="9033" data-name-bn="লাওস" data-name-en="LAOS" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">লাওস</option>
-
-                            <option value="8988" data-id="8988" data-name-bn="লাটাভিয়া" data-name-en="LATVIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">লাটাভিয়া</option>
-
-                            <option value="5906" data-id="5906" data-name-bn="লেবানন" data-name-en="LEBANON" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">লেবানন</option>
-
-                            <option value="6781" data-id="6781" data-name-bn="লাইবেরিয়া" data-name-en="LIBERIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">লাইবেরিয়া</option>
-
-                            <option value="5920" data-id="5920" data-name-bn="লিবিয়া " data-name-en="LIBIYA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">লিবিয়া </option>
-
-                            <option value="8834" data-id="8834" data-name-bn="লিথুয়ানিয়া" data-name-en="LITHUANIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">লিথুয়ানিয়া</option>
-
-                            <option value="7137" data-id="7137" data-name-bn="লুক্সেমবার্গ" data-name-en="LUXEMBOURG" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">লুক্সেমবার্গ</option>
-
-                            <option value="11330" data-id="11330" data-name-bn="ম্যাসেডোনিয়া" data-name-en="MACEDONIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ম্যাসেডোনিয়া</option>
-
-                            <option value="12879" data-id="12879" data-name-bn="মাদাগাস্কার " data-name-en="MADAGASCAR" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">মাদাগাস্কার </option>
-
-                            <option value="9130" data-id="9130" data-name-bn="মাদাগাস্কার" data-name-en="MADAGASCAR" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">মাদাগাস্কার</option>
-
-                            <option value="5632" data-id="5632" data-name-bn="মালয়েশিয়া" data-name-en="MALAYSIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">মালয়েশিয়া</option>
-
-                            <option value="7138" data-id="7138" data-name-bn="মালদ্বীপ" data-name-en="MALDIVES" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">মালদ্বীপ</option>
-
-                            <option value="7431" data-id="7431" data-name-bn="মালি" data-name-en="MALI" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">মালি</option>
-
-                            <option value="7381" data-id="7381" data-name-bn="মাল্টা" data-name-en="MALTA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">মাল্টা</option>
-
-                            <option value="8885" data-id="8885" data-name-bn="মার্শাল আইল্যান্ডস" data-name-en="MARSHALL ISLANDS" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">মার্শাল আইল্যান্ডস</option>
-
-                            <option value="8780" data-id="8780" data-name-bn="মৌরিতানিয়া" data-name-en="MAURITANIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">মৌরিতানিয়া</option>
-
-                            <option value="5890" data-id="5890" data-name-bn="মরিশাস" data-name-en="MAURITIUS" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">মরিশাস</option>
-
-                            <option value="7180" data-id="7180" data-name-bn="মেক্সিকো" data-name-en="MEXICO" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">মেক্সিকো</option>
-
-                            <option value="8784" data-id="8784" data-name-bn="মাইক্রোনেশিয়া" data-name-en="MICRONESIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">মাইক্রোনেশিয়া</option>
-
-                            <option value="9135" data-id="9135" data-name-bn="মলদোভা" data-name-en="MOLDOVA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">মলদোভা</option>
-
-                            <option value="8888" data-id="8888" data-name-bn=" মোনাকো" data-name-en="MONACO" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;"> মোনাকো</option>
-
-                            <option value="8987" data-id="8987" data-name-bn="মঙ্গোলিয়া" data-name-en="MONGOLIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">মঙ্গোলিয়া</option>
-
-                            <option value="9086" data-id="9086" data-name-bn="মন্টেনিগ্রো" data-name-en="MONTENEGRO" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">মন্টেনিগ্রো</option>
-
-                            <option value="5868" data-id="5868" data-name-bn="মরক্কো" data-name-en="MOROCCO" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">মরক্কো</option>
-
-                            <option value="8938" data-id="8938" data-name-bn="মোজাম্বিক" data-name-en="MOZAMBIQUE" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">মোজাম্বিক</option>
-
-                            <option value="5730" data-id="5730" data-name-bn="মায়ানমার" data-name-en="MYANMAR" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">মায়ানমার</option>
-
-                            <option value="7181" data-id="7181" data-name-bn="নামিবিয়া" data-name-en="NAMIBIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">নামিবিয়া</option>
-
-                            <option value="8833" data-id="8833" data-name-bn="নাউরু" data-name-en="NAURU" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">নাউরু</option>
-
-                            <option value="7182" data-id="7182" data-name-bn="নেপাল" data-name-en="NEPAL" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">নেপাল</option>
-
-                            <option value="5728" data-id="5728" data-name-bn="নেদারল্যান্ডস" data-name-en="NETHERLANDS" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">নেদারল্যান্ডস</option>
-
-                            <option value="7280" data-id="7280" data-name-bn="নিউজিল্যান্ড" data-name-en="NEW ZEALAND" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">নিউজিল্যান্ড</option>
-
-                            <option value="8180" data-id="8180" data-name-bn="নিকারাগুয়া" data-name-en="NICARAGUA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">নিকারাগুয়া</option>
-
-                            <option value="7184" data-id="7184" data-name-bn="নাইজেরিয়া " data-name-en="NIGERIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">নাইজেরিয়া </option>
-
-                            <option value="7432" data-id="7432" data-name-bn="নরওয়ে" data-name-en="NORWAY" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">নরওয়ে</option>
-
-                            <option value="5636" data-id="5636" data-name-bn="ওমান" data-name-en="OMAN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ওমান</option>
-
-                            <option value="5923" data-id="5923" data-name-bn="পাকিস্তান " data-name-en="PAKISTAN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">পাকিস্তান </option>
-
-                            <option value="8936" data-id="8936" data-name-bn="পালাউ" data-name-en="PALAU" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">পালাউ</option>
-
-                            <option value="9031" data-id="9031" data-name-bn="প্যালেস্টাইন" data-name-en="PALESTINE STATE" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">প্যালেস্টাইন</option>
-
-                            <option value="9133" data-id="9133" data-name-bn="পানামা" data-name-en="PANAMA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">পানামা</option>
-
-                            <option value="7980" data-id="7980" data-name-bn="পাপুয়া নিউগিনি" data-name-en="PAPUA NEW GUINEA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">পাপুয়া নিউগিনি</option>
-
-                            <option value="8481" data-id="8481" data-name-bn="প্যারাগুয়ে" data-name-en="PARAGUAY" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">প্যারাগুয়ে</option>
-
-                            <option value="8935" data-id="8935" data-name-bn="পেরু" data-name-en="PERU" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">পেরু</option>
-
-                            <option value="5919" data-id="5919" data-name-bn="ফিলিপাইন" data-name-en="PHILIPPINES" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ফিলিপাইন</option>
-
-                            <option value="5737" data-id="5737" data-name-bn="পোল্যান্ড " data-name-en="POLAND" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">পোল্যান্ড </option>
-
-                            <option value="5853" data-id="5853" data-name-bn="পর্তুগাল" data-name-en="PORTUGAL" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">পর্তুগাল</option>
-
-                            <option value="5686" data-id="5686" data-name-bn="কাতার" data-name-en="QATAR" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">কাতার</option>
-
-                            <option value="7830" data-id="7830" data-name-bn="রোমানিয়া" data-name-en="ROMANIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">রোমানিয়া</option>
-
-                            <option value="6477" data-id="6477" data-name-bn="রাশিয়ান ফেডারেশন " data-name-en="RUSSIAN FEDERATION" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">রাশিয়ান ফেডারেশন </option>
-
-                            <option value="8982" data-id="8982" data-name-bn="রুয়াণ্ডা" data-name-en="RWANDA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">রুয়াণ্ডা</option>
-
-                            <option value="5651" data-id="5651" data-name-bn="সৌদি আরব" data-name-en="SAUDI ARABIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">সৌদি আরব</option>
-
-                            <option value="8130" data-id="8130" data-name-bn="সেনেগাল" data-name-en="SENEGAL" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">সেনেগাল</option>
-
-                            <option value="8786" data-id="8786" data-name-bn="সার্বিয়া" data-name-en="SERBIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">সার্বিয়া</option>
-
-                            <option value="8781" data-id="8781" data-name-bn="সিশেলস " data-name-en="SEYCHELLES" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">সিশেলস </option>
-
-                            <option value="5657" data-id="5657" data-name-bn="সিঙ্গাপুর" data-name-en="SINGAPORE" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">সিঙ্গাপুর</option>
-
-                            <option value="8937" data-id="8937" data-name-bn=" স্লোভাকিয়া" data-name-en="SLOVAKIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;"> স্লোভাকিয়া</option>
-
-                            <option value="9087" data-id="9087" data-name-bn="স্লোভেনিয়া" data-name-en="SLOVENIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">স্লোভেনিয়া</option>
-
-                            <option value="8986" data-id="8986" data-name-bn="সলোমন আইল্যান্ড" data-name-en="SOLOMON ISLANDS" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">সলোমন আইল্যান্ড</option>
-
-                            <option value="8981" data-id="8981" data-name-bn="সোমালিয়া" data-name-en="SOMALIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">সোমালিয়া</option>
-
-                            <option value="5645" data-id="5645" data-name-bn="দক্ষিণ আফ্রিকা" data-name-en="SOUTH AFRICA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">দক্ষিণ আফ্রিকা</option>
-
-                            <option value="5865" data-id="5865" data-name-bn="দক্ষিণ কোরিয়া" data-name-en="SOUTH KOREA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">দক্ষিণ কোরিয়া</option>
-
-                            <option value="8880" data-id="8880" data-name-bn="দক্ষিণ সুদান" data-name-en="SOUTH SUDAN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">দক্ষিণ সুদান</option>
-
-                            <option value="5903" data-id="5903" data-name-bn="স্পেন" data-name-en="SPAIN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">স্পেন</option>
-
-                            <option value="5870" data-id="5870" data-name-bn="শ্রীলঙ্কা" data-name-en="SRI LANKA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">শ্রীলঙ্কা</option>
-
-                            <option value="10480" data-id="10480" data-name-bn="সুদান " data-name-en="SUDAN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">সুদান </option>
-
-                            <option value="5678" data-id="5678" data-name-bn="সুইডেন" data-name-en="SWEDEN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">সুইডেন</option>
-
-                            <option value="5926" data-id="5926" data-name-bn="সুইজারল্যান্ড " data-name-en="SWITZERLAND " data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">সুইজারল্যান্ড </option>
-
-                            <option value="8983" data-id="8983" data-name-bn="সিরিয়া" data-name-en="SYRIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">সিরিয়া</option>
-
-                            <option value="8380" data-id="8380" data-name-bn="তাজিকিস্তান " data-name-en="TAJIKISTAN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">তাজিকিস্তান </option>
-
-                            <option value="8930" data-id="8930" data-name-bn="তাঞ্জানিয়া" data-name-en="TANZANIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">তাঞ্জানিয়া</option>
-
-                            <option value="5735" data-id="5735" data-name-bn="থাইল্যান্ড" data-name-en="THAILAND" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">থাইল্যান্ড</option>
-
-                            <option value="9181" data-id="9181" data-name-bn="পূর্ব তিমুর" data-name-en="TIMOR-LESTE" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">পূর্ব তিমুর</option>
-
-                            <option value="9131" data-id="9131" data-name-bn="টোগো" data-name-en="TOGO" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">টোগো</option>
-
-                            <option value="8230" data-id="8230" data-name-bn="ত্রিনিদাদ ও টোবাগো " data-name-en="TRINIDAD AND TOBAGO" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ত্রিনিদাদ ও টোবাগো </option>
-
-                            <option value="9030" data-id="9030" data-name-bn="তিউনিসিয়া" data-name-en="TUNISIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">তিউনিসিয়া</option>
-
-                            <option value="5682" data-id="5682" data-name-bn="তুরস্ক" data-name-en="TURKEY" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">তুরস্ক</option>
-
-                            <option value="8782" data-id="8782" data-name-bn="তুর্কমেনিস্তান" data-name-en="TURKMENISTAN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">তুর্কমেনিস্তান</option>
-
-                            <option value="9084" data-id="9084" data-name-bn="টুভালু" data-name-en="TUVALU" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">টুভালু</option>
-
-                            <option value="8980" data-id="8980" data-name-bn="উগান্ডা" data-name-en="UGANDA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">উগান্ডা</option>
-
-                            <option value="8785" data-id="8785" data-name-bn="ইউক্রেন" data-name-en="UKRAINE" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ইউক্রেন</option>
-
-                            <option value="5654" data-id="5654" data-name-bn="সংযুক্ত আরব আমিরাত" data-name-en="UNITED ARAB EMIRATES" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">সংযুক্ত আরব আমিরাত</option>
-
-                            <option value="5647" data-id="5647" data-name-bn="যুক্তরাজ্য" data-name-en="UNITED KINGDOM" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">যুক্তরাজ্য</option>
-
-                            <option value="5638" data-id="5638" data-name-bn="যুক্তরাষ্ট্র" data-name-en="UNITED STATES" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">যুক্তরাষ্ট্র</option>
-
-                            <option value="8984" data-id="8984" data-name-bn="উরুগুয়ে" data-name-en="URUGUAY" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">উরুগুয়ে</option>
-
-                            <option value="7836" data-id="7836" data-name-bn="উজবেকিস্তান" data-name-en="UZBEKISTAN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">উজবেকিস্তান</option>
-
-                            <option value="8884" data-id="8884" data-name-bn="ভানুয়াতু" data-name-en="VANUATU" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ভানুয়াতু</option>
-
-                            <option value="8430" data-id="8430" data-name-bn="ভেনিজুয়ালা " data-name-en="VENEZUELA " data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ভেনিজুয়ালা </option>
-
-                            <option value="13179" data-id="13179" data-name-bn="ভিয়েতনাম " data-name-en="VIET NAM" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ভিয়েতনাম </option>
-
-                            <option value="9032" data-id="9032" data-name-bn="ইয়েমেন" data-name-en="YEMEN" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">ইয়েমেন</option>
-
-                            <option value="8031" data-id="8031" data-name-bn="জাম্বিয়া" data-name-en="ZAMBIA" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">জাম্বিয়া</option>
-
-                            <option value="8580" data-id="8580" data-name-bn="জিম্বাবুয়ে " data-name-en="ZIMBABWE" data-geo-level-id="10" data-parent-geo-id="5556" style="display: none;">জিম্বাবুয়ে </option>
-                        </select>
+                            <option value="-1" style="">দেশ নির্বাচন করুন</option>                        </select>
                     </div>
                 </div>
             </div>
@@ -1367,121 +540,7 @@ https://bdris.gov.bd/br/application
                 <div class="col-md-7">
                     <select class="form-control" id="fatherNationality" name="personInfoForBirth.father.personNationality">
                         <option value="">---নির্বাচন করুন---</option>
-                        <option value="-1">অজানা</option>
                         <option value="1">বাংলাদেশী</option>
-                        <option value="2">মালয়েশিয়া</option>
-                        <option value="3">কুয়েত</option>
-                        <option value="5">ওমান</option>
-                        <option value="7">যুক্তরাষ্ট্র</option>
-                        <option value="12">কানাডা</option>
-                        <option value="14">দক্ষিণ আফ্রিকা</option>
-                        <option value="16">যুক্তরাজ্য</option>
-                        <option value="20">সৌদি আরব</option>
-                        <option value="23">সংযুক্ত আরব আমিরাত</option>
-                        <option value="26">সিঙ্গাপুর</option>
-                        <option value="28">চীন</option>
-                        <option value="31">ভারত</option>
-                        <option value="45">জর্ডান</option>
-                        <option value="47">সুইডেন</option>
-                        <option value="51">তুরস্ক</option>
-                        <option value="53">গ্রীস</option>
-                        <option value="55">কাতার</option>
-                        <option value="77">বাহরাইন</option>
-                        <option value="95">অস্ট্রেলিয়া</option>
-                        <option value="97">নেদারল্যান্ডস</option>
-                        <option value="99">মায়ানমার</option>
-                        <option value="102">কেনিয়া</option>
-                        <option value="104">থাইল্যান্ড</option>
-                        <option value="106">পোল্যান্ড </option>
-                        <option value="108">ফ্রান্স</option>
-                        <option value="153">ব্রুনাই</option>
-                        <option value="156">মিশর</option>
-                        <option value="158">বেলজিয়াম</option>
-                        <option value="222">পর্তুগাল</option>
-                        <option value="234">দক্ষিণ কোরিয়া</option>
-                        <option value="237">মরক্কো</option>
-                        <option value="239">শ্রীলঙ্কা</option>
-                        <option value="245">ইটালি</option>
-                        <option value="250">জাপান</option>
-                        <option value="259">মরিশাস</option>
-                        <option value="272">স্পেন</option>
-                        <option value="275">লেবানন</option>
-                        <option value="280">ইন্দোনেশিয়া</option>
-                        <option value="285">জার্মানী</option>
-                        <option value="288">ফিলিপাইন</option>
-                        <option value="289">লিবিয়া </option>
-                        <option value="292">পাকিস্তানী</option>
-                        <option value="295">সুইজারল্যান্ড </option>
-                        <option value="297">অস্ট্রিয়া </option>
-                        <option value="305">ডেনমার্ক </option>
-                        <option value="306">ইউক্রেনিয়ান</option>
-                        <option value="307">আয়ারল্যান্ড</option>
-                        <option value="308">নেপাল</option>
-                        <option value="309">নাইজেরিয়া</option>
-                        <option value="310">তিমুর</option>
-                        <option value="311">আর্জেন্টিনা</option>
-                        <option value="312">ক্যামেরুন</option>
-                        <option value="313">নরওয়ে</option>
-                        <option value="314">রাশিয়া</option>
-                        <option value="315">আইভরি কোস্ট</option>
-                        <option value="316">সেনেগাল</option>
-                        <option value="317">সুদান</option>
-                        <option value="318">তাইওয়ান</option>
-                        <option value="319">ইরান</option>
-                        <option value="320">ফিনল্যান্ড</option>
-                        <option value="321">বুলগেরিয়া</option>
-                        <option value="322">আজারবাইজান</option>
-                        <option value="323">লিথুনিয়া</option>
-                        <option value="324">মেক্সিকো</option>
-                        <option value="325">জ্যমাইকা</option>
-                        <option value="326">সার্বিয়া</option>
-                        <option value="327">সিরিয়া</option>
-                        <option value="328">বলিভিয়া</option>
-                        <option value="329">ফিলিস্তিন</option>
-                        <option value="330">রোমানিয়া</option>
-                        <option value="331">হংকং</option>
-                        <option value="332">নিউজিল্যান্ড</option>
-                        <option value="333">ইরাক	</option>
-                        <option value="334">কাজাখস্তান</option>
-                        <option value="335">নিকারাগুয়া</option>
-                        <option value="336">কিউবা </option>
-                        <option value="337">ত্রিনিদাদ ও টোবাগো </option>
-                        <option value="338">বাহামা</option>
-                        <option value="339">ইকুয়েটোরিয়াল গিনি </option>
-                        <option value="340">এন্ডোরা</option>
-                        <option value="341">মরিশাস</option>
-                        <option value="342">ভিয়েতনামী</option>
-                        <option value="343">আলবেনিয়ান</option>
-                        <option value="344">তানজানিয়ান</option>
-                        <option value="345">তুর্কমেনিস্তান</option>
-                        <option value="346">ম্যাসেডোনিয়ান</option>
-                        <option value="347">ইয়েমেনি</option>
-                        <option value="348">জর্জিয়ান</option>
-                        <option value="351">কমোরিয়ান </option>
-                        <option value="353">ব্রাজিলিয়ান</option>
-                        <option value="356">তিউনিসিয়ান</option>
-                        <option value="357">ইথিওপিয়ান</option>
-                        <option value="358">কম্বোডিয়ান</option>
-                        <option value="359">লাটভিয়ান </option>
-                        <option value="360">উগান্ডা </option>
-                        <option value="361">উগান্ডান </option>
-                        <option value="362">রুয়ান্ডান</option>
-                        <option value="363">জিম্বাবুয়ে</option>
-                        <option value="364">জিম্বাবুয়ে</option>
-                        <option value="365">ভুটানি </option>
-                        <option value="366">ভুটানি </option>
-                        <option value="367">সোমালিয়ান</option>
-                        <option value="368">সোমালিয়ান</option>
-                        <option value="369">মালদিভিয়ান</option>
-                        <option value="370">মালদিভিয়ান </option>
-                        <option value="371">ফিলিস্তিনি</option>
-                        <option value="372">সিরিয়ান</option>
-                        <option value="373">হাঙ্গেরিয়ান</option>
-                        <option value="374">ক্রোয়েশিয়ান </option>
-                        <option value="375">এল সালভাদোরীয়</option>
-                        <option value="376">এল সালভাদোরীয়</option>
-                        <option value="377">আলজেরিয়ান </option>
-                        <option value="378">আলজেরিয়ান </option>
                     </select>
                 </div>
             </div>
@@ -1568,121 +627,7 @@ https://bdris.gov.bd/br/application
                 <div class="col-md-7">
                     <select class="form-control" id="motherNationality" name="personInfoForBirth.mother.personNationality">
                         <option value="">---নির্বাচন করুন---</option>
-                        <option value="-1">অজানা</option>
                         <option value="1">বাংলাদেশী</option>
-                        <option value="2">মালয়েশিয়া</option>
-                        <option value="3">কুয়েত</option>
-                        <option value="5">ওমান</option>
-                        <option value="7">যুক্তরাষ্ট্র</option>
-                        <option value="12">কানাডা</option>
-                        <option value="14">দক্ষিণ আফ্রিকা</option>
-                        <option value="16">যুক্তরাজ্য</option>
-                        <option value="20">সৌদি আরব</option>
-                        <option value="23">সংযুক্ত আরব আমিরাত</option>
-                        <option value="26">সিঙ্গাপুর</option>
-                        <option value="28">চীন</option>
-                        <option value="31">ভারত</option>
-                        <option value="45">জর্ডান</option>
-                        <option value="47">সুইডেন</option>
-                        <option value="51">তুরস্ক</option>
-                        <option value="53">গ্রীস</option>
-                        <option value="55">কাতার</option>
-                        <option value="77">বাহরাইন</option>
-                        <option value="95">অস্ট্রেলিয়া</option>
-                        <option value="97">নেদারল্যান্ডস</option>
-                        <option value="99">মায়ানমার</option>
-                        <option value="102">কেনিয়া</option>
-                        <option value="104">থাইল্যান্ড</option>
-                        <option value="106">পোল্যান্ড </option>
-                        <option value="108">ফ্রান্স</option>
-                        <option value="153">ব্রুনাই</option>
-                        <option value="156">মিশর</option>
-                        <option value="158">বেলজিয়াম</option>
-                        <option value="222">পর্তুগাল</option>
-                        <option value="234">দক্ষিণ কোরিয়া</option>
-                        <option value="237">মরক্কো</option>
-                        <option value="239">শ্রীলঙ্কা</option>
-                        <option value="245">ইটালি</option>
-                        <option value="250">জাপান</option>
-                        <option value="259">মরিশাস</option>
-                        <option value="272">স্পেন</option>
-                        <option value="275">লেবানন</option>
-                        <option value="280">ইন্দোনেশিয়া</option>
-                        <option value="285">জার্মানী</option>
-                        <option value="288">ফিলিপাইন</option>
-                        <option value="289">লিবিয়া </option>
-                        <option value="292">পাকিস্তানী</option>
-                        <option value="295">সুইজারল্যান্ড </option>
-                        <option value="297">অস্ট্রিয়া </option>
-                        <option value="305">ডেনমার্ক </option>
-                        <option value="306">ইউক্রেনিয়ান</option>
-                        <option value="307">আয়ারল্যান্ড</option>
-                        <option value="308">নেপাল</option>
-                        <option value="309">নাইজেরিয়া</option>
-                        <option value="310">তিমুর</option>
-                        <option value="311">আর্জেন্টিনা</option>
-                        <option value="312">ক্যামেরুন</option>
-                        <option value="313">নরওয়ে</option>
-                        <option value="314">রাশিয়া</option>
-                        <option value="315">আইভরি কোস্ট</option>
-                        <option value="316">সেনেগাল</option>
-                        <option value="317">সুদান</option>
-                        <option value="318">তাইওয়ান</option>
-                        <option value="319">ইরান</option>
-                        <option value="320">ফিনল্যান্ড</option>
-                        <option value="321">বুলগেরিয়া</option>
-                        <option value="322">আজারবাইজান</option>
-                        <option value="323">লিথুনিয়া</option>
-                        <option value="324">মেক্সিকো</option>
-                        <option value="325">জ্যমাইকা</option>
-                        <option value="326">সার্বিয়া</option>
-                        <option value="327">সিরিয়া</option>
-                        <option value="328">বলিভিয়া</option>
-                        <option value="329">ফিলিস্তিন</option>
-                        <option value="330">রোমানিয়া</option>
-                        <option value="331">হংকং</option>
-                        <option value="332">নিউজিল্যান্ড</option>
-                        <option value="333">ইরাক	</option>
-                        <option value="334">কাজাখস্তান</option>
-                        <option value="335">নিকারাগুয়া</option>
-                        <option value="336">কিউবা </option>
-                        <option value="337">ত্রিনিদাদ ও টোবাগো </option>
-                        <option value="338">বাহামা</option>
-                        <option value="339">ইকুয়েটোরিয়াল গিনি </option>
-                        <option value="340">এন্ডোরা</option>
-                        <option value="341">মরিশাস</option>
-                        <option value="342">ভিয়েতনামী</option>
-                        <option value="343">আলবেনিয়ান</option>
-                        <option value="344">তানজানিয়ান</option>
-                        <option value="345">তুর্কমেনিস্তান</option>
-                        <option value="346">ম্যাসেডোনিয়ান</option>
-                        <option value="347">ইয়েমেনি</option>
-                        <option value="348">জর্জিয়ান</option>
-                        <option value="351">কমোরিয়ান </option>
-                        <option value="353">ব্রাজিলিয়ান</option>
-                        <option value="356">তিউনিসিয়ান</option>
-                        <option value="357">ইথিওপিয়ান</option>
-                        <option value="358">কম্বোডিয়ান</option>
-                        <option value="359">লাটভিয়ান </option>
-                        <option value="360">উগান্ডা </option>
-                        <option value="361">উগান্ডান </option>
-                        <option value="362">রুয়ান্ডান</option>
-                        <option value="363">জিম্বাবুয়ে</option>
-                        <option value="364">জিম্বাবুয়ে</option>
-                        <option value="365">ভুটানি </option>
-                        <option value="366">ভুটানি </option>
-                        <option value="367">সোমালিয়ান</option>
-                        <option value="368">সোমালিয়ান</option>
-                        <option value="369">মালদিভিয়ান</option>
-                        <option value="370">মালদিভিয়ান </option>
-                        <option value="371">ফিলিস্তিনি</option>
-                        <option value="372">সিরিয়ান</option>
-                        <option value="373">হাঙ্গেরিয়ান</option>
-                        <option value="374">ক্রোয়েশিয়ান </option>
-                        <option value="375">এল সালভাদোরীয়</option>
-                        <option value="376">এল সালভাদোরীয়</option>
-                        <option value="377">আলজেরিয়ান </option>
-                        <option value="378">আলজেরিয়ান </option>
                     </select>
                 </div>
             </div>
@@ -1739,357 +684,6 @@ https://bdris.gov.bd/br/application
 
                             <option value="1" data-id="1" data-name-bn="বাংলাদেশ" data-name-en="BANGLADESH" data-geo-level-id="0" data-parent-geo-id="5556" selected="selected">বাংলাদেশ</option>
 
-                            <option value="7430" data-id="7430" data-name-bn="এঙ্গোলা" data-name-en=" ANGOLA" data-geo-level-id="10" data-parent-geo-id="5556">এঙ্গোলা</option>
-
-                            <option value="9080" data-id="9080" data-name-bn="নাইজার" data-name-en=" NIGER" data-geo-level-id="10" data-parent-geo-id="5556">নাইজার</option>
-
-                            <option value="7032" data-id="7032" data-name-bn="আফগানিস্তান" data-name-en="AFGHANISTAN" data-geo-level-id="10" data-parent-geo-id="5556">আফগানিস্তান</option>
-
-                            <option value="7033" data-id="7033" data-name-bn="আলবেনিয়া" data-name-en="ALBANIA" data-geo-level-id="10" data-parent-geo-id="5556">আলবেনিয়া</option>
-
-                            <option value="7380" data-id="7380" data-name-bn="আলজেরিয়া" data-name-en="ALGERIA" data-geo-level-id="10" data-parent-geo-id="5556">আলজেরিয়া</option>
-
-                            <option value="7035" data-id="7035" data-name-bn="আমেরিকান সামোয়া" data-name-en="AMERICAN SAMOA" data-geo-level-id="10" data-parent-geo-id="5556">আমেরিকান সামোয়া</option>
-
-                            <option value="8331" data-id="8331" data-name-bn="এন্ডোরা" data-name-en="ANDORRA" data-geo-level-id="10" data-parent-geo-id="5556">এন্ডোরা</option>
-
-                            <option value="7036" data-id="7036" data-name-bn="আর্জেন্টিনা" data-name-en="ARGENTINA" data-geo-level-id="10" data-parent-geo-id="5556">আর্জেন্টিনা</option>
-
-                            <option value="7037" data-id="7037" data-name-bn="আর্মেনিয়া" data-name-en="ARMENIA" data-geo-level-id="10" data-parent-geo-id="5556">আর্মেনিয়া</option>
-
-                            <option value="5726" data-id="5726" data-name-bn="অস্ট্রেলিয়া" data-name-en="AUSTRALIA" data-geo-level-id="10" data-parent-geo-id="5556">অস্ট্রেলিয়া</option>
-
-                            <option value="5928" data-id="5928" data-name-bn="অস্ট্রিয়া " data-name-en="AUSTRIA" data-geo-level-id="10" data-parent-geo-id="5556">অস্ট্রিয়া </option>
-
-                            <option value="7038" data-id="7038" data-name-bn="আজারবাইজান " data-name-en="AZERBAIJAN" data-geo-level-id="10" data-parent-geo-id="5556">আজারবাইজান </option>
-
-                            <option value="7039" data-id="7039" data-name-bn="বাহামাস " data-name-en="BAHAMAS" data-geo-level-id="10" data-parent-geo-id="5556">বাহামাস </option>
-
-                            <option value="5708" data-id="5708" data-name-bn="বাহরাইন" data-name-en="BAHRAIN" data-geo-level-id="10" data-parent-geo-id="5556">বাহরাইন</option>
-
-                            <option value="9880" data-id="9880" data-name-bn="বার্বাডোজ" data-name-en="BARBADOS" data-geo-level-id="10" data-parent-geo-id="5556">বার্বাডোজ</option>
-
-                            <option value="9182" data-id="9182" data-name-bn="বেলারুশ" data-name-en="BELARUS" data-geo-level-id="10" data-parent-geo-id="5556">বেলারুশ</option>
-
-                            <option value="5789" data-id="5789" data-name-bn="বেলজিয়াম" data-name-en="BELGIUM" data-geo-level-id="10" data-parent-geo-id="5556">বেলজিয়াম</option>
-
-                            <option value="8985" data-id="8985" data-name-bn="বেলিজ" data-name-en="BELIZE" data-geo-level-id="10" data-parent-geo-id="5556">বেলিজ</option>
-
-                            <option value="9132" data-id="9132" data-name-bn="বেনিন" data-name-en="BENIN" data-geo-level-id="10" data-parent-geo-id="5556">বেনিন</option>
-
-                            <option value="13779" data-id="13779" data-name-bn="বারমুডা" data-name-en="BERMUDA" data-geo-level-id="10" data-parent-geo-id="5556">বারমুডা</option>
-
-                            <option value="7042" data-id="7042" data-name-bn="ভুটান" data-name-en="BHUTAN" data-geo-level-id="10" data-parent-geo-id="5556">ভুটান</option>
-
-                            <option value="8933" data-id="8933" data-name-bn="বলিভিয়া" data-name-en="BOLIVIA" data-geo-level-id="10" data-parent-geo-id="5556">বলিভিয়া</option>
-
-                            <option value="8886" data-id="8886" data-name-bn="বসনিয়া ও হার্জেগোভিনা" data-name-en="BOSNIA AND HERZEGOVINA" data-geo-level-id="10" data-parent-geo-id="5556">বসনিয়া ও হার্জেগোভিনা</option>
-
-                            <option value="7044" data-id="7044" data-name-bn="বতসোয়ানা" data-name-en="BOTSWANA" data-geo-level-id="10" data-parent-geo-id="5556">বতসোয়ানা</option>
-
-                            <option value="7045" data-id="7045" data-name-bn="ব্রাজিল" data-name-en="BRAZIL" data-geo-level-id="10" data-parent-geo-id="5556">ব্রাজিল</option>
-
-                            <option value="5784" data-id="5784" data-name-bn="ব্রুনাই" data-name-en="BRUNEI" data-geo-level-id="10" data-parent-geo-id="5556">ব্রুনাই</option>
-
-                            <option value="7046" data-id="7046" data-name-bn="বুলগেরিয়া" data-name-en="BULGARIA" data-geo-level-id="10" data-parent-geo-id="5556">বুলগেরিয়া</option>
-
-                            <option value="9081" data-id="9081" data-name-bn="বুর্কিনা ফাসো" data-name-en="BURKINA FASO" data-geo-level-id="10" data-parent-geo-id="5556">বুর্কিনা ফাসো</option>
-
-                            <option value="8881" data-id="8881" data-name-bn="বুরুন্ডি" data-name-en="BURUNDI" data-geo-level-id="10" data-parent-geo-id="5556">বুরুন্ডি</option>
-
-                            <option value="8835" data-id="8835" data-name-bn="কেপ ভার্দে " data-name-en="CABO VERDE" data-geo-level-id="10" data-parent-geo-id="5556">কেপ ভার্দে </option>
-
-                            <option value="7047" data-id="7047" data-name-bn="কম্বোডিয়া" data-name-en="CAMBODIA" data-geo-level-id="10" data-parent-geo-id="5556">কম্বোডিয়া</option>
-
-                            <option value="8480" data-id="8480" data-name-bn="ক্যামেরুন" data-name-en="CAMEROON" data-geo-level-id="10" data-parent-geo-id="5556">ক্যামেরুন</option>
-
-                            <option value="5643" data-id="5643" data-name-bn="কানাডা" data-name-en="CANADA" data-geo-level-id="10" data-parent-geo-id="5556">কানাডা</option>
-
-                            <option value="8932" data-id="8932" data-name-bn="চিলি" data-name-en="CHILE" data-geo-level-id="10" data-parent-geo-id="5556">চিলি</option>
-
-                            <option value="5659" data-id="5659" data-name-bn="চীন" data-name-en="CHINA" data-geo-level-id="10" data-parent-geo-id="5556">চীন</option>
-
-                            <option value="7050" data-id="7050" data-name-bn="কলোম্বিয়া" data-name-en="COLOMBIA" data-geo-level-id="10" data-parent-geo-id="5556">কলোম্বিয়া</option>
-
-                            <option value="8882" data-id="8882" data-name-bn="কমোরস" data-name-en="COMOROS" data-geo-level-id="10" data-parent-geo-id="5556">কমোরস</option>
-
-                            <option value="9931" data-id="9931" data-name-bn="কঙ্গো" data-name-en="CONGO" data-geo-level-id="10" data-parent-geo-id="5556">কঙ্গো</option>
-
-                            <option value="7052" data-id="7052" data-name-bn="কোস্টারিকা" data-name-en="COSTA RICA" data-geo-level-id="10" data-parent-geo-id="5556">কোস্টারিকা</option>
-
-                            <option value="7053" data-id="7053" data-name-bn="ক্রোয়েশিয়া" data-name-en="CROATIA" data-geo-level-id="10" data-parent-geo-id="5556">ক্রোয়েশিয়া</option>
-
-                            <option value="8181" data-id="8181" data-name-bn="কিউবা " data-name-en="CUBA" data-geo-level-id="10" data-parent-geo-id="5556">কিউবা </option>
-
-                            <option value="7055" data-id="7055" data-name-bn="সাইপ্রাস" data-name-en="CYPRUS" data-geo-level-id="10" data-parent-geo-id="5556">সাইপ্রাস</option>
-
-                            <option value="8887" data-id="8887" data-name-bn="চেক প্রজাতন্ত্র" data-name-en="CZECHIA" data-geo-level-id="10" data-parent-geo-id="5556">চেক প্রজাতন্ত্র</option>
-
-                            <option value="5936" data-id="5936" data-name-bn="ডেনমার্ক " data-name-en="DENMARK" data-geo-level-id="10" data-parent-geo-id="5556">ডেনমার্ক </option>
-
-                            <option value="8883" data-id="8883" data-name-bn="জিবুতি" data-name-en="DJIBOUTI" data-geo-level-id="10" data-parent-geo-id="5556">জিবুতি</option>
-
-                            <option value="8934" data-id="8934" data-name-bn="ডোমিনিকান রিপাবলিক" data-name-en="DOMINICAN REPUBLIC" data-geo-level-id="10" data-parent-geo-id="5556">ডোমিনিকান রিপাবলিক</option>
-
-                            <option value="8787" data-id="8787" data-name-bn="ইকুয়েডর" data-name-en="ECUADOR" data-geo-level-id="10" data-parent-geo-id="5556">ইকুয়েডর</option>
-
-                            <option value="5787" data-id="5787" data-name-bn="মিশর" data-name-en="EGYPT" data-geo-level-id="10" data-parent-geo-id="5556">মিশর</option>
-
-                            <option value="9083" data-id="9083" data-name-bn="এল সালভাদর" data-name-en="EL SALVADOR" data-geo-level-id="10" data-parent-geo-id="5556">এল সালভাদর</option>
-
-                            <option value="8280" data-id="8280" data-name-bn="ইকুয়েটোরিয়াল গিনি " data-name-en="EQUATORIAL GUINEA" data-geo-level-id="10" data-parent-geo-id="5556">ইকুয়েটোরিয়াল গিনি </option>
-
-                            <option value="8830" data-id="8830" data-name-bn="ইরিত্রিয়া" data-name-en="ERITREA" data-geo-level-id="10" data-parent-geo-id="5556">ইরিত্রিয়া</option>
-
-                            <option value="7030" data-id="7030" data-name-bn="এস্তোনিয়া" data-name-en="ESTONIA" data-geo-level-id="10" data-parent-geo-id="5556">এস্তোনিয়া</option>
-
-                            <option value="7058" data-id="7058" data-name-bn="ইথিওপিয়া" data-name-en="ETHIOPIA" data-geo-level-id="10" data-parent-geo-id="5556">ইথিওপিয়া</option>
-
-                            <option value="7080" data-id="7080" data-name-bn="ফিজি " data-name-en="FIJI" data-geo-level-id="10" data-parent-geo-id="5556">ফিজি </option>
-
-                            <option value="6780" data-id="6780" data-name-bn="ফিনল্যান্ড" data-name-en="FINLAND" data-geo-level-id="10" data-parent-geo-id="5556">ফিনল্যান্ড</option>
-
-                            <option value="5739" data-id="5739" data-name-bn="ফ্রান্স" data-name-en="FRANCE" data-geo-level-id="10" data-parent-geo-id="5556">ফ্রান্স</option>
-
-                            <option value="8530" data-id="8530" data-name-bn="গ্যাবন" data-name-en="GABON" data-geo-level-id="10" data-parent-geo-id="5556">গ্যাবন</option>
-
-                            <option value="13079" data-id="13079" data-name-bn="গাম্বিয়া" data-name-en="GAMBIA" data-geo-level-id="10" data-parent-geo-id="5556">গাম্বিয়া</option>
-
-                            <option value="7081" data-id="7081" data-name-bn="জর্জিয়া" data-name-en="GEORGIA" data-geo-level-id="10" data-parent-geo-id="5556">জর্জিয়া</option>
-
-                            <option value="5916" data-id="5916" data-name-bn="জার্মানী" data-name-en="GERMANY" data-geo-level-id="10" data-parent-geo-id="5556">জার্মানী</option>
-
-                            <option value="7082" data-id="7082" data-name-bn="ঘানা" data-name-en="GHANA" data-geo-level-id="10" data-parent-geo-id="5556">ঘানা</option>
-
-                            <option value="5684" data-id="5684" data-name-bn="গ্রীস" data-name-en="GREECE" data-geo-level-id="10" data-parent-geo-id="5556">গ্রীস</option>
-
-                            <option value="8939" data-id="8939" data-name-bn="গুয়াতেমালা" data-name-en="GUATEMALA" data-geo-level-id="10" data-parent-geo-id="5556">গুয়াতেমালা</option>
-
-                            <option value="8831" data-id="8831" data-name-bn="গিনি" data-name-en="GUINEA" data-geo-level-id="10" data-parent-geo-id="5556">গিনি</option>
-
-                            <option value="9137" data-id="9137" data-name-bn="গিনি বিসাউ" data-name-en="GUINEA-BISSAU" data-geo-level-id="10" data-parent-geo-id="5556">গিনি বিসাউ</option>
-
-                            <option value="9082" data-id="9082" data-name-bn="গায়ানা" data-name-en="GUYANA" data-geo-level-id="10" data-parent-geo-id="5556">গায়ানা</option>
-
-                            <option value="7131" data-id="7131" data-name-bn="হাইতি" data-name-en="HAITI" data-geo-level-id="10" data-parent-geo-id="5556">হাইতি</option>
-
-                            <option value="8889" data-id="8889" data-name-bn="হন্ডুরাস " data-name-en="HONDURAS" data-geo-level-id="10" data-parent-geo-id="5556">হন্ডুরাস </option>
-
-                            <option value="13629" data-id="13629" data-name-bn="হংকং " data-name-en="HONG KONG" data-geo-level-id="10" data-parent-geo-id="5556">হংকং </option>
-
-                            <option value="9136" data-id="9136" data-name-bn="হাঙ্গেরি" data-name-en="HUNGARY" data-geo-level-id="10" data-parent-geo-id="5556">হাঙ্গেরি</option>
-
-                            <option value="7031" data-id="7031" data-name-bn="আইসল্যান্ড" data-name-en="ICELAND" data-geo-level-id="10" data-parent-geo-id="5556">আইসল্যান্ড</option>
-
-                            <option value="5662" data-id="5662" data-name-bn="ভারত" data-name-en="INDIA" data-geo-level-id="10" data-parent-geo-id="5556">ভারত</option>
-
-                            <option value="5911" data-id="5911" data-name-bn="ইন্দোনেশিয়া" data-name-en="INDONESIA" data-geo-level-id="10" data-parent-geo-id="5556">ইন্দোনেশিয়া</option>
-
-                            <option value="6730" data-id="6730" data-name-bn="ইরান" data-name-en="IRAN" data-geo-level-id="10" data-parent-geo-id="5556">ইরান</option>
-
-                            <option value="6782" data-id="6782" data-name-bn="ইরাক" data-name-en="IRAQ" data-geo-level-id="10" data-parent-geo-id="5556">ইরাক</option>
-
-                            <option value="8680" data-id="8680" data-name-bn="আয়ারল্যান্ড " data-name-en="IRELAND" data-geo-level-id="10" data-parent-geo-id="5556">আয়ারল্যান্ড </option>
-
-                            <option value="5876" data-id="5876" data-name-bn="ইটালি" data-name-en="ITALY" data-geo-level-id="10" data-parent-geo-id="5556">ইটালি</option>
-
-                            <option value="12979" data-id="12979" data-name-bn="আইভরি কোস্ট" data-name-en="IVORY COAST" data-geo-level-id="10" data-parent-geo-id="5556">আইভরি কোস্ট</option>
-
-                            <option value="8783" data-id="8783" data-name-bn="জামাইকা" data-name-en="JAMAICA" data-geo-level-id="10" data-parent-geo-id="5556">জামাইকা</option>
-
-                            <option value="5881" data-id="5881" data-name-bn="জাপান" data-name-en="JAPAN" data-geo-level-id="10" data-parent-geo-id="5556">জাপান</option>
-
-                            <option value="5676" data-id="5676" data-name-bn="জর্ডান" data-name-en="JORDAN" data-geo-level-id="10" data-parent-geo-id="5556">জর্ডান</option>
-
-                            <option value="8080" data-id="8080" data-name-bn="কাজাখস্তান " data-name-en="KAZAKHSTAN" data-geo-level-id="10" data-parent-geo-id="5556">কাজাখস্তান </option>
-
-                            <option value="5733" data-id="5733" data-name-bn="কেনিয়া" data-name-en="KENYA" data-geo-level-id="10" data-parent-geo-id="5556">কেনিয়া</option>
-
-                            <option value="8832" data-id="8832" data-name-bn="কিরিবাতি" data-name-en="KIRIBATI" data-geo-level-id="10" data-parent-geo-id="5556">কিরিবাতি</option>
-
-                            <option value="5634" data-id="5634" data-name-bn="কুয়েত" data-name-en="KUWAIT" data-geo-level-id="10" data-parent-geo-id="5556">কুয়েত</option>
-
-                            <option value="8931" data-id="8931" data-name-bn="কিরঘিজস্তান" data-name-en="KYRGYZSTAN" data-geo-level-id="10" data-parent-geo-id="5556">কিরঘিজস্তান</option>
-
-                            <option value="9033" data-id="9033" data-name-bn="লাওস" data-name-en="LAOS" data-geo-level-id="10" data-parent-geo-id="5556">লাওস</option>
-
-                            <option value="8988" data-id="8988" data-name-bn="লাটাভিয়া" data-name-en="LATVIA" data-geo-level-id="10" data-parent-geo-id="5556">লাটাভিয়া</option>
-
-                            <option value="5906" data-id="5906" data-name-bn="লেবানন" data-name-en="LEBANON" data-geo-level-id="10" data-parent-geo-id="5556">লেবানন</option>
-
-                            <option value="6781" data-id="6781" data-name-bn="লাইবেরিয়া" data-name-en="LIBERIA" data-geo-level-id="10" data-parent-geo-id="5556">লাইবেরিয়া</option>
-
-                            <option value="5920" data-id="5920" data-name-bn="লিবিয়া " data-name-en="LIBIYA" data-geo-level-id="10" data-parent-geo-id="5556">লিবিয়া </option>
-
-                            <option value="8834" data-id="8834" data-name-bn="লিথুয়ানিয়া" data-name-en="LITHUANIA" data-geo-level-id="10" data-parent-geo-id="5556">লিথুয়ানিয়া</option>
-
-                            <option value="7137" data-id="7137" data-name-bn="লুক্সেমবার্গ" data-name-en="LUXEMBOURG" data-geo-level-id="10" data-parent-geo-id="5556">লুক্সেমবার্গ</option>
-
-                            <option value="11330" data-id="11330" data-name-bn="ম্যাসেডোনিয়া" data-name-en="MACEDONIA" data-geo-level-id="10" data-parent-geo-id="5556">ম্যাসেডোনিয়া</option>
-
-                            <option value="12879" data-id="12879" data-name-bn="মাদাগাস্কার " data-name-en="MADAGASCAR" data-geo-level-id="10" data-parent-geo-id="5556">মাদাগাস্কার </option>
-
-                            <option value="9130" data-id="9130" data-name-bn="মাদাগাস্কার" data-name-en="MADAGASCAR" data-geo-level-id="10" data-parent-geo-id="5556">মাদাগাস্কার</option>
-
-                            <option value="5632" data-id="5632" data-name-bn="মালয়েশিয়া" data-name-en="MALAYSIA" data-geo-level-id="10" data-parent-geo-id="5556">মালয়েশিয়া</option>
-
-                            <option value="7138" data-id="7138" data-name-bn="মালদ্বীপ" data-name-en="MALDIVES" data-geo-level-id="10" data-parent-geo-id="5556">মালদ্বীপ</option>
-
-                            <option value="7431" data-id="7431" data-name-bn="মালি" data-name-en="MALI" data-geo-level-id="10" data-parent-geo-id="5556">মালি</option>
-
-                            <option value="7381" data-id="7381" data-name-bn="মাল্টা" data-name-en="MALTA" data-geo-level-id="10" data-parent-geo-id="5556">মাল্টা</option>
-
-                            <option value="8885" data-id="8885" data-name-bn="মার্শাল আইল্যান্ডস" data-name-en="MARSHALL ISLANDS" data-geo-level-id="10" data-parent-geo-id="5556">মার্শাল আইল্যান্ডস</option>
-
-                            <option value="8780" data-id="8780" data-name-bn="মৌরিতানিয়া" data-name-en="MAURITANIA" data-geo-level-id="10" data-parent-geo-id="5556">মৌরিতানিয়া</option>
-
-                            <option value="5890" data-id="5890" data-name-bn="মরিশাস" data-name-en="MAURITIUS" data-geo-level-id="10" data-parent-geo-id="5556">মরিশাস</option>
-
-                            <option value="7180" data-id="7180" data-name-bn="মেক্সিকো" data-name-en="MEXICO" data-geo-level-id="10" data-parent-geo-id="5556">মেক্সিকো</option>
-
-                            <option value="8784" data-id="8784" data-name-bn="মাইক্রোনেশিয়া" data-name-en="MICRONESIA" data-geo-level-id="10" data-parent-geo-id="5556">মাইক্রোনেশিয়া</option>
-
-                            <option value="9135" data-id="9135" data-name-bn="মলদোভা" data-name-en="MOLDOVA" data-geo-level-id="10" data-parent-geo-id="5556">মলদোভা</option>
-
-                            <option value="8888" data-id="8888" data-name-bn=" মোনাকো" data-name-en="MONACO" data-geo-level-id="10" data-parent-geo-id="5556"> মোনাকো</option>
-
-                            <option value="8987" data-id="8987" data-name-bn="মঙ্গোলিয়া" data-name-en="MONGOLIA" data-geo-level-id="10" data-parent-geo-id="5556">মঙ্গোলিয়া</option>
-
-                            <option value="9086" data-id="9086" data-name-bn="মন্টেনিগ্রো" data-name-en="MONTENEGRO" data-geo-level-id="10" data-parent-geo-id="5556">মন্টেনিগ্রো</option>
-
-                            <option value="5868" data-id="5868" data-name-bn="মরক্কো" data-name-en="MOROCCO" data-geo-level-id="10" data-parent-geo-id="5556">মরক্কো</option>
-
-                            <option value="8938" data-id="8938" data-name-bn="মোজাম্বিক" data-name-en="MOZAMBIQUE" data-geo-level-id="10" data-parent-geo-id="5556">মোজাম্বিক</option>
-
-                            <option value="5730" data-id="5730" data-name-bn="মায়ানমার" data-name-en="MYANMAR" data-geo-level-id="10" data-parent-geo-id="5556">মায়ানমার</option>
-
-                            <option value="7181" data-id="7181" data-name-bn="নামিবিয়া" data-name-en="NAMIBIA" data-geo-level-id="10" data-parent-geo-id="5556">নামিবিয়া</option>
-
-                            <option value="8833" data-id="8833" data-name-bn="নাউরু" data-name-en="NAURU" data-geo-level-id="10" data-parent-geo-id="5556">নাউরু</option>
-
-                            <option value="7182" data-id="7182" data-name-bn="নেপাল" data-name-en="NEPAL" data-geo-level-id="10" data-parent-geo-id="5556">নেপাল</option>
-
-                            <option value="5728" data-id="5728" data-name-bn="নেদারল্যান্ডস" data-name-en="NETHERLANDS" data-geo-level-id="10" data-parent-geo-id="5556">নেদারল্যান্ডস</option>
-
-                            <option value="7280" data-id="7280" data-name-bn="নিউজিল্যান্ড" data-name-en="NEW ZEALAND" data-geo-level-id="10" data-parent-geo-id="5556">নিউজিল্যান্ড</option>
-
-                            <option value="8180" data-id="8180" data-name-bn="নিকারাগুয়া" data-name-en="NICARAGUA" data-geo-level-id="10" data-parent-geo-id="5556">নিকারাগুয়া</option>
-
-                            <option value="7184" data-id="7184" data-name-bn="নাইজেরিয়া " data-name-en="NIGERIA" data-geo-level-id="10" data-parent-geo-id="5556">নাইজেরিয়া </option>
-
-                            <option value="7432" data-id="7432" data-name-bn="নরওয়ে" data-name-en="NORWAY" data-geo-level-id="10" data-parent-geo-id="5556">নরওয়ে</option>
-
-                            <option value="5636" data-id="5636" data-name-bn="ওমান" data-name-en="OMAN" data-geo-level-id="10" data-parent-geo-id="5556">ওমান</option>
-
-                            <option value="5923" data-id="5923" data-name-bn="পাকিস্তান " data-name-en="PAKISTAN" data-geo-level-id="10" data-parent-geo-id="5556">পাকিস্তান </option>
-
-                            <option value="8936" data-id="8936" data-name-bn="পালাউ" data-name-en="PALAU" data-geo-level-id="10" data-parent-geo-id="5556">পালাউ</option>
-
-                            <option value="9031" data-id="9031" data-name-bn="প্যালেস্টাইন" data-name-en="PALESTINE STATE" data-geo-level-id="10" data-parent-geo-id="5556">প্যালেস্টাইন</option>
-
-                            <option value="9133" data-id="9133" data-name-bn="পানামা" data-name-en="PANAMA" data-geo-level-id="10" data-parent-geo-id="5556">পানামা</option>
-
-                            <option value="7980" data-id="7980" data-name-bn="পাপুয়া নিউগিনি" data-name-en="PAPUA NEW GUINEA" data-geo-level-id="10" data-parent-geo-id="5556">পাপুয়া নিউগিনি</option>
-
-                            <option value="8481" data-id="8481" data-name-bn="প্যারাগুয়ে" data-name-en="PARAGUAY" data-geo-level-id="10" data-parent-geo-id="5556">প্যারাগুয়ে</option>
-
-                            <option value="8935" data-id="8935" data-name-bn="পেরু" data-name-en="PERU" data-geo-level-id="10" data-parent-geo-id="5556">পেরু</option>
-
-                            <option value="5919" data-id="5919" data-name-bn="ফিলিপাইন" data-name-en="PHILIPPINES" data-geo-level-id="10" data-parent-geo-id="5556">ফিলিপাইন</option>
-
-                            <option value="5737" data-id="5737" data-name-bn="পোল্যান্ড " data-name-en="POLAND" data-geo-level-id="10" data-parent-geo-id="5556">পোল্যান্ড </option>
-
-                            <option value="5853" data-id="5853" data-name-bn="পর্তুগাল" data-name-en="PORTUGAL" data-geo-level-id="10" data-parent-geo-id="5556">পর্তুগাল</option>
-
-                            <option value="5686" data-id="5686" data-name-bn="কাতার" data-name-en="QATAR" data-geo-level-id="10" data-parent-geo-id="5556">কাতার</option>
-
-                            <option value="7830" data-id="7830" data-name-bn="রোমানিয়া" data-name-en="ROMANIA" data-geo-level-id="10" data-parent-geo-id="5556">রোমানিয়া</option>
-
-                            <option value="6477" data-id="6477" data-name-bn="রাশিয়ান ফেডারেশন " data-name-en="RUSSIAN FEDERATION" data-geo-level-id="10" data-parent-geo-id="5556">রাশিয়ান ফেডারেশন </option>
-
-                            <option value="8982" data-id="8982" data-name-bn="রুয়াণ্ডা" data-name-en="RWANDA" data-geo-level-id="10" data-parent-geo-id="5556">রুয়াণ্ডা</option>
-
-                            <option value="5651" data-id="5651" data-name-bn="সৌদি আরব" data-name-en="SAUDI ARABIA" data-geo-level-id="10" data-parent-geo-id="5556">সৌদি আরব</option>
-
-                            <option value="8130" data-id="8130" data-name-bn="সেনেগাল" data-name-en="SENEGAL" data-geo-level-id="10" data-parent-geo-id="5556">সেনেগাল</option>
-
-                            <option value="8786" data-id="8786" data-name-bn="সার্বিয়া" data-name-en="SERBIA" data-geo-level-id="10" data-parent-geo-id="5556">সার্বিয়া</option>
-
-                            <option value="8781" data-id="8781" data-name-bn="সিশেলস " data-name-en="SEYCHELLES" data-geo-level-id="10" data-parent-geo-id="5556">সিশেলস </option>
-
-                            <option value="5657" data-id="5657" data-name-bn="সিঙ্গাপুর" data-name-en="SINGAPORE" data-geo-level-id="10" data-parent-geo-id="5556">সিঙ্গাপুর</option>
-
-                            <option value="8937" data-id="8937" data-name-bn=" স্লোভাকিয়া" data-name-en="SLOVAKIA" data-geo-level-id="10" data-parent-geo-id="5556"> স্লোভাকিয়া</option>
-
-                            <option value="9087" data-id="9087" data-name-bn="স্লোভেনিয়া" data-name-en="SLOVENIA" data-geo-level-id="10" data-parent-geo-id="5556">স্লোভেনিয়া</option>
-
-                            <option value="8986" data-id="8986" data-name-bn="সলোমন আইল্যান্ড" data-name-en="SOLOMON ISLANDS" data-geo-level-id="10" data-parent-geo-id="5556">সলোমন আইল্যান্ড</option>
-
-                            <option value="8981" data-id="8981" data-name-bn="সোমালিয়া" data-name-en="SOMALIA" data-geo-level-id="10" data-parent-geo-id="5556">সোমালিয়া</option>
-
-                            <option value="5645" data-id="5645" data-name-bn="দক্ষিণ আফ্রিকা" data-name-en="SOUTH AFRICA" data-geo-level-id="10" data-parent-geo-id="5556">দক্ষিণ আফ্রিকা</option>
-
-                            <option value="5865" data-id="5865" data-name-bn="দক্ষিণ কোরিয়া" data-name-en="SOUTH KOREA" data-geo-level-id="10" data-parent-geo-id="5556">দক্ষিণ কোরিয়া</option>
-
-                            <option value="8880" data-id="8880" data-name-bn="দক্ষিণ সুদান" data-name-en="SOUTH SUDAN" data-geo-level-id="10" data-parent-geo-id="5556">দক্ষিণ সুদান</option>
-
-                            <option value="5903" data-id="5903" data-name-bn="স্পেন" data-name-en="SPAIN" data-geo-level-id="10" data-parent-geo-id="5556">স্পেন</option>
-
-                            <option value="5870" data-id="5870" data-name-bn="শ্রীলঙ্কা" data-name-en="SRI LANKA" data-geo-level-id="10" data-parent-geo-id="5556">শ্রীলঙ্কা</option>
-
-                            <option value="10480" data-id="10480" data-name-bn="সুদান " data-name-en="SUDAN" data-geo-level-id="10" data-parent-geo-id="5556">সুদান </option>
-
-                            <option value="5678" data-id="5678" data-name-bn="সুইডেন" data-name-en="SWEDEN" data-geo-level-id="10" data-parent-geo-id="5556">সুইডেন</option>
-
-                            <option value="5926" data-id="5926" data-name-bn="সুইজারল্যান্ড " data-name-en="SWITZERLAND " data-geo-level-id="10" data-parent-geo-id="5556">সুইজারল্যান্ড </option>
-
-                            <option value="8983" data-id="8983" data-name-bn="সিরিয়া" data-name-en="SYRIA" data-geo-level-id="10" data-parent-geo-id="5556">সিরিয়া</option>
-
-                            <option value="8380" data-id="8380" data-name-bn="তাজিকিস্তান " data-name-en="TAJIKISTAN" data-geo-level-id="10" data-parent-geo-id="5556">তাজিকিস্তান </option>
-
-                            <option value="8930" data-id="8930" data-name-bn="তাঞ্জানিয়া" data-name-en="TANZANIA" data-geo-level-id="10" data-parent-geo-id="5556">তাঞ্জানিয়া</option>
-
-                            <option value="5735" data-id="5735" data-name-bn="থাইল্যান্ড" data-name-en="THAILAND" data-geo-level-id="10" data-parent-geo-id="5556">থাইল্যান্ড</option>
-
-                            <option value="9181" data-id="9181" data-name-bn="পূর্ব তিমুর" data-name-en="TIMOR-LESTE" data-geo-level-id="10" data-parent-geo-id="5556">পূর্ব তিমুর</option>
-
-                            <option value="9131" data-id="9131" data-name-bn="টোগো" data-name-en="TOGO" data-geo-level-id="10" data-parent-geo-id="5556">টোগো</option>
-
-                            <option value="8230" data-id="8230" data-name-bn="ত্রিনিদাদ ও টোবাগো " data-name-en="TRINIDAD AND TOBAGO" data-geo-level-id="10" data-parent-geo-id="5556">ত্রিনিদাদ ও টোবাগো </option>
-
-                            <option value="9030" data-id="9030" data-name-bn="তিউনিসিয়া" data-name-en="TUNISIA" data-geo-level-id="10" data-parent-geo-id="5556">তিউনিসিয়া</option>
-
-                            <option value="5682" data-id="5682" data-name-bn="তুরস্ক" data-name-en="TURKEY" data-geo-level-id="10" data-parent-geo-id="5556">তুরস্ক</option>
-
-                            <option value="8782" data-id="8782" data-name-bn="তুর্কমেনিস্তান" data-name-en="TURKMENISTAN" data-geo-level-id="10" data-parent-geo-id="5556">তুর্কমেনিস্তান</option>
-
-                            <option value="9084" data-id="9084" data-name-bn="টুভালু" data-name-en="TUVALU" data-geo-level-id="10" data-parent-geo-id="5556">টুভালু</option>
-
-                            <option value="8980" data-id="8980" data-name-bn="উগান্ডা" data-name-en="UGANDA" data-geo-level-id="10" data-parent-geo-id="5556">উগান্ডা</option>
-
-                            <option value="8785" data-id="8785" data-name-bn="ইউক্রেন" data-name-en="UKRAINE" data-geo-level-id="10" data-parent-geo-id="5556">ইউক্রেন</option>
-
-                            <option value="5654" data-id="5654" data-name-bn="সংযুক্ত আরব আমিরাত" data-name-en="UNITED ARAB EMIRATES" data-geo-level-id="10" data-parent-geo-id="5556">সংযুক্ত আরব আমিরাত</option>
-
-                            <option value="5647" data-id="5647" data-name-bn="যুক্তরাজ্য" data-name-en="UNITED KINGDOM" data-geo-level-id="10" data-parent-geo-id="5556">যুক্তরাজ্য</option>
-
-                            <option value="5638" data-id="5638" data-name-bn="যুক্তরাষ্ট্র" data-name-en="UNITED STATES" data-geo-level-id="10" data-parent-geo-id="5556">যুক্তরাষ্ট্র</option>
-
-                            <option value="8984" data-id="8984" data-name-bn="উরুগুয়ে" data-name-en="URUGUAY" data-geo-level-id="10" data-parent-geo-id="5556">উরুগুয়ে</option>
-
-                            <option value="7836" data-id="7836" data-name-bn="উজবেকিস্তান" data-name-en="UZBEKISTAN" data-geo-level-id="10" data-parent-geo-id="5556">উজবেকিস্তান</option>
-
-                            <option value="8884" data-id="8884" data-name-bn="ভানুয়াতু" data-name-en="VANUATU" data-geo-level-id="10" data-parent-geo-id="5556">ভানুয়াতু</option>
-
-                            <option value="8430" data-id="8430" data-name-bn="ভেনিজুয়ালা " data-name-en="VENEZUELA " data-geo-level-id="10" data-parent-geo-id="5556">ভেনিজুয়ালা </option>
-
-                            <option value="13179" data-id="13179" data-name-bn="ভিয়েতনাম " data-name-en="VIET NAM" data-geo-level-id="10" data-parent-geo-id="5556">ভিয়েতনাম </option>
-
-                            <option value="9032" data-id="9032" data-name-bn="ইয়েমেন" data-name-en="YEMEN" data-geo-level-id="10" data-parent-geo-id="5556">ইয়েমেন</option>
-
-                            <option value="8031" data-id="8031" data-name-bn="জাম্বিয়া" data-name-en="ZAMBIA" data-geo-level-id="10" data-parent-geo-id="5556">জাম্বিয়া</option>
-
-                            <option value="8580" data-id="8580" data-name-bn="জিম্বাবুয়ে " data-name-en="ZIMBABWE" data-geo-level-id="10" data-parent-geo-id="5556">জিম্বাবুয়ে </option>
                         </select>
                     </div>
                 </div>
@@ -2307,357 +901,6 @@ https://bdris.gov.bd/br/application
 
                             <option value="1" data-id="1" data-name-bn="বাংলাদেশ" data-name-en="BANGLADESH" data-geo-level-id="0" data-parent-geo-id="5556" selected="selected">বাংলাদেশ</option>
 
-                            <option value="7430" data-id="7430" data-name-bn="এঙ্গোলা" data-name-en=" ANGOLA" data-geo-level-id="10" data-parent-geo-id="5556">এঙ্গোলা</option>
-
-                            <option value="9080" data-id="9080" data-name-bn="নাইজার" data-name-en=" NIGER" data-geo-level-id="10" data-parent-geo-id="5556">নাইজার</option>
-
-                            <option value="7032" data-id="7032" data-name-bn="আফগানিস্তান" data-name-en="AFGHANISTAN" data-geo-level-id="10" data-parent-geo-id="5556">আফগানিস্তান</option>
-
-                            <option value="7033" data-id="7033" data-name-bn="আলবেনিয়া" data-name-en="ALBANIA" data-geo-level-id="10" data-parent-geo-id="5556">আলবেনিয়া</option>
-
-                            <option value="7380" data-id="7380" data-name-bn="আলজেরিয়া" data-name-en="ALGERIA" data-geo-level-id="10" data-parent-geo-id="5556">আলজেরিয়া</option>
-
-                            <option value="7035" data-id="7035" data-name-bn="আমেরিকান সামোয়া" data-name-en="AMERICAN SAMOA" data-geo-level-id="10" data-parent-geo-id="5556">আমেরিকান সামোয়া</option>
-
-                            <option value="8331" data-id="8331" data-name-bn="এন্ডোরা" data-name-en="ANDORRA" data-geo-level-id="10" data-parent-geo-id="5556">এন্ডোরা</option>
-
-                            <option value="7036" data-id="7036" data-name-bn="আর্জেন্টিনা" data-name-en="ARGENTINA" data-geo-level-id="10" data-parent-geo-id="5556">আর্জেন্টিনা</option>
-
-                            <option value="7037" data-id="7037" data-name-bn="আর্মেনিয়া" data-name-en="ARMENIA" data-geo-level-id="10" data-parent-geo-id="5556">আর্মেনিয়া</option>
-
-                            <option value="5726" data-id="5726" data-name-bn="অস্ট্রেলিয়া" data-name-en="AUSTRALIA" data-geo-level-id="10" data-parent-geo-id="5556">অস্ট্রেলিয়া</option>
-
-                            <option value="5928" data-id="5928" data-name-bn="অস্ট্রিয়া " data-name-en="AUSTRIA" data-geo-level-id="10" data-parent-geo-id="5556">অস্ট্রিয়া </option>
-
-                            <option value="7038" data-id="7038" data-name-bn="আজারবাইজান " data-name-en="AZERBAIJAN" data-geo-level-id="10" data-parent-geo-id="5556">আজারবাইজান </option>
-
-                            <option value="7039" data-id="7039" data-name-bn="বাহামাস " data-name-en="BAHAMAS" data-geo-level-id="10" data-parent-geo-id="5556">বাহামাস </option>
-
-                            <option value="5708" data-id="5708" data-name-bn="বাহরাইন" data-name-en="BAHRAIN" data-geo-level-id="10" data-parent-geo-id="5556">বাহরাইন</option>
-
-                            <option value="9880" data-id="9880" data-name-bn="বার্বাডোজ" data-name-en="BARBADOS" data-geo-level-id="10" data-parent-geo-id="5556">বার্বাডোজ</option>
-
-                            <option value="9182" data-id="9182" data-name-bn="বেলারুশ" data-name-en="BELARUS" data-geo-level-id="10" data-parent-geo-id="5556">বেলারুশ</option>
-
-                            <option value="5789" data-id="5789" data-name-bn="বেলজিয়াম" data-name-en="BELGIUM" data-geo-level-id="10" data-parent-geo-id="5556">বেলজিয়াম</option>
-
-                            <option value="8985" data-id="8985" data-name-bn="বেলিজ" data-name-en="BELIZE" data-geo-level-id="10" data-parent-geo-id="5556">বেলিজ</option>
-
-                            <option value="9132" data-id="9132" data-name-bn="বেনিন" data-name-en="BENIN" data-geo-level-id="10" data-parent-geo-id="5556">বেনিন</option>
-
-                            <option value="13779" data-id="13779" data-name-bn="বারমুডা" data-name-en="BERMUDA" data-geo-level-id="10" data-parent-geo-id="5556">বারমুডা</option>
-
-                            <option value="7042" data-id="7042" data-name-bn="ভুটান" data-name-en="BHUTAN" data-geo-level-id="10" data-parent-geo-id="5556">ভুটান</option>
-
-                            <option value="8933" data-id="8933" data-name-bn="বলিভিয়া" data-name-en="BOLIVIA" data-geo-level-id="10" data-parent-geo-id="5556">বলিভিয়া</option>
-
-                            <option value="8886" data-id="8886" data-name-bn="বসনিয়া ও হার্জেগোভিনা" data-name-en="BOSNIA AND HERZEGOVINA" data-geo-level-id="10" data-parent-geo-id="5556">বসনিয়া ও হার্জেগোভিনা</option>
-
-                            <option value="7044" data-id="7044" data-name-bn="বতসোয়ানা" data-name-en="BOTSWANA" data-geo-level-id="10" data-parent-geo-id="5556">বতসোয়ানা</option>
-
-                            <option value="7045" data-id="7045" data-name-bn="ব্রাজিল" data-name-en="BRAZIL" data-geo-level-id="10" data-parent-geo-id="5556">ব্রাজিল</option>
-
-                            <option value="5784" data-id="5784" data-name-bn="ব্রুনাই" data-name-en="BRUNEI" data-geo-level-id="10" data-parent-geo-id="5556">ব্রুনাই</option>
-
-                            <option value="7046" data-id="7046" data-name-bn="বুলগেরিয়া" data-name-en="BULGARIA" data-geo-level-id="10" data-parent-geo-id="5556">বুলগেরিয়া</option>
-
-                            <option value="9081" data-id="9081" data-name-bn="বুর্কিনা ফাসো" data-name-en="BURKINA FASO" data-geo-level-id="10" data-parent-geo-id="5556">বুর্কিনা ফাসো</option>
-
-                            <option value="8881" data-id="8881" data-name-bn="বুরুন্ডি" data-name-en="BURUNDI" data-geo-level-id="10" data-parent-geo-id="5556">বুরুন্ডি</option>
-
-                            <option value="8835" data-id="8835" data-name-bn="কেপ ভার্দে " data-name-en="CABO VERDE" data-geo-level-id="10" data-parent-geo-id="5556">কেপ ভার্দে </option>
-
-                            <option value="7047" data-id="7047" data-name-bn="কম্বোডিয়া" data-name-en="CAMBODIA" data-geo-level-id="10" data-parent-geo-id="5556">কম্বোডিয়া</option>
-
-                            <option value="8480" data-id="8480" data-name-bn="ক্যামেরুন" data-name-en="CAMEROON" data-geo-level-id="10" data-parent-geo-id="5556">ক্যামেরুন</option>
-
-                            <option value="5643" data-id="5643" data-name-bn="কানাডা" data-name-en="CANADA" data-geo-level-id="10" data-parent-geo-id="5556">কানাডা</option>
-
-                            <option value="8932" data-id="8932" data-name-bn="চিলি" data-name-en="CHILE" data-geo-level-id="10" data-parent-geo-id="5556">চিলি</option>
-
-                            <option value="5659" data-id="5659" data-name-bn="চীন" data-name-en="CHINA" data-geo-level-id="10" data-parent-geo-id="5556">চীন</option>
-
-                            <option value="7050" data-id="7050" data-name-bn="কলোম্বিয়া" data-name-en="COLOMBIA" data-geo-level-id="10" data-parent-geo-id="5556">কলোম্বিয়া</option>
-
-                            <option value="8882" data-id="8882" data-name-bn="কমোরস" data-name-en="COMOROS" data-geo-level-id="10" data-parent-geo-id="5556">কমোরস</option>
-
-                            <option value="9931" data-id="9931" data-name-bn="কঙ্গো" data-name-en="CONGO" data-geo-level-id="10" data-parent-geo-id="5556">কঙ্গো</option>
-
-                            <option value="7052" data-id="7052" data-name-bn="কোস্টারিকা" data-name-en="COSTA RICA" data-geo-level-id="10" data-parent-geo-id="5556">কোস্টারিকা</option>
-
-                            <option value="7053" data-id="7053" data-name-bn="ক্রোয়েশিয়া" data-name-en="CROATIA" data-geo-level-id="10" data-parent-geo-id="5556">ক্রোয়েশিয়া</option>
-
-                            <option value="8181" data-id="8181" data-name-bn="কিউবা " data-name-en="CUBA" data-geo-level-id="10" data-parent-geo-id="5556">কিউবা </option>
-
-                            <option value="7055" data-id="7055" data-name-bn="সাইপ্রাস" data-name-en="CYPRUS" data-geo-level-id="10" data-parent-geo-id="5556">সাইপ্রাস</option>
-
-                            <option value="8887" data-id="8887" data-name-bn="চেক প্রজাতন্ত্র" data-name-en="CZECHIA" data-geo-level-id="10" data-parent-geo-id="5556">চেক প্রজাতন্ত্র</option>
-
-                            <option value="5936" data-id="5936" data-name-bn="ডেনমার্ক " data-name-en="DENMARK" data-geo-level-id="10" data-parent-geo-id="5556">ডেনমার্ক </option>
-
-                            <option value="8883" data-id="8883" data-name-bn="জিবুতি" data-name-en="DJIBOUTI" data-geo-level-id="10" data-parent-geo-id="5556">জিবুতি</option>
-
-                            <option value="8934" data-id="8934" data-name-bn="ডোমিনিকান রিপাবলিক" data-name-en="DOMINICAN REPUBLIC" data-geo-level-id="10" data-parent-geo-id="5556">ডোমিনিকান রিপাবলিক</option>
-
-                            <option value="8787" data-id="8787" data-name-bn="ইকুয়েডর" data-name-en="ECUADOR" data-geo-level-id="10" data-parent-geo-id="5556">ইকুয়েডর</option>
-
-                            <option value="5787" data-id="5787" data-name-bn="মিশর" data-name-en="EGYPT" data-geo-level-id="10" data-parent-geo-id="5556">মিশর</option>
-
-                            <option value="9083" data-id="9083" data-name-bn="এল সালভাদর" data-name-en="EL SALVADOR" data-geo-level-id="10" data-parent-geo-id="5556">এল সালভাদর</option>
-
-                            <option value="8280" data-id="8280" data-name-bn="ইকুয়েটোরিয়াল গিনি " data-name-en="EQUATORIAL GUINEA" data-geo-level-id="10" data-parent-geo-id="5556">ইকুয়েটোরিয়াল গিনি </option>
-
-                            <option value="8830" data-id="8830" data-name-bn="ইরিত্রিয়া" data-name-en="ERITREA" data-geo-level-id="10" data-parent-geo-id="5556">ইরিত্রিয়া</option>
-
-                            <option value="7030" data-id="7030" data-name-bn="এস্তোনিয়া" data-name-en="ESTONIA" data-geo-level-id="10" data-parent-geo-id="5556">এস্তোনিয়া</option>
-
-                            <option value="7058" data-id="7058" data-name-bn="ইথিওপিয়া" data-name-en="ETHIOPIA" data-geo-level-id="10" data-parent-geo-id="5556">ইথিওপিয়া</option>
-
-                            <option value="7080" data-id="7080" data-name-bn="ফিজি " data-name-en="FIJI" data-geo-level-id="10" data-parent-geo-id="5556">ফিজি </option>
-
-                            <option value="6780" data-id="6780" data-name-bn="ফিনল্যান্ড" data-name-en="FINLAND" data-geo-level-id="10" data-parent-geo-id="5556">ফিনল্যান্ড</option>
-
-                            <option value="5739" data-id="5739" data-name-bn="ফ্রান্স" data-name-en="FRANCE" data-geo-level-id="10" data-parent-geo-id="5556">ফ্রান্স</option>
-
-                            <option value="8530" data-id="8530" data-name-bn="গ্যাবন" data-name-en="GABON" data-geo-level-id="10" data-parent-geo-id="5556">গ্যাবন</option>
-
-                            <option value="13079" data-id="13079" data-name-bn="গাম্বিয়া" data-name-en="GAMBIA" data-geo-level-id="10" data-parent-geo-id="5556">গাম্বিয়া</option>
-
-                            <option value="7081" data-id="7081" data-name-bn="জর্জিয়া" data-name-en="GEORGIA" data-geo-level-id="10" data-parent-geo-id="5556">জর্জিয়া</option>
-
-                            <option value="5916" data-id="5916" data-name-bn="জার্মানী" data-name-en="GERMANY" data-geo-level-id="10" data-parent-geo-id="5556">জার্মানী</option>
-
-                            <option value="7082" data-id="7082" data-name-bn="ঘানা" data-name-en="GHANA" data-geo-level-id="10" data-parent-geo-id="5556">ঘানা</option>
-
-                            <option value="5684" data-id="5684" data-name-bn="গ্রীস" data-name-en="GREECE" data-geo-level-id="10" data-parent-geo-id="5556">গ্রীস</option>
-
-                            <option value="8939" data-id="8939" data-name-bn="গুয়াতেমালা" data-name-en="GUATEMALA" data-geo-level-id="10" data-parent-geo-id="5556">গুয়াতেমালা</option>
-
-                            <option value="8831" data-id="8831" data-name-bn="গিনি" data-name-en="GUINEA" data-geo-level-id="10" data-parent-geo-id="5556">গিনি</option>
-
-                            <option value="9137" data-id="9137" data-name-bn="গিনি বিসাউ" data-name-en="GUINEA-BISSAU" data-geo-level-id="10" data-parent-geo-id="5556">গিনি বিসাউ</option>
-
-                            <option value="9082" data-id="9082" data-name-bn="গায়ানা" data-name-en="GUYANA" data-geo-level-id="10" data-parent-geo-id="5556">গায়ানা</option>
-
-                            <option value="7131" data-id="7131" data-name-bn="হাইতি" data-name-en="HAITI" data-geo-level-id="10" data-parent-geo-id="5556">হাইতি</option>
-
-                            <option value="8889" data-id="8889" data-name-bn="হন্ডুরাস " data-name-en="HONDURAS" data-geo-level-id="10" data-parent-geo-id="5556">হন্ডুরাস </option>
-
-                            <option value="13629" data-id="13629" data-name-bn="হংকং " data-name-en="HONG KONG" data-geo-level-id="10" data-parent-geo-id="5556">হংকং </option>
-
-                            <option value="9136" data-id="9136" data-name-bn="হাঙ্গেরি" data-name-en="HUNGARY" data-geo-level-id="10" data-parent-geo-id="5556">হাঙ্গেরি</option>
-
-                            <option value="7031" data-id="7031" data-name-bn="আইসল্যান্ড" data-name-en="ICELAND" data-geo-level-id="10" data-parent-geo-id="5556">আইসল্যান্ড</option>
-
-                            <option value="5662" data-id="5662" data-name-bn="ভারত" data-name-en="INDIA" data-geo-level-id="10" data-parent-geo-id="5556">ভারত</option>
-
-                            <option value="5911" data-id="5911" data-name-bn="ইন্দোনেশিয়া" data-name-en="INDONESIA" data-geo-level-id="10" data-parent-geo-id="5556">ইন্দোনেশিয়া</option>
-
-                            <option value="6730" data-id="6730" data-name-bn="ইরান" data-name-en="IRAN" data-geo-level-id="10" data-parent-geo-id="5556">ইরান</option>
-
-                            <option value="6782" data-id="6782" data-name-bn="ইরাক" data-name-en="IRAQ" data-geo-level-id="10" data-parent-geo-id="5556">ইরাক</option>
-
-                            <option value="8680" data-id="8680" data-name-bn="আয়ারল্যান্ড " data-name-en="IRELAND" data-geo-level-id="10" data-parent-geo-id="5556">আয়ারল্যান্ড </option>
-
-                            <option value="5876" data-id="5876" data-name-bn="ইটালি" data-name-en="ITALY" data-geo-level-id="10" data-parent-geo-id="5556">ইটালি</option>
-
-                            <option value="12979" data-id="12979" data-name-bn="আইভরি কোস্ট" data-name-en="IVORY COAST" data-geo-level-id="10" data-parent-geo-id="5556">আইভরি কোস্ট</option>
-
-                            <option value="8783" data-id="8783" data-name-bn="জামাইকা" data-name-en="JAMAICA" data-geo-level-id="10" data-parent-geo-id="5556">জামাইকা</option>
-
-                            <option value="5881" data-id="5881" data-name-bn="জাপান" data-name-en="JAPAN" data-geo-level-id="10" data-parent-geo-id="5556">জাপান</option>
-
-                            <option value="5676" data-id="5676" data-name-bn="জর্ডান" data-name-en="JORDAN" data-geo-level-id="10" data-parent-geo-id="5556">জর্ডান</option>
-
-                            <option value="8080" data-id="8080" data-name-bn="কাজাখস্তান " data-name-en="KAZAKHSTAN" data-geo-level-id="10" data-parent-geo-id="5556">কাজাখস্তান </option>
-
-                            <option value="5733" data-id="5733" data-name-bn="কেনিয়া" data-name-en="KENYA" data-geo-level-id="10" data-parent-geo-id="5556">কেনিয়া</option>
-
-                            <option value="8832" data-id="8832" data-name-bn="কিরিবাতি" data-name-en="KIRIBATI" data-geo-level-id="10" data-parent-geo-id="5556">কিরিবাতি</option>
-
-                            <option value="5634" data-id="5634" data-name-bn="কুয়েত" data-name-en="KUWAIT" data-geo-level-id="10" data-parent-geo-id="5556">কুয়েত</option>
-
-                            <option value="8931" data-id="8931" data-name-bn="কিরঘিজস্তান" data-name-en="KYRGYZSTAN" data-geo-level-id="10" data-parent-geo-id="5556">কিরঘিজস্তান</option>
-
-                            <option value="9033" data-id="9033" data-name-bn="লাওস" data-name-en="LAOS" data-geo-level-id="10" data-parent-geo-id="5556">লাওস</option>
-
-                            <option value="8988" data-id="8988" data-name-bn="লাটাভিয়া" data-name-en="LATVIA" data-geo-level-id="10" data-parent-geo-id="5556">লাটাভিয়া</option>
-
-                            <option value="5906" data-id="5906" data-name-bn="লেবানন" data-name-en="LEBANON" data-geo-level-id="10" data-parent-geo-id="5556">লেবানন</option>
-
-                            <option value="6781" data-id="6781" data-name-bn="লাইবেরিয়া" data-name-en="LIBERIA" data-geo-level-id="10" data-parent-geo-id="5556">লাইবেরিয়া</option>
-
-                            <option value="5920" data-id="5920" data-name-bn="লিবিয়া " data-name-en="LIBIYA" data-geo-level-id="10" data-parent-geo-id="5556">লিবিয়া </option>
-
-                            <option value="8834" data-id="8834" data-name-bn="লিথুয়ানিয়া" data-name-en="LITHUANIA" data-geo-level-id="10" data-parent-geo-id="5556">লিথুয়ানিয়া</option>
-
-                            <option value="7137" data-id="7137" data-name-bn="লুক্সেমবার্গ" data-name-en="LUXEMBOURG" data-geo-level-id="10" data-parent-geo-id="5556">লুক্সেমবার্গ</option>
-
-                            <option value="11330" data-id="11330" data-name-bn="ম্যাসেডোনিয়া" data-name-en="MACEDONIA" data-geo-level-id="10" data-parent-geo-id="5556">ম্যাসেডোনিয়া</option>
-
-                            <option value="12879" data-id="12879" data-name-bn="মাদাগাস্কার " data-name-en="MADAGASCAR" data-geo-level-id="10" data-parent-geo-id="5556">মাদাগাস্কার </option>
-
-                            <option value="9130" data-id="9130" data-name-bn="মাদাগাস্কার" data-name-en="MADAGASCAR" data-geo-level-id="10" data-parent-geo-id="5556">মাদাগাস্কার</option>
-
-                            <option value="5632" data-id="5632" data-name-bn="মালয়েশিয়া" data-name-en="MALAYSIA" data-geo-level-id="10" data-parent-geo-id="5556">মালয়েশিয়া</option>
-
-                            <option value="7138" data-id="7138" data-name-bn="মালদ্বীপ" data-name-en="MALDIVES" data-geo-level-id="10" data-parent-geo-id="5556">মালদ্বীপ</option>
-
-                            <option value="7431" data-id="7431" data-name-bn="মালি" data-name-en="MALI" data-geo-level-id="10" data-parent-geo-id="5556">মালি</option>
-
-                            <option value="7381" data-id="7381" data-name-bn="মাল্টা" data-name-en="MALTA" data-geo-level-id="10" data-parent-geo-id="5556">মাল্টা</option>
-
-                            <option value="8885" data-id="8885" data-name-bn="মার্শাল আইল্যান্ডস" data-name-en="MARSHALL ISLANDS" data-geo-level-id="10" data-parent-geo-id="5556">মার্শাল আইল্যান্ডস</option>
-
-                            <option value="8780" data-id="8780" data-name-bn="মৌরিতানিয়া" data-name-en="MAURITANIA" data-geo-level-id="10" data-parent-geo-id="5556">মৌরিতানিয়া</option>
-
-                            <option value="5890" data-id="5890" data-name-bn="মরিশাস" data-name-en="MAURITIUS" data-geo-level-id="10" data-parent-geo-id="5556">মরিশাস</option>
-
-                            <option value="7180" data-id="7180" data-name-bn="মেক্সিকো" data-name-en="MEXICO" data-geo-level-id="10" data-parent-geo-id="5556">মেক্সিকো</option>
-
-                            <option value="8784" data-id="8784" data-name-bn="মাইক্রোনেশিয়া" data-name-en="MICRONESIA" data-geo-level-id="10" data-parent-geo-id="5556">মাইক্রোনেশিয়া</option>
-
-                            <option value="9135" data-id="9135" data-name-bn="মলদোভা" data-name-en="MOLDOVA" data-geo-level-id="10" data-parent-geo-id="5556">মলদোভা</option>
-
-                            <option value="8888" data-id="8888" data-name-bn=" মোনাকো" data-name-en="MONACO" data-geo-level-id="10" data-parent-geo-id="5556"> মোনাকো</option>
-
-                            <option value="8987" data-id="8987" data-name-bn="মঙ্গোলিয়া" data-name-en="MONGOLIA" data-geo-level-id="10" data-parent-geo-id="5556">মঙ্গোলিয়া</option>
-
-                            <option value="9086" data-id="9086" data-name-bn="মন্টেনিগ্রো" data-name-en="MONTENEGRO" data-geo-level-id="10" data-parent-geo-id="5556">মন্টেনিগ্রো</option>
-
-                            <option value="5868" data-id="5868" data-name-bn="মরক্কো" data-name-en="MOROCCO" data-geo-level-id="10" data-parent-geo-id="5556">মরক্কো</option>
-
-                            <option value="8938" data-id="8938" data-name-bn="মোজাম্বিক" data-name-en="MOZAMBIQUE" data-geo-level-id="10" data-parent-geo-id="5556">মোজাম্বিক</option>
-
-                            <option value="5730" data-id="5730" data-name-bn="মায়ানমার" data-name-en="MYANMAR" data-geo-level-id="10" data-parent-geo-id="5556">মায়ানমার</option>
-
-                            <option value="7181" data-id="7181" data-name-bn="নামিবিয়া" data-name-en="NAMIBIA" data-geo-level-id="10" data-parent-geo-id="5556">নামিবিয়া</option>
-
-                            <option value="8833" data-id="8833" data-name-bn="নাউরু" data-name-en="NAURU" data-geo-level-id="10" data-parent-geo-id="5556">নাউরু</option>
-
-                            <option value="7182" data-id="7182" data-name-bn="নেপাল" data-name-en="NEPAL" data-geo-level-id="10" data-parent-geo-id="5556">নেপাল</option>
-
-                            <option value="5728" data-id="5728" data-name-bn="নেদারল্যান্ডস" data-name-en="NETHERLANDS" data-geo-level-id="10" data-parent-geo-id="5556">নেদারল্যান্ডস</option>
-
-                            <option value="7280" data-id="7280" data-name-bn="নিউজিল্যান্ড" data-name-en="NEW ZEALAND" data-geo-level-id="10" data-parent-geo-id="5556">নিউজিল্যান্ড</option>
-
-                            <option value="8180" data-id="8180" data-name-bn="নিকারাগুয়া" data-name-en="NICARAGUA" data-geo-level-id="10" data-parent-geo-id="5556">নিকারাগুয়া</option>
-
-                            <option value="7184" data-id="7184" data-name-bn="নাইজেরিয়া " data-name-en="NIGERIA" data-geo-level-id="10" data-parent-geo-id="5556">নাইজেরিয়া </option>
-
-                            <option value="7432" data-id="7432" data-name-bn="নরওয়ে" data-name-en="NORWAY" data-geo-level-id="10" data-parent-geo-id="5556">নরওয়ে</option>
-
-                            <option value="5636" data-id="5636" data-name-bn="ওমান" data-name-en="OMAN" data-geo-level-id="10" data-parent-geo-id="5556">ওমান</option>
-
-                            <option value="5923" data-id="5923" data-name-bn="পাকিস্তান " data-name-en="PAKISTAN" data-geo-level-id="10" data-parent-geo-id="5556">পাকিস্তান </option>
-
-                            <option value="8936" data-id="8936" data-name-bn="পালাউ" data-name-en="PALAU" data-geo-level-id="10" data-parent-geo-id="5556">পালাউ</option>
-
-                            <option value="9031" data-id="9031" data-name-bn="প্যালেস্টাইন" data-name-en="PALESTINE STATE" data-geo-level-id="10" data-parent-geo-id="5556">প্যালেস্টাইন</option>
-
-                            <option value="9133" data-id="9133" data-name-bn="পানামা" data-name-en="PANAMA" data-geo-level-id="10" data-parent-geo-id="5556">পানামা</option>
-
-                            <option value="7980" data-id="7980" data-name-bn="পাপুয়া নিউগিনি" data-name-en="PAPUA NEW GUINEA" data-geo-level-id="10" data-parent-geo-id="5556">পাপুয়া নিউগিনি</option>
-
-                            <option value="8481" data-id="8481" data-name-bn="প্যারাগুয়ে" data-name-en="PARAGUAY" data-geo-level-id="10" data-parent-geo-id="5556">প্যারাগুয়ে</option>
-
-                            <option value="8935" data-id="8935" data-name-bn="পেরু" data-name-en="PERU" data-geo-level-id="10" data-parent-geo-id="5556">পেরু</option>
-
-                            <option value="5919" data-id="5919" data-name-bn="ফিলিপাইন" data-name-en="PHILIPPINES" data-geo-level-id="10" data-parent-geo-id="5556">ফিলিপাইন</option>
-
-                            <option value="5737" data-id="5737" data-name-bn="পোল্যান্ড " data-name-en="POLAND" data-geo-level-id="10" data-parent-geo-id="5556">পোল্যান্ড </option>
-
-                            <option value="5853" data-id="5853" data-name-bn="পর্তুগাল" data-name-en="PORTUGAL" data-geo-level-id="10" data-parent-geo-id="5556">পর্তুগাল</option>
-
-                            <option value="5686" data-id="5686" data-name-bn="কাতার" data-name-en="QATAR" data-geo-level-id="10" data-parent-geo-id="5556">কাতার</option>
-
-                            <option value="7830" data-id="7830" data-name-bn="রোমানিয়া" data-name-en="ROMANIA" data-geo-level-id="10" data-parent-geo-id="5556">রোমানিয়া</option>
-
-                            <option value="6477" data-id="6477" data-name-bn="রাশিয়ান ফেডারেশন " data-name-en="RUSSIAN FEDERATION" data-geo-level-id="10" data-parent-geo-id="5556">রাশিয়ান ফেডারেশন </option>
-
-                            <option value="8982" data-id="8982" data-name-bn="রুয়াণ্ডা" data-name-en="RWANDA" data-geo-level-id="10" data-parent-geo-id="5556">রুয়াণ্ডা</option>
-
-                            <option value="5651" data-id="5651" data-name-bn="সৌদি আরব" data-name-en="SAUDI ARABIA" data-geo-level-id="10" data-parent-geo-id="5556">সৌদি আরব</option>
-
-                            <option value="8130" data-id="8130" data-name-bn="সেনেগাল" data-name-en="SENEGAL" data-geo-level-id="10" data-parent-geo-id="5556">সেনেগাল</option>
-
-                            <option value="8786" data-id="8786" data-name-bn="সার্বিয়া" data-name-en="SERBIA" data-geo-level-id="10" data-parent-geo-id="5556">সার্বিয়া</option>
-
-                            <option value="8781" data-id="8781" data-name-bn="সিশেলস " data-name-en="SEYCHELLES" data-geo-level-id="10" data-parent-geo-id="5556">সিশেলস </option>
-
-                            <option value="5657" data-id="5657" data-name-bn="সিঙ্গাপুর" data-name-en="SINGAPORE" data-geo-level-id="10" data-parent-geo-id="5556">সিঙ্গাপুর</option>
-
-                            <option value="8937" data-id="8937" data-name-bn=" স্লোভাকিয়া" data-name-en="SLOVAKIA" data-geo-level-id="10" data-parent-geo-id="5556"> স্লোভাকিয়া</option>
-
-                            <option value="9087" data-id="9087" data-name-bn="স্লোভেনিয়া" data-name-en="SLOVENIA" data-geo-level-id="10" data-parent-geo-id="5556">স্লোভেনিয়া</option>
-
-                            <option value="8986" data-id="8986" data-name-bn="সলোমন আইল্যান্ড" data-name-en="SOLOMON ISLANDS" data-geo-level-id="10" data-parent-geo-id="5556">সলোমন আইল্যান্ড</option>
-
-                            <option value="8981" data-id="8981" data-name-bn="সোমালিয়া" data-name-en="SOMALIA" data-geo-level-id="10" data-parent-geo-id="5556">সোমালিয়া</option>
-
-                            <option value="5645" data-id="5645" data-name-bn="দক্ষিণ আফ্রিকা" data-name-en="SOUTH AFRICA" data-geo-level-id="10" data-parent-geo-id="5556">দক্ষিণ আফ্রিকা</option>
-
-                            <option value="5865" data-id="5865" data-name-bn="দক্ষিণ কোরিয়া" data-name-en="SOUTH KOREA" data-geo-level-id="10" data-parent-geo-id="5556">দক্ষিণ কোরিয়া</option>
-
-                            <option value="8880" data-id="8880" data-name-bn="দক্ষিণ সুদান" data-name-en="SOUTH SUDAN" data-geo-level-id="10" data-parent-geo-id="5556">দক্ষিণ সুদান</option>
-
-                            <option value="5903" data-id="5903" data-name-bn="স্পেন" data-name-en="SPAIN" data-geo-level-id="10" data-parent-geo-id="5556">স্পেন</option>
-
-                            <option value="5870" data-id="5870" data-name-bn="শ্রীলঙ্কা" data-name-en="SRI LANKA" data-geo-level-id="10" data-parent-geo-id="5556">শ্রীলঙ্কা</option>
-
-                            <option value="10480" data-id="10480" data-name-bn="সুদান " data-name-en="SUDAN" data-geo-level-id="10" data-parent-geo-id="5556">সুদান </option>
-
-                            <option value="5678" data-id="5678" data-name-bn="সুইডেন" data-name-en="SWEDEN" data-geo-level-id="10" data-parent-geo-id="5556">সুইডেন</option>
-
-                            <option value="5926" data-id="5926" data-name-bn="সুইজারল্যান্ড " data-name-en="SWITZERLAND " data-geo-level-id="10" data-parent-geo-id="5556">সুইজারল্যান্ড </option>
-
-                            <option value="8983" data-id="8983" data-name-bn="সিরিয়া" data-name-en="SYRIA" data-geo-level-id="10" data-parent-geo-id="5556">সিরিয়া</option>
-
-                            <option value="8380" data-id="8380" data-name-bn="তাজিকিস্তান " data-name-en="TAJIKISTAN" data-geo-level-id="10" data-parent-geo-id="5556">তাজিকিস্তান </option>
-
-                            <option value="8930" data-id="8930" data-name-bn="তাঞ্জানিয়া" data-name-en="TANZANIA" data-geo-level-id="10" data-parent-geo-id="5556">তাঞ্জানিয়া</option>
-
-                            <option value="5735" data-id="5735" data-name-bn="থাইল্যান্ড" data-name-en="THAILAND" data-geo-level-id="10" data-parent-geo-id="5556">থাইল্যান্ড</option>
-
-                            <option value="9181" data-id="9181" data-name-bn="পূর্ব তিমুর" data-name-en="TIMOR-LESTE" data-geo-level-id="10" data-parent-geo-id="5556">পূর্ব তিমুর</option>
-
-                            <option value="9131" data-id="9131" data-name-bn="টোগো" data-name-en="TOGO" data-geo-level-id="10" data-parent-geo-id="5556">টোগো</option>
-
-                            <option value="8230" data-id="8230" data-name-bn="ত্রিনিদাদ ও টোবাগো " data-name-en="TRINIDAD AND TOBAGO" data-geo-level-id="10" data-parent-geo-id="5556">ত্রিনিদাদ ও টোবাগো </option>
-
-                            <option value="9030" data-id="9030" data-name-bn="তিউনিসিয়া" data-name-en="TUNISIA" data-geo-level-id="10" data-parent-geo-id="5556">তিউনিসিয়া</option>
-
-                            <option value="5682" data-id="5682" data-name-bn="তুরস্ক" data-name-en="TURKEY" data-geo-level-id="10" data-parent-geo-id="5556">তুরস্ক</option>
-
-                            <option value="8782" data-id="8782" data-name-bn="তুর্কমেনিস্তান" data-name-en="TURKMENISTAN" data-geo-level-id="10" data-parent-geo-id="5556">তুর্কমেনিস্তান</option>
-
-                            <option value="9084" data-id="9084" data-name-bn="টুভালু" data-name-en="TUVALU" data-geo-level-id="10" data-parent-geo-id="5556">টুভালু</option>
-
-                            <option value="8980" data-id="8980" data-name-bn="উগান্ডা" data-name-en="UGANDA" data-geo-level-id="10" data-parent-geo-id="5556">উগান্ডা</option>
-
-                            <option value="8785" data-id="8785" data-name-bn="ইউক্রেন" data-name-en="UKRAINE" data-geo-level-id="10" data-parent-geo-id="5556">ইউক্রেন</option>
-
-                            <option value="5654" data-id="5654" data-name-bn="সংযুক্ত আরব আমিরাত" data-name-en="UNITED ARAB EMIRATES" data-geo-level-id="10" data-parent-geo-id="5556">সংযুক্ত আরব আমিরাত</option>
-
-                            <option value="5647" data-id="5647" data-name-bn="যুক্তরাজ্য" data-name-en="UNITED KINGDOM" data-geo-level-id="10" data-parent-geo-id="5556">যুক্তরাজ্য</option>
-
-                            <option value="5638" data-id="5638" data-name-bn="যুক্তরাষ্ট্র" data-name-en="UNITED STATES" data-geo-level-id="10" data-parent-geo-id="5556">যুক্তরাষ্ট্র</option>
-
-                            <option value="8984" data-id="8984" data-name-bn="উরুগুয়ে" data-name-en="URUGUAY" data-geo-level-id="10" data-parent-geo-id="5556">উরুগুয়ে</option>
-
-                            <option value="7836" data-id="7836" data-name-bn="উজবেকিস্তান" data-name-en="UZBEKISTAN" data-geo-level-id="10" data-parent-geo-id="5556">উজবেকিস্তান</option>
-
-                            <option value="8884" data-id="8884" data-name-bn="ভানুয়াতু" data-name-en="VANUATU" data-geo-level-id="10" data-parent-geo-id="5556">ভানুয়াতু</option>
-
-                            <option value="8430" data-id="8430" data-name-bn="ভেনিজুয়ালা " data-name-en="VENEZUELA " data-geo-level-id="10" data-parent-geo-id="5556">ভেনিজুয়ালা </option>
-
-                            <option value="13179" data-id="13179" data-name-bn="ভিয়েতনাম " data-name-en="VIET NAM" data-geo-level-id="10" data-parent-geo-id="5556">ভিয়েতনাম </option>
-
-                            <option value="9032" data-id="9032" data-name-bn="ইয়েমেন" data-name-en="YEMEN" data-geo-level-id="10" data-parent-geo-id="5556">ইয়েমেন</option>
-
-                            <option value="8031" data-id="8031" data-name-bn="জাম্বিয়া" data-name-en="ZAMBIA" data-geo-level-id="10" data-parent-geo-id="5556">জাম্বিয়া</option>
-
-                            <option value="8580" data-id="8580" data-name-bn="জিম্বাবুয়ে " data-name-en="ZIMBABWE" data-geo-level-id="10" data-parent-geo-id="5556">জিম্বাবুয়ে </option>
                         </select>
                     </div>
                 </div>
@@ -3519,3 +1762,447 @@ https://bdris.gov.bd/br/application
 </div>
 
 </form>
+
+
+// PAGE 3
+<fieldset id="signup-step-4" class="form text-left active">
+						                    <!--<section th:replace="~{geo-location/components/permanent-address-div"></section>-->
+
+											<!--<section
+													th:with="addressGroup=${ 'permanentAddress' }, heading=${ 'birth-registration.input.label.parentsAddressTypes.permAddr' }"
+													th:insert="~{components/parents-address-types-component}"></section>
+
+											<section
+													th:with="addressGroup=${ 'permanentAddress' },
+													heading=${'birth-registration.heading.permanentAddress'}"
+													th:insert="~{components/full-address-component}"></section>-->
+
+											<div class="permAddrCheckboxAndSelectionDiv">
+
+												<div class="form-group mb-3 permAddrCheckboxDiv">
+													<div class="checkbox checkbox-primary">
+														<label class="">
+															<input class="copyFromAddressSameAsCopyToAddress" name="copyBirthPlaceToPermAddr" id="copyBirthPlaceToPermAddr" data-copy-from-class="birthPlace" data-copy-to-class="permAddr" type="checkbox" value="yes">
+															<span class="label-text">জন্মস্থানের ঠিকানা ও স্থায়ী ঠিকানা একই</span>
+														</label>
+													</div>
+													<!-- /.checkbox -->
+												</div>
+
+												<section><div class="permAddr">
+    <div class="form-group row resetGeolocation" data-geo-group="permAddr">
+        <label class="col-md-6 col-form-label">
+            <h5 class="tst" title="Insert your birth address in the order Division,District,City Corporation,Post Office,Village,House and Road">স্থায়ী ঠিকানা</h5>
+        </label>
+        <div class="col-md-9">
+        </div>
+    </div>
+
+    <div class="geoLocation permAddr copyFrom">
+        <div class="form-group row">
+            <div class="col-md-6 colCountry">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="permAddrCountry">দেশ</label>
+                    <div class="col-md-7">
+                        <select class="form-control geoSelect country" name="permAddrCountry" id="permAddrCountry" data-geo-order="0" data-geo-group="permAddr">
+
+                            <option value="-1">দেশ নির্বাচন করুন</option>
+
+                            <option value="1" data-id="1" data-name-bn="বাংলাদেশ" data-name-en="BANGLADESH" data-geo-level-id="0" data-parent-geo-id="5556" selected="selected">বাংলাদেশ</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 colDiv">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="permAddrDiv">বিভাগ</label>
+                    <div class="col-md-7">
+
+                        <select class="form-control geoSelect div tst" title="Click to select division" name="permAddrDiv" id="permAddrDiv" data-geo-order="1" data-geo-level="1" data-geo-group="permAddr">
+
+                            <option value="-1">বিভাগ নির্বাচন করুন</option>
+                            <!--<option th:each="division : ${divisionList}"-->
+                            <!--th:value="${division.id}"-->
+                            <!--th:text="${division.nameBn}">-->
+                            <!--</option>-->
+                            <option value="2" data-id="2" data-name-bn="বরিশাল বিভাগ" data-name-en="BARISHAL DIVISION" data-geo-level-id="1" data-parent-geo-id="1">বরিশাল বিভাগ</option>
+                            <option value="3" data-id="3" data-name-bn="চট্টগ্রাম বিভাগ" data-name-en="CHATTOGRAM DIVISION" data-geo-level-id="1" data-parent-geo-id="1">চট্টগ্রাম বিভাগ</option>
+                            <option value="4" data-id="4" data-name-bn="ঢাকা বিভাগ" data-name-en="DHAKA DIVISION" data-geo-level-id="1" data-parent-geo-id="1">ঢাকা বিভাগ</option>
+                            <option value="5" data-id="5" data-name-bn="খুলনা বিভাগ" data-name-en="KHULNA DIVISION" data-geo-level-id="1" data-parent-geo-id="1">খুলনা বিভাগ</option>
+                            <option value="6027" data-id="6027" data-name-bn="ময়মনসিংহ বিভাগ" data-name-en="MYMENSINGH DIVISION" data-geo-level-id="1" data-parent-geo-id="1">ময়মনসিংহ বিভাগ</option>
+                            <option value="6" data-id="6" data-name-bn="রাজশাহী বিভাগ" data-name-en="RAJSHAHI DIVISION" data-geo-level-id="1" data-parent-geo-id="1">রাজশাহী বিভাগ</option>
+                            <option value="5514" data-id="5514" data-name-bn="রংপুর বিভাগ" data-name-en="RANGPUR DIVISION" data-geo-level-id="1" data-parent-geo-id="1">রংপুর বিভাগ</option>
+                            <option value="7" data-id="7" data-name-bn="সিলেট বিভাগ" data-name-en="SYLHET DIVISION" data-geo-level-id="1" data-parent-geo-id="1">সিলেট বিভাগ</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 colDist" style="display:none">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="permAddrDist">জেলা</label>
+                    <div class="col-md-7">
+                        <select class="form-control geoSelect dist tst" title="Click to select district" name="permAddrDist" id="permAddrDist" data-geo-order="2" data-geo-level="2" data-geo-group="permAddr">
+                            <option value="-1">জেলা নির্বাচন করুন</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 colCityCorpCantOrUpazila" style="display:none">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="permAddrCityCorpCantOrUpazila">সিটি কর্পোরেশন,ক্যান্টনমেন্ট/উপজেলা</label>
+                    <div class="col-md-7">
+                        <select class="form-control geoSelect cityCorpCantOrUpazila tst" title="Click to select City Corporation or Upazilla" name="permAddrCityCorpCantOrUpazila" id="permAddrCityCorpCantOrUpazila" data-geo-order="3" data-geo-group="permAddr">
+                            <option value="-1">সিটি কর্পোরেশন, ক্যান্টনমেন্ট / উপজেলা নির্বাচন করুন</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 colPaurasavaOrUnion" style="display:none">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="permAddrPaurasavaOrUnion">পৌরসভা/ইউনিয়ন</label>
+                    <div class="col-md-7">
+                        <select class="form-control geoSelect paurasavaOrUnion" name="permAddrPaurasavaOrUnion" id="permAddrPaurasavaOrUnion" data-geo-order="4" data-geo-group="permAddr">
+                            <option value="-1">ইউনিয়ন পরিষদ / পৌরসভা নির্বাচন করুন</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 colWardInCityCorp" style="display:none">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="permAddrWardInCityCorp">ওয়ার্ড/অঞ্চল</label>
+                    <div class="col-md-7">
+                        <select class="form-control geoSelect wardInCityCorp" name="permAddrWardInCityCorp" id="permAddrWardInCityCorp" data-geo-order="5" data-geo-group="permAddr">
+                            <option value="-1">ওয়ার্ড নির্বাচন করুন</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 colArea" style="display:none">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="permAddrArea">অঞ্চল</label>
+                    <div class="col-md-7">
+                        <select class="form-control geoSelect area" name="permAddrArea" id="permAddrArea" data-geo-order="6" data-geo-group="permAddr">
+                            <option value="-1">অঞ্চল নির্বাচন করুন</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 colWardInPaurasavaOrUnion" style="display: none">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="permAddrWardInPaurasavaOrUnion">ওয়ার্ড</label>
+                    <div class="col-md-7">
+                        <select class="form-control geoSelect wardInPaurasavaOrUnion" name="permAddrWardInPaurasavaOrUnion" id="permAddrWardInPaurasavaOrUnion" data-geo-order="7" data-geo-group="permAddr">
+                            <option value="-1">ওয়ার্ড নির্বাচন করুন</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="permAddrPostOfc">ডাকঘর (বাংলায়)</label>
+                    <div class="col-md-7">
+                        <input class="form-control postOfc tst bn-text" title="put the Bangla name of post office here" name="permAddrPostOfc" id="permAddrPostOfc" type="text" data-geo-group="permAddr">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="permAddrPostOfcEn">ডাকঘর (ইংরেজিতে)</label>
+                    <div class="col-md-7">
+                        <input class="form-control postOfcEn tst" title="put the English name of post office here" name="permAddrPostOfcEn" id="permAddrPostOfcEn" type="text" data-geo-group="permAddr">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field permAddrBangladeshAddress" for="permAddrVilAreaTownBn">গ্রাম/পাড়া/মহল্লা</label>
+                    <label class="col-md-5 col-form-label required-field permAddrMissionAddress" for="permAddrVilAreaTownBn" style="display: none">ঠিকানা</label>
+                    <div class="col-md-7">
+							<textarea class="form-control vilAreaTownBn bn-text" name="permAddrVilAreaTownBn" id="permAddrVilAreaTownBn" type="text" data-geo-group="permAddr"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field permAddrBangladeshAddress" for="permAddrVilAreaTownEn">গ্রাম/পাড়া/মহল্লা (ইংরেজি)</label>
+                    <label class="col-md-5 col-form-label required-field permAddrMissionAddress" for="permAddrVilAreaTownBn" style="display: none">ঠিকানা ( ইংরেজি )</label>
+                    <div class="col-md-7">
+							<textarea class="form-control vilAreaTownEn" name="permAddrVilAreaTownEn" id="permAddrVilAreaTownEn" type="text" data-geo-group="permAddr"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <div class="row">
+                    <label class="col-md-5 col-form-label" for="permAddrHouseRoadBn">বাসা ও সড়ক (নাম, নম্বর)</label>
+                    <div class="col-md-7">
+							<textarea class="form-control houseRoadBn bn-text" name="permAddrHouseRoadBn" id="permAddrHouseRoadBn" type="text" data-geo-group="permAddr"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+                    <label class="col-md-5 col-form-label" for="permAddrHouseRoadEn">বাসা ও সড়ক (নাম, নম্বর) (ইংরেজি)</label>
+                    <div class="col-md-7">
+							<textarea class="form-control houseRoadEn" name="permAddrHouseRoadEn" id="permAddrHouseRoadEn" type="text" data-geo-group="permAddr"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row hidden">
+            <label class="col-md-3 col-form-label required-field" for="permAddrPostCode">পোস্টকোড
+                নম্বর</label>
+            <div class="col-md-9">
+                <input class="form-control postCode" name="permAddrPostCode" id="permAddrPostCode" type="text" data-geo-group="permAddr">
+            </div>
+        </div>
+
+        <input class="locationId" type="hidden" name="permAddrLocationId" id="permAddrLocationId">
+
+        <input class="addrEn" type="hidden" name="permAddrEn" id="permAddrEn" value="  ">
+        <input class="addrBn" type="hidden" name="permAddrBn" id="permAddrBn" value="  ">
+    </div>
+</div>
+</section>
+
+											</div>
+
+											<!--<section
+													th:with="addressGroup=${ 'presentAddress' }, heading=${ 'birth-registration.input.label.parentsAddressTypes.prsntAddr' }"
+													th:insert="~{components/parents-address-types-component"></section>-->
+
+											<!--<section th:replace="~{geo-location/components/present-address-div"></section>-->
+											<!--<section
+													th:with="addressGroup=${ 'presentAddress' },
+													heading=${'birth-registration.heading.presentAddress'}"
+													th:insert="~{components/full-address-component}"></section>-->
+
+
+											<div class="prsntAddrCheckboxAndSelectionDiv">
+
+												<div class="form-group mb-3 prsntAddrCheckboxDiv">
+													<div class="checkbox checkbox-primary">
+														<label class="">
+															<input class="copyFromAddressSameAsCopyToAddress" name="copyPermAddrToPrsntAddr" id="copyPermAddrToPrsntAddr" data-copy-from-class="permAddr" data-copy-to-class="prsntAddr" type="checkbox" value="yes">
+															<span class="label-text">স্থায়ী ঠিকানা ও বর্তমান ঠিকানা একই</span>
+														</label>
+													</div>
+													<!-- /.checkbox -->
+												</div>
+
+												<section><div class="prsntAddr">
+    <div class="form-group row resetGeolocation" data-geo-group="prsntAddr">
+        <label class="col-md-6 col-form-label">
+            <h5 class="tst" title="Insert your birth address in the order Division,District,City Corporation,Post Office,Village,House and Road">বর্তমান ঠিকানা</h5>
+        </label>
+        <div class="col-md-9">
+        </div>
+    </div>
+
+    <div class="geoLocation prsntAddr copyTo">
+        <div class="form-group row">
+            <div class="col-md-6 colCountry">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="prsntAddrCountry">দেশ</label>
+                    <div class="col-md-7">
+                        <select class="form-control geoSelect country" name="prsntAddrCountry" id="prsntAddrCountry" data-geo-order="0" data-geo-group="prsntAddr">
+
+                            <option value="-1">দেশ নির্বাচন করুন</option>
+
+                            <option value="1" data-id="1" data-name-bn="বাংলাদেশ" data-name-en="BANGLADESH" data-geo-level-id="0" data-parent-geo-id="5556" selected="selected">বাংলাদেশ</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 colDiv">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="prsntAddrDiv">বিভাগ</label>
+                    <div class="col-md-7">
+
+                        <select class="form-control geoSelect div tst" title="Click to select division" name="prsntAddrDiv" id="prsntAddrDiv" data-geo-order="1" data-geo-level="1" data-geo-group="prsntAddr">
+
+                            <option value="-1">বিভাগ নির্বাচন করুন</option>
+                            <!--<option th:each="division : ${divisionList}"-->
+                            <!--th:value="${division.id}"-->
+                            <!--th:text="${division.nameBn}">-->
+                            <!--</option>-->
+                            <option value="2" data-id="2" data-name-bn="বরিশাল বিভাগ" data-name-en="BARISHAL DIVISION" data-geo-level-id="1" data-parent-geo-id="1">বরিশাল বিভাগ</option>
+                            <option value="3" data-id="3" data-name-bn="চট্টগ্রাম বিভাগ" data-name-en="CHATTOGRAM DIVISION" data-geo-level-id="1" data-parent-geo-id="1">চট্টগ্রাম বিভাগ</option>
+                            <option value="4" data-id="4" data-name-bn="ঢাকা বিভাগ" data-name-en="DHAKA DIVISION" data-geo-level-id="1" data-parent-geo-id="1">ঢাকা বিভাগ</option>
+                            <option value="5" data-id="5" data-name-bn="খুলনা বিভাগ" data-name-en="KHULNA DIVISION" data-geo-level-id="1" data-parent-geo-id="1">খুলনা বিভাগ</option>
+                            <option value="6027" data-id="6027" data-name-bn="ময়মনসিংহ বিভাগ" data-name-en="MYMENSINGH DIVISION" data-geo-level-id="1" data-parent-geo-id="1">ময়মনসিংহ বিভাগ</option>
+                            <option value="6" data-id="6" data-name-bn="রাজশাহী বিভাগ" data-name-en="RAJSHAHI DIVISION" data-geo-level-id="1" data-parent-geo-id="1">রাজশাহী বিভাগ</option>
+                            <option value="5514" data-id="5514" data-name-bn="রংপুর বিভাগ" data-name-en="RANGPUR DIVISION" data-geo-level-id="1" data-parent-geo-id="1">রংপুর বিভাগ</option>
+                            <option value="7" data-id="7" data-name-bn="সিলেট বিভাগ" data-name-en="SYLHET DIVISION" data-geo-level-id="1" data-parent-geo-id="1">সিলেট বিভাগ</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 colDist" style="display:none">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="prsntAddrDist">জেলা</label>
+                    <div class="col-md-7">
+                        <select class="form-control geoSelect dist tst" title="Click to select district" name="prsntAddrDist" id="prsntAddrDist" data-geo-order="2" data-geo-level="2" data-geo-group="prsntAddr">
+                            <option value="-1">জেলা নির্বাচন করুন</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 colCityCorpCantOrUpazila" style="display:none">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="prsntAddrCityCorpCantOrUpazila">সিটি কর্পোরেশন,ক্যান্টনমেন্ট/উপজেলা</label>
+                    <div class="col-md-7">
+                        <select class="form-control geoSelect cityCorpCantOrUpazila tst" title="Click to select City Corporation or Upazilla" name="prsntAddrCityCorpCantOrUpazila" id="prsntAddrCityCorpCantOrUpazila" data-geo-order="3" data-geo-group="prsntAddr">
+                            <option value="-1">সিটি কর্পোরেশন, ক্যান্টনমেন্ট / উপজেলা নির্বাচন করুন</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 colPaurasavaOrUnion" style="display:none">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="prsntAddrPaurasavaOrUnion">পৌরসভা/ইউনিয়ন</label>
+                    <div class="col-md-7">
+                        <select class="form-control geoSelect paurasavaOrUnion" name="prsntAddrPaurasavaOrUnion" id="prsntAddrPaurasavaOrUnion" data-geo-order="4" data-geo-group="prsntAddr">
+                            <option value="-1">ইউনিয়ন পরিষদ / পৌরসভা নির্বাচন করুন</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 colWardInCityCorp" style="display:none">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="prsntAddrWardInCityCorp">ওয়ার্ড/অঞ্চল</label>
+                    <div class="col-md-7">
+                        <select class="form-control geoSelect wardInCityCorp" name="prsntAddrWardInCityCorp" id="prsntAddrWardInCityCorp" data-geo-order="5" data-geo-group="prsntAddr">
+                            <option value="-1">ওয়ার্ড নির্বাচন করুন</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 colArea" style="display:none">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="prsntAddrArea">অঞ্চল</label>
+                    <div class="col-md-7">
+                        <select class="form-control geoSelect area" name="prsntAddrArea" id="prsntAddrArea" data-geo-order="6" data-geo-group="prsntAddr">
+                            <option value="-1">অঞ্চল নির্বাচন করুন</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 colWardInPaurasavaOrUnion" style="display: none">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="prsntAddrWardInPaurasavaOrUnion">ওয়ার্ড</label>
+                    <div class="col-md-7">
+                        <select class="form-control geoSelect wardInPaurasavaOrUnion" name="prsntAddrWardInPaurasavaOrUnion" id="prsntAddrWardInPaurasavaOrUnion" data-geo-order="7" data-geo-group="prsntAddr">
+                            <option value="-1">ওয়ার্ড নির্বাচন করুন</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="prsntAddrPostOfc">ডাকঘর (বাংলায়)</label>
+                    <div class="col-md-7">
+                        <input class="form-control postOfc tst bn-text" title="put the Bangla name of post office here" name="prsntAddrPostOfc" id="prsntAddrPostOfc" type="text" data-geo-group="prsntAddr">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field" for="prsntAddrPostOfcEn">ডাকঘর (ইংরেজিতে)</label>
+                    <div class="col-md-7">
+                        <input class="form-control postOfcEn tst" title="put the English name of post office here" name="prsntAddrPostOfcEn" id="prsntAddrPostOfcEn" type="text" data-geo-group="prsntAddr">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field prsntAddrBangladeshAddress" for="prsntAddrVilAreaTownBn">গ্রাম/পাড়া/মহল্লা</label>
+                    <label class="col-md-5 col-form-label required-field prsntAddrMissionAddress" for="prsntAddrVilAreaTownBn" style="display: none">ঠিকানা</label>
+                    <div class="col-md-7">
+							<textarea class="form-control vilAreaTownBn bn-text" name="prsntAddrVilAreaTownBn" id="prsntAddrVilAreaTownBn" type="text" data-geo-group="prsntAddr"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+                    <label class="col-md-5 col-form-label required-field prsntAddrBangladeshAddress" for="prsntAddrVilAreaTownEn">গ্রাম/পাড়া/মহল্লা (ইংরেজি)</label>
+                    <label class="col-md-5 col-form-label required-field prsntAddrMissionAddress" for="prsntAddrVilAreaTownBn" style="display: none">ঠিকানা ( ইংরেজি )</label>
+                    <div class="col-md-7">
+							<textarea class="form-control vilAreaTownEn" name="prsntAddrVilAreaTownEn" id="prsntAddrVilAreaTownEn" type="text" data-geo-group="prsntAddr"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <div class="row">
+                    <label class="col-md-5 col-form-label" for="prsntAddrHouseRoadBn">বাসা ও সড়ক (নাম, নম্বর)</label>
+                    <div class="col-md-7">
+							<textarea class="form-control houseRoadBn bn-text" name="prsntAddrHouseRoadBn" id="prsntAddrHouseRoadBn" type="text" data-geo-group="prsntAddr"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+                    <label class="col-md-5 col-form-label" for="prsntAddrHouseRoadEn">বাসা ও সড়ক (নাম, নম্বর) (ইংরেজি)</label>
+                    <div class="col-md-7">
+							<textarea class="form-control houseRoadEn" name="prsntAddrHouseRoadEn" id="prsntAddrHouseRoadEn" type="text" data-geo-group="prsntAddr"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row hidden">
+            <label class="col-md-3 col-form-label required-field" for="prsntAddrPostCode">পোস্টকোড
+                নম্বর</label>
+            <div class="col-md-9">
+                <input class="form-control postCode" name="prsntAddrPostCode" id="prsntAddrPostCode" type="text" data-geo-group="prsntAddr">
+            </div>
+        </div>
+
+        <input class="locationId" type="hidden" name="prsntAddrLocationId" id="prsntAddrLocationId">
+
+        <input class="addrEn" type="hidden" name="prsntAddrEn" id="prsntAddrEn" value="  ">
+        <input class="addrBn" type="hidden" name="prsntAddrBn" id="prsntAddrBn" value="  ">
+    </div>
+</div>
+</section>
+
+											</div>
+
+						                    <div class="form-actions btn-list">
+												<button class="btn btn-primary ripple prev-btn" type="button">পূর্ববর্তী</button>
+												<button class="btn btn-info ripple next-btn brAddPermPrsntAddrNextButton" type="button">পরবর্তী</button>
+												
+											</div>
+						                </fieldset>

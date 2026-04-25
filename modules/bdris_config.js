@@ -17,7 +17,7 @@ export const BDRIS_FIELDS = {
     },
     "personBirthDate": {
         "name": "personInfoForBirth.personBirthDate",
-        "label": "Date of Birth"
+        "label": "Date of Birth (DD/MM/YYYY)"
     },
     "thChild": {
         "name": "personInfoForBirth.thChild",
@@ -81,7 +81,7 @@ export const BDRIS_FIELDS = {
     },
     "fatherBrn": {
         "name": "fatherBrn",
-        "label": "Father's BRN"
+        "label": "Father's Birth Registration Number"
     },
     "fatherBirthDate": {
         "name": "fatherBirthDate",
@@ -101,7 +101,7 @@ export const BDRIS_FIELDS = {
     },
     "motherBrn": {
         "name": "motherBrn",
-        "label": "Mother's BRN"
+        "label": "Mother's Birth Registration Number"
     },
     "motherBirthDate": {
         "name": "motherBirthDate",

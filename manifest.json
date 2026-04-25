@@ -18,8 +18,6 @@
     "*://*.bdris.gov.bd/*",
     "*://teletalk.com.bd/*",
     "*://*.teletalk.com.bd/*",
-    "*://indianvisa-bangladesh.nic.in/*",
-    "*://*.indianvisa-bangladesh.nic.in/*",
     "*://pcc.police.gov.bd/*",
     "*://*.pcc.police.gov.bd/*"
   ],
@@ -37,8 +35,6 @@
         "*://*.bdris.gov.bd/*",
         "*://teletalk.com.bd/*",
         "*://*.teletalk.com.bd/*",
-        "*://indianvisa-bangladesh.nic.in/*",
-        "*://*.indianvisa-bangladesh.nic.in/*",
         "*://pcc.police.gov.bd/*",
         "*://*.pcc.police.gov.bd/*"
       ],

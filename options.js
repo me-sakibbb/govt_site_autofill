@@ -1,6 +1,5 @@
 import { BDRIS_FIELDS, BDRIS_DUMMY_PROFILE } from './modules/bdris_config.js';
 import { TELETALK_FIELDS, TELETALK_DUMMY_PROFILE } from './modules/teletalk_config.js';
-import { INDIAN_VISA_FIELDS, INDIAN_VISA_DUMMY_PROFILE } from './modules/indian_visa_config.js';
 import { PCC_FIELDS, PCC_DUMMY_PROFILE } from './modules/pcc_config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -468,8 +467,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 initialData = { ...BDRIS_DUMMY_PROFILE.data };
             } else if (wizardState.site === 'teletalk') {
                 initialData = { ...TELETALK_DUMMY_PROFILE.data };
-            } else if (wizardState.site === 'indian_visa') {
-                initialData = { ...INDIAN_VISA_DUMMY_PROFILE.data };
             } else if (wizardState.site === 'pcc') {
                 initialData = { ...PCC_DUMMY_PROFILE.data };
             }
@@ -559,7 +556,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let fieldsObj = null;
         if (site === 'bdris' && typeof BDRIS_FIELDS !== 'undefined') fieldsObj = BDRIS_FIELDS;
         else if (site === 'teletalk' && typeof TELETALK_FIELDS !== 'undefined') fieldsObj = TELETALK_FIELDS;
-        else if (site === 'indian_visa' && typeof INDIAN_VISA_FIELDS !== 'undefined') fieldsObj = INDIAN_VISA_FIELDS;
         else if (site === 'pcc' && typeof PCC_FIELDS !== 'undefined') fieldsObj = PCC_FIELDS;
 
         if (fieldsObj) {
@@ -864,7 +860,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Build label→id reverse map (used after extraction to merge into profile)
         let activeSiteFields = {};
         if (profile.site === 'bdris') activeSiteFields = BDRIS_FIELDS;
-        else if (profile.site === 'indian_visa') activeSiteFields = INDIAN_VISA_FIELDS;
         else if (profile.site === 'teletalk') activeSiteFields = TELETALK_FIELDS;
         else if (profile.site === 'pcc') activeSiteFields = PCC_FIELDS;
 

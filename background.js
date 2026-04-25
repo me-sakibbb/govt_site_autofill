@@ -127,10 +127,10 @@ async function handleExtraction(payload, sendResponse) {
             prompt += `RULES:\n`;
             prompt += `1. Return ONLY a JSON object. Keys must be the EXACT label strings from the list above — copy them verbatim.\n`;
             prompt += `2. ONLY include fields you found a value for. OMIT fields with no data — do NOT include empty strings.\n`;
-            prompt += `3. Semantic matching: map document content to labels by meaning (e.g. "নাম"→name labels, "পিতা"→father labels, "NID"→National ID labels).\n`;
-            prompt += `4. Bangla/English variants: if a name is in Bangla, fill the Bangla label and transliterate for the English label, and vice versa.\n`;
-            prompt += `5. Derive values: split full names into first/last, normalize dates (YYYY-MM-DD unless label says otherwise), infer gender from name, default country to Bangladesh.\n`;
-            prompt += `6. Be aggressive about filling — a reasonable match is better than omitting. But do NOT fill incorrect information.\n`;
+            prompt += `3. Intelligent Semantic Mapping: Map document content to target fields by meaning, not just exact text match. E.g., a generic "Address" in the document should be used to fill "Present Address", "Permanent Address", "Village", "Post Office", etc., if those are the targets and you can deduce them.\n`;
+            prompt += `4. Cross-lingual & Transliteration: If the document is in Bangla, translate/transliterate to fill English target fields, and vice versa. Always provide both language variants whenever target fields ask for them (e.g., Name (English) and Name (Bangla)).\n`;
+            prompt += `5. Intelligent Derivation: Split full names accurately into First/Last/Middle names if requested. Normalize all dates (e.g. YYYY-MM-DD, or DD/MM/YYYY if requested). Infer gender from the name or context if not explicitly stated. Default country/nationality to Bangladesh/Bangladeshi if appropriate. If a single value applies to multiple similar fields, fill all of them.\n`;
+            prompt += `6. Maximize Extraction: Be extremely aggressive about filling fields. A reasonable guess or partial match is highly preferred over omitting. Use context clues to fill as many target fields as practically possible. Do not leave fields empty if related data exists.\n`;
         } else {
             prompt += `Extract ALL personal data as a flat JSON with descriptive English snake_case keys.\n`;
             prompt += `Include: name, father_name, mother_name, date_of_birth, national_id, address, phone, email, etc.\n`;

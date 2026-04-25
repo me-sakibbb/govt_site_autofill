@@ -1,0 +1,14 @@
+Extract personal information from the document into the target fields below.
+
+TARGET FIELDS (use these EXACT strings as JSON keys):
+["First Name (Bengali)","Last Name (Bengali)","First Name (English)","Last Name (English)","Date of Birth (DD/MM/YYYY)","Child Order (N-th Child)","Gender (Bangla) [পুরুষ, মহিলা]","National ID (NID)","Birth Place Country (Bangla)","Birth Place Division","Birth Place District","Birth City Corporation / Upazila","Birth Paurasava / Union","Birth Ward / Village","Birth Post Office (Bengali)","Birth Post Office (English)","Birth Village/Area/Town (Bengali)","Birth Village/Area/Town (English)","Birth House/Road (Bengali)","Birth House/Road (English)","Father's Birth Registration Number","Father's Date of Birth","Father's Name (Bengali)","Father's Name (English)","Father's Nationality","Mother's Birth Registration Number","Mother's Date of Birth","Mother's Name (Bengali)","Mother's Name (English)","Mother's Nationality"]
+
+RULES:
+1. Return ONLY a JSON object. Keys must be the EXACT label strings from the list above — copy them verbatim.
+2. ONLY include fields you found a value for. OMIT fields with no data — do NOT include empty strings.
+3. Semantic matching: map document content to labels by meaning (e.g. "নাম"→name labels, "পিতা"→father labels, "NID"→National ID labels).
+4. Bangla/English variants: if a name is in Bangla, fill the Bangla label and transliterate for the English label, and vice versa.
+5. Derive values: split full names into first/last, normalize dates (YYYY-MM-DD unless label says otherwise), infer gender from name, default country to Bangladesh.
+6. Be aggressive about filling — a reasonable match is better than omitting. But do NOT fill incorrect information.
+
+Return ONLY the JSON object, no explanation, no markdown.
